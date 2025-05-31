@@ -1,12 +1,36 @@
 ﻿import pytest
-from httpx import AsyncClient, ASGITransport
+import requests
+
+BASE_URL = "http://localhost:8000"
 
 
-async def test_get():
-    ...
+def test_get():
+    try:
+        response = requests.get(BASE_URL)
+
+        if response.status_code == 200:
+            data = response.json()
+            print(data)
+        else:
+            print(f"Ошибка при выполнении запроса. Код статуса: {response.status_code}")
+            print(f"Текст ошибки: {response.text}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"Произошла ошибка при подключении к API: {e}")
 
 
-
-spending1 = ["мороженка", "100", "Дин"]
-spending2 = ["Аренда квартиры", "330", "Евро"]
-spending3 = ["Годовая подписка Яндекс", "2990", "Руб"]
+expense1 = {
+    "id": 1,
+    "description": "Мороженка",
+    "amount": 100,
+}
+expense2 = {
+    "id": 2,
+    "description": "Хлебушек",
+    "amount": 95,
+}
+expense3 = {
+    "id": 3,
+    "description": "Лимонадик",
+    "amount": 69,
+}
