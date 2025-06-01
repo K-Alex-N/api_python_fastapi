@@ -1,8 +1,6 @@
 FROM python:3.13-alpine
-#RUN pip install --upgrade pip
-#ENV PYTHONUNBUFFERED=1
 WORKDIR /app
-COPY app/requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY test_fastapi.py .
-CMD ["pytest"]
+COPY main.py .
+CMD ["python", "main.py"]
