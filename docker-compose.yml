@@ -1,6 +1,19 @@
 ﻿services:
-  db:
+#  db:
 
   api:
+    build: app
+    ports:
+      - 8000:8000
+#    depends_on:
+#      - db
 
   tests:
+    build: tests
+    depends_on:
+      - api
+
+#  allure:
+#    build:
+#    depends_on:
+#      - tests
