@@ -8,6 +8,6 @@ COPY . .
 
 RUN apk update && apk add --no-cache bash
 
-CMD ["pytest", "--alluredir=allure-results"]
+CMD ["pytest", "-v", "--alluredir=allure-results"]
 
 #CMD ["bash"]
