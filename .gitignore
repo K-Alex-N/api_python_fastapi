@@ -1,2 +1,4 @@
 ﻿.*
-!__init__.py
+#!__init__.py
+allure_report
+allure-results
