@@ -1,4 +1,4 @@
-﻿import pytest
+import pytest
 import requests
 
 BASE_URL = "http://localhost:8000"

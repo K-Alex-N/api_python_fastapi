@@ -1,2 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","2090","test_get","tests","Sun Jun 01 21:35:44 CEST 2025","passed","Sun Jun 01 21:35:46 CEST 2025","","test_fastapi","",""
