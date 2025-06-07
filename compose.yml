@@ -13,8 +13,8 @@
     depends_on:
       - api
 
-#  allure:
-#    build: allure/allurectl
+  allure:
+    image: allure/allurectl
 
-#    depends_on:
-#      - tests
+    depends_on:
+      - tests
