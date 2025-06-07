@@ -1,4 +1,3 @@
 ﻿.*
-#!__init__.py
-allure_report
 allure-results
+allure-report
