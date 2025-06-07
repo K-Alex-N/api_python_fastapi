@@ -2,19 +2,47 @@
 #  db:
 
   api:
-    build: app
+    build: ./app
     ports:
-      - 8000:8000
+      - "8000:8000"
+    networks:
+      - docker_net
 #    depends_on:
 #      - db
 
   tests:
-    build: tests
+    build: ./tests
     depends_on:
       - api
+    environment:
+      - BASE_URL=http://api:8000
+    volumes:
+      - ./allure-results:/app/allure-results
+      - allu-res:/app/allure-results
+    networks:
+      - docker_net
+
+#      - allure
 
   allure:
-    image: allure/allurectl
+#   GUI report will be here >>> http://localhost:5050/allure-docker-service/latest-report
 
+    image: frankescobar/allure-docker-service
+    container_name: allure-server
+    ports:
+      - "5050:5050"
+    volumes:
+#      - ./allure-results:/app/allure-results
+      - allu-res:/app/allure-results
+      - ./allure-report:/app/allure-report
     depends_on:
       - tests
+    networks:
+      - docker_net
+
+networks:
+  docker_net:
+    driver: bridge
+
+volumes:
+  allu-res:
