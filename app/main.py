@@ -68,7 +68,7 @@ def delete_expense(id: int):
     ...
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # это не запускается если через Докер!!!
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
 
 # improvements

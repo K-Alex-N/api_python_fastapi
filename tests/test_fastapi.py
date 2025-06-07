@@ -1,25 +1,21 @@
 import requests
 import time
 
-# BASE_URL = "http://localhost:8000/"
-# BASE_URL = "http://host.docker.internal:8000/"
 import os
-# BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")
-BASE_URL = "http://api:8000"
+BASE_URL = os.getenv("BASE_URL", "http://localhost:8000") # для докера возьмет http://api:8000 из композ-ямл
 
 
 # Очень редко тесты успевают запуститься до того как сервак ФастАПИ поднимится
-#
-# for i in range(10):
-#     try:
-#         response = requests.get(BASE_URL)
-#         if response.status_code == 200:
-#             break
-#     except requests.exceptions.ConnectionError:
-#         print("!!!!!!!!!!!!!!!!Ждём, пока API поднимется...")
-#         time.sleep(1)
-# else:
-#     raise RuntimeError("API не поднялся вовремя")
+for i in range(3):
+    try:
+        response = requests.get(BASE_URL)
+        if response.status_code == 200:
+            break
+    except requests.exceptions.ConnectionError:
+        print("!!!!!!!!!!!!!!!!Ждём, пока API поднимется...")
+        time.sleep(1)
+else:
+    raise RuntimeError("API не поднялся вовремя")
 
 def test_get():
     response = requests.get(BASE_URL)
