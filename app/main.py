@@ -1,7 +1,7 @@
 ﻿import uvicorn
 from fastapi import FastAPI, HTTPException
 
-from app.models import Expense
+from models import Expense  # если main в той же папке
 
 app = FastAPI()
 
@@ -48,7 +48,7 @@ def delete_expense(id: int):
 
 
 if __name__ == "__main__":  # это не запускается если через Докер!!!
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", reload=True)
 
 # improvements
 # date (auto + modification)

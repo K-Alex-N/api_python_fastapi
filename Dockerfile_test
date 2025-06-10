@@ -1,0 +1,8 @@
+FROM python:3.13-alpine
+WORKDIR /app
+COPY tests/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+# копируем весь проект
+COPY . .
+CMD ["pytest"]
+#CMD ["pytest", "-sv", "--alluredir=allure-results"]

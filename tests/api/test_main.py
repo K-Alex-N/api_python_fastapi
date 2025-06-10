@@ -64,9 +64,9 @@ def test_add_expense():  # он же должен какой то файл по�
     expenses = get_expenses()
 
 
-def test_get_expense_with_valid_id(id: int):
+def test_get_expense_with_valid_id():
     create_one_expense()
-    response = requests.get(BASE_URL + "/" + str(id))
+    response = requests.get(BASE_URL + "/1")
     assert response.status_code == 200
     clean_up_db()  # это все лучше вынести в фикстуры
 

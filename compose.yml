@@ -2,7 +2,9 @@
 #  db:
 
   api:
-    build: ./app
+    build:
+      context: app
+      dockerfile: Dockerfile_app
     ports:
       - "8000:8000"
     networks:
@@ -11,18 +13,18 @@
 #      - db
 
   tests:
-    build: ./tests
+    build:
+      context: .
+      dockerfile: Dockerfile_test
+
     depends_on:
       - api
     environment:
       - BASE_URL=http://api:8000
     volumes:
-      - ./allure-results:/app/allure-results
       - allu-res:/app/allure-results
     networks:
       - docker_net
-
-#      - allure
 
   allure:
 #   GUI report will be here >>> http://localhost:5050/allure-docker-service/latest-report
@@ -32,9 +34,7 @@
     ports:
       - "5050:5050"
     volumes:
-#      - ./allure-results:/app/allure-results
       - allu-res:/app/allure-results
-      - ./allure-report:/app/allure-report
     depends_on:
       - tests
     networks:
