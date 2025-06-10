@@ -1,26 +1,11 @@
 ﻿import uvicorn
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
+
+from app.models import Expense
 
 app = FastAPI()
 
-expenses = [
-    {
-        "id": 1,
-        "description": "Мороженка111111",
-        "amount": 100,
-    },
-    {
-        "id": 2,
-        "description": "Хлебушек222",
-        "amount": 95,
-    },
-    {
-        "id": 3,
-        "description": "Лимонадик",
-        "amount": 69,
-    }
-]
+expenses = {}
 
 
 @app.get("/")
@@ -34,17 +19,11 @@ def get_expenses_amount():
 
 
 @app.get("/{id}")
-def get_spending(id: int):
+def get_expense(id: int):
     for s in expenses:
         if s["id"] == id:
             return s
     raise HTTPException(status_code=404, detail="Not found")
-
-
-class Expense(BaseModel):
-    description: str
-    amount: float = Field(gt=0)
-    currency: str | None
 
 
 @app.post("/")
@@ -68,7 +47,7 @@ def delete_expense(id: int):
     ...
 
 
-if __name__ == "__main__": # это не запускается если через Докер!!!
+if __name__ == "__main__":  # это не запускается если через Докер!!!
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
 
 # improvements
