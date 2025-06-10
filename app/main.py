@@ -5,7 +5,7 @@ from app.models import Expense
 
 app = FastAPI()
 
-expenses = {}
+expenses = []
 
 
 @app.get("/")

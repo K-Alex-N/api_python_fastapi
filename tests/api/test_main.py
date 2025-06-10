@@ -1,9 +1,9 @@
 import requests
 import time
-
 import os
 
-from tests.api.common import *
+from app.models import Expense
+from tests.api.common.common import *
 
 BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")  # для докера возьмет http://api:8000 из композ-ямл
 
@@ -42,6 +42,20 @@ def test_get_expenses():
     #     print(f"Произошла ошибка при подключении к API: {e}")
 
 
+# def test_create_user(authenticated_api_client):
+#     new_user_data = generate_random_user_data()
+#     response = authenticated_api_client.create_user(new_user_data)
+#     assert response.status_code == 201 # Created
+#     created_user = response.json()
+#     assert created_user["email"] == new_user_data["email"]
+#     assert "id" in created_user
+#
+#     # Можно проверить, что пользователь действительно создан
+#     get_response = authenticated_api_client.get_user(created_user["id"])
+#     assert get_response.status_code == 200
+#     assert get_response.json()["email"] == new_user_data["email"]
+
+
 # class test_add_expense
 
 
@@ -63,11 +77,12 @@ def test_get_expense_with_invalid_id():
     clean_up_db()  # это все лучше вынести в фикстуры
 
 
-expense1 = {
-    "id": 1,
-    "description": "Мороженка",
-    "amount": 100,
-}
+expense1 = Expense(
+    id=1,
+    description="Мороженка",
+    amount=100
+)
+
 expense2 = {
     "id": 2,
     "description": "Хлебушек",
