@@ -3,6 +3,8 @@ WORKDIR /app
 COPY tests/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 # копируем весь проект
-COPY . .
+COPY app .
+COPY tests .
+COPY pytest.ini .
 CMD ["pytest"]
 #CMD ["pytest", "-sv", "--alluredir=allure-results"]
