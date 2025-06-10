@@ -94,21 +94,3 @@ expense3 = {
     "description": "Лимонадик",
     "amount": 69,
 }
-
-expenses = [
-    {
-        "id": 1,
-        "description": "Мороженка111111",
-        "amount": 100,
-    },
-    {
-        "id": 2,
-        "description": "Хлебушек222",
-        "amount": 95,
-    },
-    {
-        "id": 3,
-        "description": "Лимонадик",
-        "amount": 69,
-    }
-]
