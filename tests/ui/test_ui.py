@@ -1,17 +1,30 @@
-# https://www.google.com/
-
-
 import asyncio
 from playwright.async_api import Playwright, async_playwright, expect
 
+headless = True
+slow_mo = 0
 
-async def search_on_google(headless=True, slow_mo=0):
+VALID_USERNAME = "standard_user"
+VALID_PASSWORD = "secret_sauce"
+INVALID_USERNAME = "asd"
+INVALID_PASSWORD = "asd"
+
+
+async def test_user_successfully_logs_in_with_valid_credentials():
     async with async_playwright() as playwright:
         browser = await playwright.chromium.launch(headless=headless, slow_mo=slow_mo)
         page = await browser.new_page()
 
+
+
+        # locators
+        # pas --- #user-name    standard_user
+        # pas --- #password     secret_sauce
+        # but -  #login-button
+        # если не верный логин или пароль    .error-message-container
+
         # мб проставить аллюр метки --- "Открываем Google.com..."
-        await page.goto("https://www.saucedemo.com/v1/")
+        await page.goto("https://www.saucedemo.com/")
         # await page.wait_for_load_state("networkidle")  # Ждем, пока сеть не будет неактивна. зачем это?????
 
         # закрываем куки. А что если их нет????!!!
@@ -45,5 +58,18 @@ async def search_on_google(headless=True, slow_mo=0):
         await browser.close()
 
 
+        # Лучше сделать LOGOUT на следуюшей странице
+
+
+async def test_user_can_not_logs_in_with_invalid_username():
+    pass
+
+
+async def test_user_can_not_logs_in_with_invalid_password():
+    pass
+
+
 if __name__ == "__main__":
-    asyncio.run(search_on_google(headless=False, slow_mo=200)) # задерживаем каждое действие на 200 мс
+    headless = False
+    slow_mo = 200
+    asyncio.run(test_user_successfully_logs_in_with_valid_credentials(headless=headless, slow_mo=slow_mo))
