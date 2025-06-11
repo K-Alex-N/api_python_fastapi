@@ -15,19 +15,16 @@ async def search_on_google(headless=True, slow_mo=0):
         await page.wait_for_load_state("networkidle")  # Ждем, пока сеть не будет неактивна. зачем это?????
 
         # закрываем куки. А что если их нет????!!!
-        await page.click('.QS5gu.sy4vM"]')
+        await page.click(".QS5gu.sy4vM")
 
-        # 4. Ввод текста в поле поиска
-        # Используем селектор CSS, чтобы найти поле ввода по его атрибуту name="q"
-        # APjFqb
         print("Ввожу запрос в поиск...")
-        await page.fill('APjFqb', "youtube")
+        await page.fill('#APjFqb', "youtube")
         # Или await page.get_by_label("Поиск").fill("Playwright Python example")
 
-        # 5. Нажатие кнопки "Поиск Google"
-        # Используем селектор CSS для кнопки или get_by_role для более надежного поиска по ARIA-роли
         print("Нажимаю кнопку поиска...")
-        await page.click('input[name="btnK"]')  # Или await page.get_by_role("button", name="Поиск Google").click()
+        await page.click('input[name="btnK"]')
+
+        # что делать если появиться проверка что я робот
 
         # 6. Ожидание загрузки страницы результатов
         # Можно ждать конкретного элемента на странице результатов
@@ -49,4 +46,4 @@ async def search_on_google(headless=True, slow_mo=0):
 
 
 if __name__ == "__main__":
-    asyncio.run(search_on_google(headless=False, slow_mo=500)) # задерживаем каждое действие на 500 мс
+    asyncio.run(search_on_google(headless=False, slow_mo=200)) # задерживаем каждое действие на 200 мс
