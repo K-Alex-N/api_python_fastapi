@@ -1,8 +1,9 @@
+# здесь копируем не только папку tests, но и папку api, тк там модельки.
+# Поэтому запускаемся как бы на уровень повыше чем в остальных контейнерах
 FROM python:3.13-alpine
 WORKDIR /app
 COPY tests/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-# копируем весь проект
 COPY app ./app
 COPY tests ./tests
 COPY pytest.ini .
