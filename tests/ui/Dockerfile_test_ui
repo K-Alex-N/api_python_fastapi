@@ -1,0 +1,14 @@
+FROM python:3.13-alpine
+WORKDIR /app
+COPY tests/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app ./app
+COPY tests ./tests
+COPY pytest.ini .
+CMD ["playwright", "install"]
+
+#playwright install chromium
+#playwright install firefox
+#playwright install webkit
+
+#CMD ["pytest", "-sv", "--alluredir=allure-results"]

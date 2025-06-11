@@ -12,17 +12,29 @@
 #    depends_on:
 #      - db
 
-  tests:
+  tests_api:
     build:
       context: .
-      dockerfile: Dockerfile_test
-
-    depends_on:
-      - api
+      dockerfile: Dockerfile_test_api
     environment:
       - BASE_URL=http://api:8000
     volumes:
       - allu-res:/app/allure-results
+    depends_on:
+      - api
+    networks:
+      - docker_net
+
+  tests_ui:
+    build:
+      context: .
+      dockerfile: Dockerfile_test_ui
+#    ports:
+#      - "5050:5050"
+    volumes:
+      - allu-res:/app/allure-results
+    depends_on:
+      - tests_api
     networks:
       - docker_net
 
@@ -36,7 +48,7 @@
     volumes:
       - allu-res:/app/allure-results
     depends_on:
-      - tests
+      - tests_ui
     networks:
       - docker_net
 
