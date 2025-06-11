@@ -11,8 +11,8 @@ async def search_on_google(headless=True, slow_mo=0):
         page = await browser.new_page()
 
         # мб проставить аллюр метки --- "Открываем Google.com..."
-        await page.goto("https://www.google.com")
-        await page.wait_for_load_state("networkidle")  # Ждем, пока сеть не будет неактивна. зачем это?????
+        await page.goto("https://www.saucedemo.com/v1/")
+        # await page.wait_for_load_state("networkidle")  # Ждем, пока сеть не будет неактивна. зачем это?????
 
         # закрываем куки. А что если их нет????!!!
         await page.click(".QS5gu.sy4vM")
