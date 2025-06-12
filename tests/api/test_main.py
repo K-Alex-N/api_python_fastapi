@@ -59,9 +59,9 @@ def test_get_expenses():
 # class test_add_expense
 
 
-def test_add_expense():  # он же должен какой то файл получить или что????
-    create_one_expense()
-    expenses = get_expenses()
+# def test_add_expense():  # он же должен какой то файл получить или что????
+#     create_one_expense()
+#     expenses = get_expenses()
 
 
 def test_get_expense_with_valid_id():

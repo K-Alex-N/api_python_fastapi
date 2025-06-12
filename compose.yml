@@ -27,7 +27,7 @@
 
   tests_ui:
     build:
-      context: .
+      context: tests/ui
       dockerfile: Dockerfile_test_ui
     environment:
       - HEADLESS=True
