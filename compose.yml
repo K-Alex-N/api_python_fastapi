@@ -1,5 +1,5 @@
 ﻿services:
-#  db:
+  #  db:
 
   api:
     build:
@@ -9,8 +9,8 @@
       - "8000:8000"
     networks:
       - docker_net
-#    depends_on:
-#      - db
+  #    depends_on:
+  #      - db
 
   tests_api:
     build:
@@ -29,8 +29,9 @@
     build:
       context: .
       dockerfile: Dockerfile_test_ui
-#    ports:
-#      - "5050:5050"
+    environment:
+      - HEADLESS=True
+      - SLOW_MO=0
     volumes:
       - allu-res:/app/allure-results
     depends_on:
@@ -39,7 +40,7 @@
       - docker_net
 
   allure:
-#   GUI report will be here >>> http://localhost:5050/allure-docker-service/latest-report
+    #   GUI report will be here >>> http://localhost:5050/allure-docker-service/latest-report
 
     image: frankescobar/allure-docker-service
     container_name: allure-server

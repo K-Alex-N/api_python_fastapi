@@ -4,6 +4,11 @@ FROM python:3.13-alpine
 WORKDIR /app
 COPY tests/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+# мб попробовать копировать только один файл models, короче вот так
+#COPY app/models.py ./app
+#COPY tests .
+#COPY pytest.ini .
+
 COPY app ./app
 COPY tests ./tests
 COPY pytest.ini .
