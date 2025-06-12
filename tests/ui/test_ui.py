@@ -9,8 +9,8 @@ SLOW_MO = os.getenv("SLOW_MO", 200)
 
 VALID_USERNAME = "standard_user"
 VALID_PASSWORD = "secret_sauce"
-INVALID_USERNAME = "asd"
-INVALID_PASSWORD = "asd"
+INVALID_USERNAME = "invalid user"
+INVALID_PASSWORD = "invalid pass"
 
 
 @pytest.mark.asyncio
