@@ -35,6 +35,5 @@ RUN playwright install chromium --with-deps
 
 COPY . .
 
-#CMD ["playwright", "install", "chromium"]
-
-CMD ["pytest", "-sv", "--alluredir=allure-results"]
+CMD ["pytest", "--alluredir=allure-results"]
+#CMD ["pytest", "-sv", "--alluredir=allure-results"]

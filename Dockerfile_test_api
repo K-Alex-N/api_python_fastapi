@@ -14,9 +14,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 #COPY tests .
 #COPY pytest.ini .
 
+# нельзя копировать конкретные файлы !!!! т.к. он смотри на Пайтон пакеты, т.е. в папке должнен быть __init__.py
+
 COPY app ./app
-COPY tests/api ./tests/api
+COPY tests ./tests
 COPY pytest.ini .
 
-CMD ["pytest"]
+#COPY . .
+
+CMD ["pytest", "tests/api/"]
 #CMD ["pytest", "-sv", "--alluredir=allure-results"]

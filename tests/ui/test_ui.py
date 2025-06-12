@@ -5,7 +5,7 @@ import pytest
 from playwright.async_api import Playwright, async_playwright, expect
 
 HEADLESS = bool(os.getenv("HEADLESS", False))
-SLOW_MO = os.getenv("SLOW_MO", 200)
+SLOW_MO = int(os.getenv("SLOW_MO", 200))
 
 VALID_USERNAME = "standard_user"
 VALID_PASSWORD = "secret_sauce"
