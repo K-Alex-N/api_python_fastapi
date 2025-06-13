@@ -9,5 +9,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY tests/api .
 COPY app/api/models.py /app
 
-#CMD ["pytest"]
-CMD ["sh"]
+CMD ["pytest"]
