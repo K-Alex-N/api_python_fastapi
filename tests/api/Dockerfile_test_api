@@ -1,12 +1,14 @@
 FROM python:3.13-alpine
 
-WORKDIR /app
+WORKDIR /sss
 
 COPY tests/api/requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY tests/api .
-COPY app/api/models.py /app
+COPY tests/api/ .
+COPY app ./app
+
+ENV PYTHONPATH=/sss
 
 CMD ["pytest"]

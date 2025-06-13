@@ -3,10 +3,11 @@ import time
 import os
 
 from app.api.models import Expense
+from .common.common import clean_up_db
 
 BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")  # для докера возьмет http://api:8000 из композ-ямл
 
-# для Докер-композ. Часто тесты успевают пройти до того как сервак ФастАПИ поднимится
+# Для Докер-композ. Часто тесты успевают пройти до того как сервак ФастАПИ поднимится
 for i in range(3):
     try:
         response = requests.get(BASE_URL)
