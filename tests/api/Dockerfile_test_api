@@ -7,7 +7,7 @@ COPY tests/api/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY tests/api .
-COPY tests/conftest.py .
-COPY app/models.py /app
+COPY app/api/models.py /app
 
-CMD ["pytest"]
+#CMD ["pytest"]
+CMD ["sh"]

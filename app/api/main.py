@@ -1,7 +1,7 @@
 ﻿import uvicorn
 from fastapi import FastAPI, HTTPException
 
-from models import Expense  # если main в той же папке
+from .models import Expense
 
 app = FastAPI()
 
