@@ -1,7 +1,7 @@
-# здесь копируем не только папку tests, но и папку api, тк там модельки.
-# Поэтому запускаемся как бы на уровень повыше чем в остальных контейнерах
-FROM python:3.13
-#FROM python:3.13-slim
+# Из-за моделек, которые в папке app, запускаемся на верхнем уровене.
+# Поэтому нужно правильно копировать файлы и правильно запустить pytest
+
+FROM python:3.13-alpine
 
 WORKDIR /app
 
@@ -9,18 +9,11 @@ COPY tests/api/requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-# мб попробовать копировать только один файл models, короче вот так
-#COPY app/models.py ./app
-#COPY tests .
-#COPY pytest.ini .
-
-# нельзя копировать конкретные файлы !!!! т.к. он смотри на Пайтон пакеты, т.е. в папке должнен быть __init__.py
-
+# нельзя копировать конкретные файлы (например models.py) !!!!
+# т.к. он ищет Пайтон пакеты, т.е. в папке должнен быть еще __init__.py
 COPY app ./app
 COPY tests ./tests
 COPY pytest.ini .
-
-#COPY . .
 
 CMD ["pytest", "tests/api/"]
 #CMD ["pytest", "-sv", "--alluredir=allure-results"]
