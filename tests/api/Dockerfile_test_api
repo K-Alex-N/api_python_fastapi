@@ -1,0 +1,13 @@
+FROM python:3.13-alpine
+
+WORKDIR /app
+
+COPY tests/api/requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY tests/api .
+COPY tests/conftest.py .
+COPY app/models.py /app
+
+CMD ["pytest"]

@@ -15,7 +15,7 @@
   tests_api:
     build:
       context: .
-      dockerfile: Dockerfile_test_api
+      dockerfile: tests/api/Dockerfile_test_api
     environment:
       - BASE_URL=http://api:8000
     volumes:

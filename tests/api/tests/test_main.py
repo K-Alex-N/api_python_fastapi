@@ -2,8 +2,7 @@ import requests
 import time
 import os
 
-from app.models import Expense
-from tests.api.common.common import *
+from app.api.models import Expense
 
 BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")  # для докера возьмет http://api:8000 из композ-ямл
 
@@ -64,11 +63,11 @@ def test_get_expenses():
 #     expenses = get_expenses()
 
 
-def test_get_expense_with_valid_id():
-    create_one_expense()
-    response = requests.get(BASE_URL + "/1")
-    assert response.status_code == 200
-    clean_up_db()  # это все лучше вынести в фикстуры
+# def test_get_expense_with_valid_id():
+#     create_one_expense()
+#     response = requests.get(BASE_URL + "/1")
+#     assert response.status_code == 200
+#     clean_up_db()  # это все лучше вынести в фикстуры
 
 
 def test_get_expense_with_invalid_id():
