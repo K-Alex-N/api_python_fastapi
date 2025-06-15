@@ -12,14 +12,41 @@
 #     e == "async_data"
 
 
-import pytest
-from playwright.sync_api import sync_playwright
+# import pytest
+# from playwright.sync_api import sync_playwright
+#
+# @pytest.fixture(scope="function")
+# def page():
+#     with sync_playwright() as p:
+#         browser = p.chromium.launch(headless=True)
+#         context = browser.new_context()
+#         page = context.new_page()
+#         yield page
+#         browser.close()
 
-@pytest.fixture(scope="function")
-def page():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context()
-        page = context.new_page()
+
+import pytest
+from playwright.async_api import async_playwright
+import allure
+
+
+@pytest.fixture
+async def page():
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        context = await browser.new_context()
+        page = await context.new_page()
         yield page
-        browser.close()
+        await browser.close()
+
+# Хук: скриншоты при падении
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    rep = outcome.get_result()
+    if rep.when == "call" and rep.failed:
+        page = item.funcargs.get("page", None)
+        if page:
+            screenshot = f"screenshot-{item.name}.png"
+            page.screenshot(path=screenshot)
+            allure.attach.file(screenshot, name="screenshot", attachment_type=allure.attachment_type.PNG)

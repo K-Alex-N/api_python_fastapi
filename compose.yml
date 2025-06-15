@@ -12,10 +12,10 @@
   #    depends_on:
   #      - db
 
-  tests_api:
+  tests_api2:
     build:
       context: .
-      dockerfile: tests/api/Dockerfile_test_api
+      dockerfile: tests/api2/Dockerfile_test_api2
     environment:
       - BASE_URL=http://api:8000
     volumes:
@@ -25,34 +25,47 @@
     networks:
       - docker_net
 
-  tests_ui:
-    build:
-      context: tests/ui
-      dockerfile: Dockerfile_test_ui
-    environment:
-      - HEADLESS=True
-      - SLOW_MO=0
-    volumes:
-      - allu-res:/app/allure-results
-    depends_on:
-      - tests_api
-    networks:
-      - docker_net
-
-  allure:
-    #   GUI report will be here >>> http://localhost:5050/allure-docker-service/latest-report
-
-    image: frankescobar/allure-docker-service
-    container_name: allure-server
-    ports:
-      - "5050:5050"
-    volumes:
-      - allu-res:/app/allure-results
-    depends_on:
-      - tests_ui
-    networks:
-      - docker_net
-
+#  tests_api:
+#    build:
+#      context: .
+#      dockerfile: tests/api/Dockerfile_test_api2
+#    environment:
+#      - BASE_URL=http://api:8000
+#    volumes:
+#      - allu-res:/app/allure-results
+#    depends_on:
+#      - api
+#    networks:
+#      - docker_net
+#
+#  tests_ui:
+#    build:
+#      context: tests/ui
+#      dockerfile: Dockerfile_test_ui
+#    environment:
+#      - HEADLESS=True
+#      - SLOW_MO=0
+#    volumes:
+#      - allu-res:/app/allure-results
+#    depends_on:
+#      - tests_api
+#    networks:
+#      - docker_net
+#
+#  allure:
+#    #   GUI report will be here >>> http://localhost:5050/allure-docker-service/latest-report
+#
+#    image: frankescobar/allure-docker-service
+#    container_name: allure-server
+#    ports:
+#      - "5050:5050"
+#    volumes:
+#      - allu-res:/app/allure-results
+#    depends_on:
+#      - tests_ui
+#    networks:
+#      - docker_net
+#
 networks:
   docker_net:
     driver: bridge
