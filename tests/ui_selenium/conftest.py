@@ -8,18 +8,4 @@
 # @pytest.mark.asyncio
 # async def test_with_async_fixture(my_async_fixture):
 #     print(f"Использую данные из фикстуры: {my_async_fixture}")
-#     assert my_async_fixtur
-#     e == "async_data"
-
-
-import pytest
-from playwright.sync_api import sync_playwright
-
-@pytest.fixture(scope="function")
-def page():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context()
-        page = context.new_page()
-        yield page
-        browser.close()
+#     assert my_async_fixture == "async_data"
