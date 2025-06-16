@@ -21,40 +21,40 @@
     environment:
       - BASE_URL=http://api:8000
     volumes:
-      - allu-res:/test_api/allure-results
+      - allure-results:/test_api/allure-results
       - app_data:/app
     depends_on:
       - api
     networks:
       - docker_net
 
-#  tests_ui:
-#    build:
-#      context: tests/test_ui
-#      dockerfile: Dockerfile_test_ui
-#    environment:
-#      - HEADLESS=True
-#      - SLOW_MO=0
-#    volumes:
-#      - allu-res:/app/allure-results
-#    depends_on:
-#      - tests_api
-#    networks:
-#      - docker_net
-#
-#  allure:
-#    #   GUI report will be here >>> http://localhost:5050/allure-docker-service/latest-report
-#
-#    image: frankescobar/allure-docker-service
-#    container_name: allure-server
-#    ports:
-#      - "5050:5050"
-#    volumes:
-#      - allu-res:/app/allure-results
-#    depends_on:
-#      - tests_ui
-#    networks:
-#      - docker_net
+  tests_ui:
+    build:
+      context: test_ui
+      dockerfile: Dockerfile_test_ui
+    environment:
+      - HEADLESS=True
+      - SLOW_MO=0
+    volumes:
+      - allure-results:/app/allure-results
+    depends_on:
+      - tests_api
+    networks:
+      - docker_net
+
+  allure:
+    #   GUI report will be here >>> http://localhost:5050/allure-docker-service/latest-report
+
+    image: frankescobar/allure-docker-service
+    container_name: allure-server
+    ports:
+      - "5050:5050"
+    volumes:
+      - allure-results:/app/allure-results
+    depends_on:
+      - tests_ui
+    networks:
+      - docker_net
 
 networks:
   docker_net:
@@ -62,4 +62,4 @@ networks:
 
 volumes:
   app_data:
-  allu-res:
+  allure-results:

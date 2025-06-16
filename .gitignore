@@ -1,3 +1,5 @@
 ﻿.*
+!.dockerignore
+
 allure-results
 allure-report

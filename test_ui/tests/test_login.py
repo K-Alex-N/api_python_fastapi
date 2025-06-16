@@ -42,7 +42,9 @@
 
 import pytest
 import allure
-from tests.test_ui.pages.page_factory import PageFactory
+
+from test_ui.pages.page_factory import PageFactory
+
 
 @pytest.mark.asyncio
 @allure.title("Успешный вход")

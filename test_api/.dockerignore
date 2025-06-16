@@ -1,0 +1,15 @@
+﻿.*
+
+# Питон
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# пайтест
+**/.pytest_cache/
+
+# Докер
+*Dockerfile*
+*compose*.yml
