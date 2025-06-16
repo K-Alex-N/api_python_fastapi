@@ -1,4 +1,4 @@
-﻿# from tests.ui.pages.login_page import LoginPage
+﻿# from tests.test_ui.pages.login_page import LoginPage
 #
 #
 # def test_valid_login(page):
@@ -22,7 +22,7 @@
 # # после переделки да. сделай Разбить на BasePage + LoginPage и Добавить паттерн PageFactory
 
 
-# from tests.ui.pages.page_factory import PageFactory
+# from tests.test_ui.pages.page_factory import PageFactory
 #
 # def test_valid_login(page):
 #     factory = PageFactory(page)
@@ -42,7 +42,7 @@
 
 import pytest
 import allure
-from tests.ui.pages.page_factory import PageFactory
+from tests.test_ui.pages.page_factory import PageFactory
 
 @pytest.mark.asyncio
 @allure.title("Успешный вход")

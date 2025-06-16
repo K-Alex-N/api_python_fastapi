@@ -2,7 +2,7 @@
 #set -e
 
 
-#mkdir .\tests\api2\tests\app\api
+#mkdir .\tests\api2\tests\app\test_api
 #copy -r .\app\ .\tests\api_2\
 
 echo "Running tests..."

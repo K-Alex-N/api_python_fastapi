@@ -7,40 +7,30 @@
       dockerfile: Dockerfile_app
     ports:
       - "8000:8000"
+    volumes:
+        - app_data:/app
     networks:
       - docker_net
   #    depends_on:
   #      - db
 
-  tests_api2:
+  tests_api:
     build:
-      context: .
-      dockerfile: tests/api2/Dockerfile_test_api2
+      context: test_api
+      dockerfile: Dockerfile_test_api
     environment:
       - BASE_URL=http://api:8000
     volumes:
-      - allu-res:/app/allure-results
+      - allu-res:/test_api/allure-results
+      - app_data:/app
     depends_on:
       - api
     networks:
       - docker_net
 
-#  tests_api:
-#    build:
-#      context: .
-#      dockerfile: tests/api/Dockerfile_test_api2
-#    environment:
-#      - BASE_URL=http://api:8000
-#    volumes:
-#      - allu-res:/app/allure-results
-#    depends_on:
-#      - api
-#    networks:
-#      - docker_net
-#
 #  tests_ui:
 #    build:
-#      context: tests/ui
+#      context: tests/test_ui
 #      dockerfile: Dockerfile_test_ui
 #    environment:
 #      - HEADLESS=True
@@ -65,10 +55,11 @@
 #      - tests_ui
 #    networks:
 #      - docker_net
-#
+
 networks:
   docker_net:
     driver: bridge
 
 volumes:
+  app_data:
   allu-res:
