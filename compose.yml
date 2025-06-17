@@ -18,6 +18,7 @@
     build:
       context: test_api
       dockerfile: Dockerfile_test_api
+#    command: tail -f /dev/null
     environment:
       - BASE_URL=http://api:8000
     volumes:
@@ -32,11 +33,12 @@
     build:
       context: test_ui
       dockerfile: Dockerfile_test_ui
+#    command: tail -f /dev/null
     environment:
       - HEADLESS=True
       - SLOW_MO=0
     volumes:
-      - allure-results:/app/allure-results
+      - allure-results:/test_ui/allure-results
     depends_on:
       - tests_api
     networks:
