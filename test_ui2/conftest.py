@@ -33,9 +33,10 @@ import allure
 HEADLESS = bool(os.getenv("HEADLESS", False))
 SLOW_MO = int(os.getenv("SLOW_MO", 200))
 
-STORAGE_PATH = "storage/state.json"
+STORAGE_PATH = "state.json"
 
-@pytest.fixture(scope="package", autouse=True) # что будет если scope="session" поставить - интересно как файлы Конфтест разные взаимодействуют
+# @pytest.fixture(scope="package", autouse=True) # что будет если scope="session" поставить - интересно как файлы Конфтест разные взаимодействуют
+@pytest.fixture(scope="session", autouse=True) # что будет если scope="session" поставить - интересно как файлы Конфтест разные взаимодействуют
 def ensure_login_state():
     if os.path.exists(STORAGE_PATH):
         # Состояние уже сохранено — логин не требуется.
@@ -55,7 +56,7 @@ def ensure_login_state():
         assert page.url == "https://www.saucedemo.com/inventory.html"
         # page.wait_for_selector("#dashboard")  # жди элемент после логина
 
-        context.storage_state(path=STORAGE_PATH)
+        page.context.storage_state(path=STORAGE_PATH)
         browser.close()
 
 
@@ -67,7 +68,7 @@ def page():
 #         browser = await p.chromium.launch(headless=True)
         browser = p.chromium.launch(headless=HEADLESS, slow_mo=SLOW_MO)
 #         context = await browser.new_context()
-        context = browser.new_context()
+        context = browser.new_context(storage_state=STORAGE_PATH)
 #         page = await context.new_page()
         page = context.new_page()
         yield page

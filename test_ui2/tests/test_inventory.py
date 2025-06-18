@@ -1,6 +1,12 @@
-﻿
+﻿import time
 
+from test_ui2.pages.inventory_page import InventoryPage
 
+def test_inventory(page):
+    inventory_page = InventoryPage(page)
+    inventory_page.open()
+
+    # time.sleep(99)
 
 # def test_cart_bage_work
 # спросить у Джипити как назвать функицю

@@ -9,20 +9,19 @@ class LoginPage(BasePage):
         self.login_button = page.locator("#login-button")
         self.error_message = page.locator("[data-test='error']")
 
-    def login(self, username: str, password: str):
-        self.username_input.fill(username)
-        self.password_input.fill(password)
-        self.login_button.click()
+    def open(self):
+        self.navigate_to(self.url)
 
-    #
     # URL = "https://www.saucedemo.com/"
     # USERNAME_INPUT = "#user-name"
     # PASSWORD_INPUT = "#password"
     # LOGIN_BUTTON = "#login-button"
     # ERROR_MESSAGE = "[data-test='error']"
 
-    def open(self):
-        self.navigate_to(self.url)
+    def login(self, username: str, password: str):
+        self.username_input.fill(username)
+        self.password_input.fill(password)
+        self.login_button.click()
 
     # def login(self, username: str, password: str):
     #     self.fill(self.USERNAME_INPUT, username)
