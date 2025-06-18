@@ -1,0 +1,66 @@
+from .base_page import BasePage
+
+class LoginPage(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
+        self.url = "https://www.saucedemo.com/"
+        self.username_input = page.locator("#user-name")
+        self.password_input = page.locator("#password")
+        self.login_button = page.locator("#login-button")
+        self.error_message = page.locator("[data-test='error']")
+
+    def login(self, username: str, password: str):
+        self.username_input.fill(username)
+        self.password_input.fill(password)
+        self.login_button.click()
+
+    #
+    # URL = "https://www.saucedemo.com/"
+    # USERNAME_INPUT = "#user-name"
+    # PASSWORD_INPUT = "#password"
+    # LOGIN_BUTTON = "#login-button"
+    # ERROR_MESSAGE = "[data-test='error']"
+
+    def open(self):
+        self.navigate_to(self.url)
+
+    # def login(self, username: str, password: str):
+    #     self.fill(self.USERNAME_INPUT, username)
+    #     self.fill(self.PASSWORD_INPUT, password)
+    #     self.click(self.LOGIN_BUTTON)
+
+    def is_error_message_present(self):
+        # return self.is_visible(self.ERROR_MESSAGE)
+        return self.error_message.is_visible()
+
+    # def get_error_text(self) -> str:
+    #     return self.get_text(self.ERROR_MESSAGE)
+
+
+# from base_page import BasePage
+#
+# class LoginPage(BasePage):
+#     URL = "https://www.saucedemo.com/"
+#     USERNAME_INPUT = "#user-name"
+#     PASSWORD_INPUT = "#password"
+#     LOGIN_BUTTON = "#login-button"
+#     ERROR_MESSAGE = "[data-test='error']"
+#
+#     # async def open(self):
+#     def open(self):
+#         # await self.navigate(self.URL)
+#         self.navigate_to(self.URL)
+#
+#     # async def login(self, username: str, password: str):
+#     def login(self, username: str, password: str):
+#         # await self.fill(self.USERNAME_INPUT, username)
+#         self.fill(self.USERNAME_INPUT, username)
+# #         await self.fill(self.PASSWORD_INPUT, password)
+#         self.fill(self.PASSWORD_INPUT, password)
+# #         await self.click(self.LOGIN_BUTTON)
+#         self.click(self.LOGIN_BUTTON)
+
+    # async def get_error_text(self) -> str:
+    # def get_error_text(self) -> str:
+    #     # return await self.get_text(self.ERROR_MESSAGE)
+    #     return self.get_text(self.ERROR_MESSAGE)
