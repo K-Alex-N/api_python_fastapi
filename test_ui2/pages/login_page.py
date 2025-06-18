@@ -1,40 +1,47 @@
+import allure
+
 from .base_page import BasePage
 
+
 class LoginPage(BasePage):
+    URL = "https://www.saucedemo.com/"
+    USERNAME_INPUT = "#user-name"
+    PASSWORD_INPUT = "#password"
+    LOGIN_BUTTON = "#login-button"
+    ERROR_MESSAGE = "[data-test='error']"
+
     def __init__(self, page):
         super().__init__(page)
-        self.url = "https://www.saucedemo.com/"
-        self.username_input = page.locator("#user-name")
-        self.password_input = page.locator("#password")
-        self.login_button = page.locator("#login-button")
-        self.error_message = page.locator("[data-test='error']")
+        # self.url = "https://www.saucedemo.com/"
+        # self.username_input = page.locator("#user-name")
+        # self.password_input = page.locator("#password")
+        # self.login_button = page.locator("#login-button")
+        # self.error_message = page.locator("[data-test='error']")
 
+    @allure.step("open login page")
     def open(self):
-        self.navigate_to(self.url)
+        self.navigate_to(self.URL)
+        # self.navigate_to(self.url)
 
-    # URL = "https://www.saucedemo.com/"
-    # USERNAME_INPUT = "#user-name"
-    # PASSWORD_INPUT = "#password"
-    # LOGIN_BUTTON = "#login-button"
-    # ERROR_MESSAGE = "[data-test='error']"
-
-    def login(self, username: str, password: str):
-        self.username_input.fill(username)
-        self.password_input.fill(password)
-        self.login_button.click()
-
+    # @allure.step("login")
     # def login(self, username: str, password: str):
-    #     self.fill(self.USERNAME_INPUT, username)
-    #     self.fill(self.PASSWORD_INPUT, password)
-    #     self.click(self.LOGIN_BUTTON)
+    #     self.username_input.fill(username)
+    #     self.password_input.fill(password)
+    #     self.login_button.click()
 
+    @allure.step("login")
+    def login(self, username: str, password: str):
+        self.fill(self.USERNAME_INPUT, username)
+        self.fill(self.PASSWORD_INPUT, password)
+        self.click(self.LOGIN_BUTTON)
+
+    @allure.step("check error message")
     def is_error_message_present(self):
-        # return self.is_visible(self.ERROR_MESSAGE)
-        return self.error_message.is_visible()
+        return self.is_visible(self.ERROR_MESSAGE)
+        # return self.error_message.is_visible()
 
     # def get_error_text(self) -> str:
     #     return self.get_text(self.ERROR_MESSAGE)
-
 
 # from base_page import BasePage
 #
@@ -59,7 +66,7 @@ class LoginPage(BasePage):
 # #         await self.click(self.LOGIN_BUTTON)
 #         self.click(self.LOGIN_BUTTON)
 
-    # async def get_error_text(self) -> str:
-    # def get_error_text(self) -> str:
-    #     # return await self.get_text(self.ERROR_MESSAGE)
-    #     return self.get_text(self.ERROR_MESSAGE)
+# async def get_error_text(self) -> str:
+# def get_error_text(self) -> str:
+#     # return await self.get_text(self.ERROR_MESSAGE)
+#     return self.get_text(self.ERROR_MESSAGE)

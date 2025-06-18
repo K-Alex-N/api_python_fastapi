@@ -22,20 +22,19 @@ class BasePage:
             return self.page.url
 
     # Работа с элементами
+    @allure.step("Click element -> {selector}")
     def click(self, selector: str):
-        with allure.step(f"Click element -> {selector}"):
-            self.page.locator(selector).click()
+        self.page.locator(selector).click()
 
     # def click(self, selector: str, force: bool = False):
     #     self.page.locator(selector).click(force=force)
-
+    @allure.step("Fill input -> {selector} with value: {value}")
     def fill(self, selector: str, value: str):
-        with allure.step(f"Fill input -> {selector} with value: {value}"):
-            self.page.locator(selector).fill(value)
+        self.page.locator(selector).fill(value)
 
+    @allure.step("Check if element is visible -> {selector}")
     def is_visible(self, selector: str) -> bool:
-        with allure.step(f"Check if element is visible -> {selector}"):
-            return self.page.locator(selector).is_visible()
+        return self.page.locator(selector).is_visible()
 
     # def get_text(self, selector: str):
     #     return self.page.locator(selector).text_content()
