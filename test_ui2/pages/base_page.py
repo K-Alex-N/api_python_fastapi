@@ -6,13 +6,13 @@ class BasePage:
     def __init__(self, page: Page):
         self.page = page
 
-    def el(self, selector: str):
-        return self.page.locator(selector)
-
+    #
     # Работа со страницей
-    def navigate_to(self, url: str):
-        with allure.step(f"Navigate to URL -> {url}"):
-            self.page.goto(url)
+    #
+
+    @allure.step("Go to URL -> {url}")
+    def goto(self, url: str):
+        self.page.goto(url)
 
     # def reload(self):
     #     self.page.reload()
@@ -24,20 +24,30 @@ class BasePage:
         with allure.step("get current url"):
             return self.page.url
 
+    def expect_current_page_is(self, url_part):
+        with allure.step("expect to have url"):
+            expect(self.page).to_have_url(url_part)
+
+    #
     # Работа с элементами
-    @allure.step("Click element -> {selector}")
-    def click(self, selector: str):
-        self.page.locator(selector).click()
+    #
+
+    # def element(self, selector: str):
+    #     return self.page.locator(selector)
+
+    # @allure.step("Click element -> {selector}")
+    # def click(self, selector: str):
+    #     self.page.locator(selector).click()
 
     # def click(self, selector: str, force: bool = False):
     #     self.page.locator(selector).click(force=force)
-    @allure.step("Fill input -> {selector} with value: {value}")
-    def fill(self, selector: str, value: str):
-        self.page.locator(selector).fill(value)
+    # @allure.step("Fill input -> {selector} with value: {value}")
+    # def fill(self, selector: str, value: str):
+    #     self.page.locator(selector).fill(value)
 
-    @allure.step("Check if element is visible -> {selector}")
-    def is_visible(self, selector: str) -> bool:
-        return self.page.locator(selector).is_visible()
+    # @allure.step("Check if element is visible -> {selector}")
+    # def is_visible(self, selector: str) -> bool:
+    #     return self.page.locator(selector).is_visible()
 
     # def get_text(self, selector: str):
     #     return self.page.locator(selector).text_content()
@@ -81,9 +91,9 @@ class BasePage:
     # def press_key(self, selector: str, key: str):
     #     self.page.locator(selector).press(key)
 
-    def hover(self, selector: str):
-        with allure.step(f"Hover over element -> {selector}"):
-            self.page.locator(selector).hover()
+    # def hover(self, selector: str):
+    #     with allure.step(f"Hover over element -> {selector}"):
+    #         self.page.locator(selector).hover()
 
     # def check(self, selector: str):
     #     self.page.locator(selector).check()
