@@ -11,34 +11,17 @@ INVALID_PASSWORD = "blablabla"
 @allure.epic("UI")
 @allure.feature("Login")
 class TestLogin:
-    def test_user_successfully_login_with_valid_credentials(self, page):
+    def test_user_successfully_login_with_valid_credentials(self, login_page: LoginPage):
         """description of test"""
-
-        login_page = LoginPage(page)
-        login_page.open()
-
         login_page.login(VALID_USERNAME, VALID_PASSWORD)
+        login_page.expect_login_is_successful()
 
-        # assert login_page.is_login_successful(), "Login failed!"
-        # login_page.wait_for_title("Swag Labs")
-        login_page.wait_for_url("https://www.saucedemo.com/inventory.html")
-
-    def test_user_can_not_login_with_invalid_username(self, page):
+    def test_user_can_not_login_with_invalid_username(self, login_page: LoginPage):
         """description of test"""
-
-        login_page = LoginPage(page)
-        login_page.open()
-
         login_page.login(INVALID_USERNAME, VALID_PASSWORD)
+        login_page.expect_error_message()
 
-        assert login_page.is_error_message_present()
-
-    def test_user_can_not_login_with_invalid_password(self, page):
+    def test_user_can_not_login_with_invalid_password(self, login_page: LoginPage):
         """description of test"""
-
-        login_page = LoginPage(page)
-        login_page.open()
-
         login_page.login(VALID_USERNAME, INVALID_PASSWORD)
-
-        assert login_page.is_error_message_present()
+        login_page.expect_error_message()

@@ -30,16 +30,21 @@ import pytest
 from playwright.sync_api import sync_playwright
 import allure
 
+from test_ui2.pages.login_page import LoginPage
+from test_ui2.pages.inventory_page import InventoryPage
+
 HEADLESS = bool(os.getenv("HEADLESS", False))
-SLOW_MO = int(os.getenv("SLOW_MO", 200))
+SLOW_MO = int(os.getenv("SLOW_MO", 50))
 
 STORAGE_PATH = "state.json"
 
+
 # @pytest.fixture(scope="package", autouse=True) # что будет если scope="session" поставить - интересно как файлы Конфтест разные взаимодействуют
-@pytest.fixture(scope="session", autouse=True) # что будет если scope="session" поставить - интересно как файлы Конфтест разные взаимодействуют
+@pytest.fixture(scope="session",
+                autouse=True)  # что будет если scope="session" поставить - интересно как файлы Конфтест разные взаимодействуют
 def ensure_login_state():
     if os.path.exists(STORAGE_PATH):
-        return # Состояние уже сохранено — вход не требуется.
+        return  # Состояние уже сохранено — вход не требуется.
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=HEADLESS, slow_mo=SLOW_MO)
@@ -81,21 +86,33 @@ def ensure_login_state():
 #         await browser.close()
 
 
-
 @pytest.fixture
 # async def page():
 def page():
-#     async with async_playwright() awith async_playwright() as p:
+    #     async with async_playwright() awith async_playwright() as p:
     with sync_playwright() as p:
-#         browser = await p.chromium.launch(headless=True)
+        #         browser = await p.chromium.launch(headless=True)
         browser = p.chromium.launch(headless=HEADLESS, slow_mo=SLOW_MO)
-#         context = await browser.new_context()
+        #         context = await browser.new_context()
         context = browser.new_context(storage_state=STORAGE_PATH)
-#         page = await context.new_page()
+        #         page = await context.new_page()
         page = context.new_page()
         yield page
-#         await browser.close()
+        #         await browser.close()
         browser.close()
+
+
+@pytest.fixture
+def login_page(page):
+    login_page = LoginPage(page)
+    login_page.open()
+    yield login_page
+
+@pytest.fixture
+def inventory_page(page):
+    inventory_page = InventoryPage(page)
+    inventory_page.open()
+    yield inventory_page
 
 # # Хук: скриншоты при падении
 # @pytest.hookimpl(hookwrapper=True)

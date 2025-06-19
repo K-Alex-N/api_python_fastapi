@@ -6,6 +6,9 @@ class BasePage:
     def __init__(self, page: Page):
         self.page = page
 
+    def el(self, selector: str):
+        return self.page.locator(selector)
+
     # Работа со страницей
     def navigate_to(self, url: str):
         with allure.step(f"Navigate to URL -> {url}"):

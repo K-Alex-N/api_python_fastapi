@@ -1,6 +1,14 @@
 ﻿from .base_page import BasePage
 
+
+
+
+
+
 class InventoryPage(BasePage):
+    INVENTORY_ITEM_NAME = ".inventory_item_name"
+
+
     def __init__(self, page):
         super().__init__(page)
         self.url = "https://www.saucedemo.com/inventory.html"
@@ -11,6 +19,12 @@ class InventoryPage(BasePage):
 
     def open(self):
         self.navigate_to(self.url)
+
+
+    def is_items_sorted_from_A_to_Z(self):
+        pass
+
+
 
     # URL = "https://www.saucedemo.com/"
     # USERNAME_INPUT = "#user-name"

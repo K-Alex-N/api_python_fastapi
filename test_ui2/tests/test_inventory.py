@@ -8,9 +8,12 @@ from test_ui2.pages.inventory_page import InventoryPage
 @allure.epic("UI")
 @allure.feature("Inventory")
 class TestInventoryPage:
-    def test_inventory(self, page):
-        inventory_page = InventoryPage(page)
-        inventory_page.open()
+    def test_inventory(self, inventory_page: InventoryPage):
+        # inventory_page.
+        pass
+
+
+
 
     # time.sleep(99)
 
