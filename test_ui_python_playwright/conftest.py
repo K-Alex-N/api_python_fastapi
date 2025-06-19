@@ -30,8 +30,8 @@ import pytest
 from playwright.sync_api import sync_playwright
 import allure
 
-from test_ui2.pages.login_page import LoginPage
-from test_ui2.pages.inventory_page import InventoryPage
+from test_ui_python_playwright.pages.login_page import LoginPage
+from test_ui_python_playwright.pages.inventory_page import InventoryPage
 
 HEADLESS = bool(os.getenv("HEADLESS", False))
 SLOW_MO = int(os.getenv("SLOW_MO", 50))

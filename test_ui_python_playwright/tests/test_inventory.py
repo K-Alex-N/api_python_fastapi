@@ -2,7 +2,7 @@
 
 import allure
 
-from test_ui2.pages.inventory_page import InventoryPage
+from test_ui_python_playwright.pages.inventory_page import InventoryPage
 
 
 @allure.epic("UI")

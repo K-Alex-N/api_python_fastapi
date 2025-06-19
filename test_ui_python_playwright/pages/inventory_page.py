@@ -13,14 +13,9 @@ class InventoryPage(BasePage):
         self.sort_dropdown = Dropdown(page, ".product_sort_container")
         self.cart_badge = Text(page, ".shopping_cart_badge")
 
+    @allure.step("open inventory page")
     def open(self):
         self.goto(self.url)
 
     def is_items_sorted_from_A_to_Z(self):
         pass
-
-
-    # def login(self, username: str, password: str):
-    #     self.username_input.fill(username)
-    #     self.password_input.fill(password)
-    #     self.login_button.click()
