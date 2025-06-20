@@ -33,8 +33,9 @@ import allure
 from test_ui_python_playwright.pages.login_page import LoginPage
 from test_ui_python_playwright.pages.inventory_page import InventoryPage
 
-HEADLESS = bool(os.getenv("HEADLESS", False))
-SLOW_MO = int(os.getenv("SLOW_MO", 50))
+# HEADLESS = bool(os.getenv("HEADLESS", False))
+HEADLESS = False
+SLOW_MO = int(os.getenv("SLOW_MO", 0))
 
 STORAGE_PATH = "state.json"
 

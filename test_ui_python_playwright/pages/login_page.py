@@ -7,7 +7,7 @@ class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
         self.url = "https://www.saucedemo.com/"
-        self.username_input = TextInput(page, "#user-name")
+        self.username_input = TextInput(page, "#user-name", "поле ввода имени пользователя")
         self.password_input = TextInput(page, "#password")
         self.login_button = Button(page, "#login-button")
         self.error_message = Text(page, "[data-test='error']")

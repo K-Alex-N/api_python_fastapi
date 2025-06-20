@@ -9,8 +9,7 @@ from test_ui_python_playwright.pages.inventory_page import InventoryPage
 @allure.feature("Inventory")
 class TestInventoryPage:
     def test_inventory(self, inventory_page: InventoryPage):
-        # inventory_page.
-        pass
+        inventory_page.is_items_sorted_from_A_to_Z()
 
 
 

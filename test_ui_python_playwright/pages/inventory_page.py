@@ -18,4 +18,9 @@ class InventoryPage(BasePage):
         self.goto(self.url)
 
     def is_items_sorted_from_A_to_Z(self):
-        pass
+        items = self.page.locator(".inventory_item_name").all()
+        for item in items:
+            print(item.all_inner_texts())
+
+        # items_2 = self.item_name.inner_text()
+        # print(items_2)
