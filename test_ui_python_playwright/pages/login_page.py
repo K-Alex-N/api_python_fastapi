@@ -1,4 +1,4 @@
-from .elements import *
+from test_ui_python_playwright.elements.elements import *
 from .base_page import BasePage
 
 
@@ -10,7 +10,7 @@ class LoginPage(BasePage):
         self.username_input = TextInput(page, "#user-name", "поле ввода имени пользователя")
         self.password_input = TextInput(page, "#password")
         self.login_button = Button(page, "#login-button")
-        self.error_message = Text(page, "[data-test='error']")
+        self.error_message = TextElement(page, "[data-test='error']")
 
     @allure.step("open login page")
     def open(self):

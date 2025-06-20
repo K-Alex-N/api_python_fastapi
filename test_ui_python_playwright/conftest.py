@@ -26,15 +26,13 @@ import os
 
 
 import pytest
-# from playwright.async_api import async_playwright
 from playwright.sync_api import sync_playwright
 import allure
 
 from test_ui_python_playwright.pages.login_page import LoginPage
 from test_ui_python_playwright.pages.inventory_page import InventoryPage
 
-# HEADLESS = bool(os.getenv("HEADLESS", False))
-HEADLESS = False
+HEADLESS = bool(os.getenv("HEADLESS", False))
 SLOW_MO = int(os.getenv("SLOW_MO", 0))
 
 STORAGE_PATH = "state.json"
@@ -108,6 +106,7 @@ def login_page(page):
     login_page = LoginPage(page)
     login_page.open()
     yield login_page
+
 
 @pytest.fixture
 def inventory_page(page):
