@@ -1,4 +1,5 @@
-from ..elements.elements import *
+from ..elements.element_factory import ElementFactory
+from ..elements.single_element import *
 from .base_page import BasePage
 
 
@@ -7,10 +8,13 @@ class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
         self.url = "https://www.saucedemo.com/"
-        self.username_input = TextInput(page, "#user-name", "поле ввода имени пользователя")
-        self.password_input = TextInput(page, "#password")
-        self.login_button = Button(page, "#login-button")
-        self.error_message = TextElement(page, "[data-test='error']")
+        el = ElementFactory(page)
+        self.username_input = el.text_input("#user-name")
+        # self.username_input = TextInput(page, "#user-name", "поле ввода имени пользователя")
+
+        self.password_input = el.text_input("#password")
+        self.login_button = el.button("#login-button")
+        self.error_message = el.text_element("[data-test='error']")
 
     @allure.step("open login page")
     def open(self):

@@ -1,4 +1,4 @@
-﻿from test_ui_python_playwright.elements.elements import *
+﻿from ..elements.single_element import *
 from .base_page import BasePage
 
 

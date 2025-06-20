@@ -3,11 +3,10 @@ from playwright.sync_api import expect, Page, Locator
 
 
 class BaseElement:
-    def __init__(self, page: Page, selector: str, description: str = None):
+    def __init__(self, page: Page, selector: str):
         self.page = page
         self.selector = selector
         self.locator: Locator = page.locator(selector)
-        self.description = description if description else f"элемент с селектором '{selector}'"
         # Playwright Locator уже может представлять один или несколько элементов.
         # Мы будем работать с ним как с коллекцией, но по умолчанию действовать на .first
 
@@ -65,14 +64,14 @@ class ClickableMixin:
 
     def click(self):
         """Click on element. If more than 1 element an error raises"""
-        with allure.step(f"Click {self.description}"):
+        with allure.step(f"Click element {self.selector}"):
             self.should_be_visible()
             self.should_be_enabled()
             self.locator.click()
 
     def click_first(self):
         """Clicks on the first element found."""
-        with allure.step(f"Click {self.description}"):
+        with allure.step(f"Click element {self.selector}"):
             self.should_be_visible()
             self.should_be_enabled()
             self.locator.first.click()
