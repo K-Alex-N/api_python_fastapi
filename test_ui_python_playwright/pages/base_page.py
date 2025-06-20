@@ -6,100 +6,26 @@ class BasePage:
     def __init__(self, page: Page):
         self.page = page
 
-    #
-    # Работа со страницей
-    #
-
     @allure.step("Go to URL -> {url}")
     def goto(self, url: str):
         self.page.goto(url)
 
-    # def reload(self):
-    #     self.page.reload()
-    #
-    # def back(self):
-    #     self.page.go_back()
+    @allure.step("Reload page")
+    def reload(self):
+        self.page.reload()
 
+    @allure.step("Back to previous page")
+    def back(self):
+        self.page.go_back()
+
+    @allure.step("get current url")
     def get_current_url(self) -> str:
-        with allure.step("get current url"):
-            return self.page.url
+        return self.page.url
 
-    def expect_current_page_is(self, url_part):
-        with allure.step("expect to have url"):
-            expect(self.page).to_have_url(url_part)
-
-    #
-    # Работа с элементами
-    #
-
-    # def element(self, selector: str):
-    #     return self.page.locator(selector)
-
-    # @allure.step("Click element -> {selector}")
-    # def click(self, selector: str):
-    #     self.page.locator(selector).click()
-
-    # def click(self, selector: str, force: bool = False):
-    #     self.page.locator(selector).click(force=force)
-    # @allure.step("Fill input -> {selector} with value: {value}")
-    # def fill(self, selector: str, value: str):
-    #     self.page.locator(selector).fill(value)
-
-    # @allure.step("Check if element is visible -> {selector}")
-    # def is_visible(self, selector: str) -> bool:
-    #     return self.page.locator(selector).is_visible()
-
-    # def get_text(self, selector: str):
-    #     return self.page.locator(selector).text_content()
-    #     return self.page.locator(selector).inner_text()
-    #
-    # def type_text(self, selector: str, value: str, delay_ms: int = 50):
-    #     self.page.locator(selector).type(value, delay=delay_ms)
-    #
-    # def select_option(self, selector: str, value: str):
-    #     self.page.locator(selector).select_option(value)
-    #
-    # def get_attribute(self, selector: str, attribute: str) -> str:
-    #     return self.page.locator(selector).get_attribute(attribute)
-    #
-    # def is_enabled(self, selector: str) -> bool:
-    #     return self.page.locator(selector).is_enabled()
-    #
-    # def is_checked(self, selector: str) -> bool:
-    #     return self.page.locator(selector).is_checked()
-
-    # Ожидания
-    # def wait_for_element(self, selector: str, timeout: int = 5000):
-    #     self.page.wait_for_selector(selector, timeout=timeout)
-
-    def wait_for_url(self, url_part: str):
-        expect(self.page).to_have_url(url_part)
-
+    @allure.step("expect page have title: {title}")
     def wait_for_title(self, title: str):
         expect(self.page).to_have_title(title)
 
-    # def wait_until_hidden(self, selector: str):
-    #     self.page.locator(selector).wait_for(state="hidden")
-
-    # Утилиты
-    # def scroll_into_view(self, selector: str):
-    #     self.page.locator(selector).scroll_into_view_if_needed()
-    #
-    # def take_screenshot(self, path: str):
-    #     self.page.screenshot(path=path)
-    #
-    # def press_key(self, selector: str, key: str):
-    #     self.page.locator(selector).press(key)
-
-    # def hover(self, selector: str):
-    #     with allure.step(f"Hover over element -> {selector}"):
-    #         self.page.locator(selector).hover()
-
-    # def check(self, selector: str):
-    #     self.page.locator(selector).check()
-    #
-    # def uncheck(self, selector: str):
-    #     self.page.locator(selector).uncheck()
-    #
-    # def get_locator(self, selector: str) -> Locator:
-    #     return self.page.locator(selector)
+    @allure.step("expect page have url part: {url_part}")
+    def expect_current_page_url_have(self, url_part):
+        expect(self.page).to_have_url(url_part)

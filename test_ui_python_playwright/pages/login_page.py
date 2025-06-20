@@ -1,4 +1,4 @@
-from test_ui_python_playwright.elements.elements import *
+from ..elements.elements import *
 from .base_page import BasePage
 
 
@@ -24,7 +24,7 @@ class LoginPage(BasePage):
 
     @allure.step("check if login was successful")
     def expect_login_is_successful(self):
-        self.expect_current_page_is("https://www.saucedemo.com/inventory.html")
+        self.expect_current_page_url_have("https://www.saucedemo.com/inventory.html")
 
     @allure.step("check error message")
     def expect_error_message(self):

@@ -44,7 +44,4 @@ RUN playwright install chromium --with-deps
 
 COPY . .
 
-#    RUN chmod +x /app/entrypoint.sh
-#    CMD ["bash", "/app/entrypoint.sh"]
-
 CMD ["pytest"]

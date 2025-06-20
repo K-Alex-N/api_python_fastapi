@@ -1,36 +1,10 @@
-# @pytest.fixture
-# @pytest.mark.asyncio  !!!!!!!!!!!!!
-# async def my_async_fixture():
-#     print("\n--- Асинхронная фикстура: подготовка ---")
-#     yield "async_data"
-#     print("--- Асинхронная фикстура: очистка ---")
-#
-# @pytest.mark.asyncio
-# async def test_with_async_fixture(my_async_fixture):
-#     print(f"Использую данные из фикстуры: {my_async_fixture}")
-#     assert my_async_fixtur
-#     e == "async_data"
 import os
-
-# import pytest
-# from playwright.sync_api import sync_playwright
-#
-# @pytest.fixture(scope="function")
-# def page():
-#     with sync_playwright() as p:
-#         browser = p.chromium.launch(headless=True)
-#         context = browser.new_context()
-#         page = context.new_page()
-#         yield page
-#         browser.close()
-
 
 import pytest
 from playwright.sync_api import sync_playwright
-import allure
 
-from test_ui_python_playwright.pages.login_page import LoginPage
-from test_ui_python_playwright.pages.inventory_page import InventoryPage
+from .pages.login_page import LoginPage
+from .pages.inventory_page import InventoryPage
 
 HEADLESS = bool(os.getenv("HEADLESS", False))
 SLOW_MO = int(os.getenv("SLOW_MO", 0))
@@ -39,8 +13,7 @@ STORAGE_PATH = "state.json"
 
 
 # @pytest.fixture(scope="package", autouse=True) # что будет если scope="session" поставить - интересно как файлы Конфтест разные взаимодействуют
-@pytest.fixture(scope="session",
-                autouse=True)  # что будет если scope="session" поставить - интересно как файлы Конфтест разные взаимодействуют
+@pytest.fixture(scope="session", autouse=True)
 def ensure_login_state():
     if os.path.exists(STORAGE_PATH):
         return  # Состояние уже сохранено — вход не требуется.
@@ -75,29 +48,15 @@ def ensure_login_state():
 #         await page.context.storage_state(path=path)
 #         await browser.close()
 #     return path
-#
-# @pytest.fixture(scope="function")
-# async def logged_in_context(login_and_save_storage):
-#     async with async_playwright() as p:
-#         browser = await p.chromium.launch()
-#         context = await browser.new_context(storage_state=login_and_save_storage)
-#         yield context
-#         await browser.close()
 
 
 @pytest.fixture
-# async def page():
 def page():
-    #     async with async_playwright() awith async_playwright() as p:
     with sync_playwright() as p:
-        #         browser = await p.chromium.launch(headless=True)
         browser = p.chromium.launch(headless=HEADLESS, slow_mo=SLOW_MO)
-        #         context = await browser.new_context()
         context = browser.new_context(storage_state=STORAGE_PATH)
-        #         page = await context.new_page()
         page = context.new_page()
         yield page
-        #         await browser.close()
         browser.close()
 
 

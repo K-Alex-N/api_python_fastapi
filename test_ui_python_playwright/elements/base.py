@@ -1,6 +1,7 @@
 ﻿import allure
 from playwright.sync_api import expect, Page, Locator
 
+
 class BaseElement:
     def __init__(self, page: Page, selector: str, description: str = None):
         self.page = page
@@ -18,14 +19,8 @@ class BaseElement:
     def should_be_enabled(self):
         expect(self.locator).to_be_enabled()
 
-    # def get_text(self) -> str:
-    #     self.wait_for_visible() # Убедимся, что элемент виден, прежде чем получить текст
-    #     return self.locator.text_content()
-
-    #
     # methods for work with many element (found with one locator)
     #
-
     # def count(self) -> int:
     #     """the number of elements found"""
     #     return self.locator.count()
@@ -69,7 +64,7 @@ class BaseElement:
 class ClickableMixin:
 
     def click(self):
-        """Click on element. If more than 1 element then error will be raised"""
+        """Click on element. If more than 1 element an error raises"""
         with allure.step(f"Click {self.description}"):
             self.should_be_visible()
             self.should_be_enabled()
@@ -77,7 +72,7 @@ class ClickableMixin:
 
     def click_first(self):
         """Clicks on the first element found."""
-        with allure.step(f"Click element {self.selector}"):
+        with allure.step(f"Click {self.description}"):
             self.should_be_visible()
             self.should_be_enabled()
             self.locator.first.click()
