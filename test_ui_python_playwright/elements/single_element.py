@@ -49,6 +49,12 @@ class Dropdown(BaseElement):
         self.should_be_visible()
         self.locator.select_option(label=label)
 
+    # def get_selected_option_label(self) -> str:
+    #     """Возвращает видимый текст (лейбл) выбранной в данный момент опции."""
+    #     selected_label = self.locator.evaluate("el => el.options[el.selectedIndex].text")
+    #     print(f"Текущий выбранный текст в {self.description}: '{selected_label}'")
+    #     return selected_label
+
 class Checkbox(BaseElement):
 
     def check(self):

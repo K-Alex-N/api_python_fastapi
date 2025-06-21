@@ -1,4 +1,4 @@
-﻿import time
+﻿from typing import List
 
 import allure
 
@@ -26,32 +26,33 @@ class InventoryPage(BasePage):
     def set_sort_order(self, label):
         self.sort_dropdown.select_by_label(label)
 
-    def get_item_name_list(self):
+    def get_product_titles_list(self) -> List[str]:
         return [x.text() for x in self.product_titles.all()]
 
-    @allure.step("Check order")
-    def is_items_sorted_from_a_to_z(self):
-        item_name_list = self.get_item_name_list()
+    def get_product_prices_list(self) -> List[float]:
+        price_list = []
+        for x in self.product_prices.all():
+            price = float(x.text()[1::])
+            price_list.append(price)
+
+        return price_list
+
+    @allure.step("check if products are sorted in correct order")
+    def is_products_sorted_by_name_from_a_to_z(self):
+        item_name_list = self.get_product_titles_list()
         assert item_name_list == sorted(item_name_list)
 
-    @allure.step("Check order")
-    def is_items_sorted_from_z_to_a(self):
-        item_name_list = self.get_item_name_list()
+    @allure.step("check if products are sorted in correct order")
+    def is_products_sorted_by_name_from_z_to_a(self):
+        item_name_list = self.get_product_titles_list()
         assert item_name_list == sorted(item_name_list, reverse=True)
 
-    def is_products_sorted_by_price_low_to_high(self):
-        pass
+    @allure.step("check if products are sorted in correct order")
+    def is_products_sorted_by_price_from_low_to_high(self):
+        product_prices_list = self.get_product_prices_list()
+        assert product_prices_list == sorted(product_prices_list)
 
-        # item_names = self.item_name.all()
-        # item_names_text = []
-        # for item in item_names:
-        #     item = TextElement(it)
-        #     item_names_text.append(item)
-        pass
-
-        # items = self.page.locator(".inventory_item_name").all()
-        # for item in items:
-        #     print(item.all_inner_texts())
-
-        # items_2 = self.item_name.inner_text()
-        # print(items_2)
+    @allure.step("check if products are sorted in correct order")
+    def is_products_sorted_by_price_from_high_to_low(self):
+        product_prices_list = self.get_product_prices_list()
+        assert product_prices_list == sorted(product_prices_list, reverse=True)
