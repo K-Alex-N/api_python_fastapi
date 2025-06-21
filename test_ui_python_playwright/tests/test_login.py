@@ -11,17 +11,17 @@ INVALID_PASSWORD = "blablabla"
 @allure.epic("UI")
 @allure.feature("Login")
 class TestLogin:
-    # def test_user_successfully_login_with_valid_credentials(self, login_page: LoginPage):
     def test_successful_login(self, login_page: LoginPage):
-        """Test that user can successfully login with valid credentials"""
+        """Test that user can successfully log in with valid credentials"""
         login_page.login(VALID_USERNAME, VALID_PASSWORD)
         login_page.expect_login_is_successful()
 
-    # def test_failed_login(self, login_page: LoginPage):
-    def test_user_can_not_login_with_invalid_username(self, login_page: LoginPage):
+    def test_failed_login_with_invalid_username(self, login_page: LoginPage):
+        """Test that user can not log in with invalid username"""
         login_page.login(INVALID_USERNAME, VALID_PASSWORD)
-        login_page.expect_error_message()
+        login_page.expect_login_failed()
 
-    def test_user_can_not_login_with_invalid_password(self, login_page: LoginPage):
+    def test_failed_login_with_invalid_password(self, login_page: LoginPage):
+        """Test that user can not log in with invalid password"""
         login_page.login(VALID_USERNAME, INVALID_PASSWORD)
-        login_page.expect_error_message()
+        login_page.expect_login_failed()

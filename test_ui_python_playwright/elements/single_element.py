@@ -39,11 +39,15 @@ class TextElement(BaseElement):
 
 
 class Dropdown(BaseElement):
+# мб его переназвать в SelectElement ??? и select_option() соответственнно
 
-    def select(self, value):
+    def select_by_value(self, value):
         self.should_be_visible()
-        self.locator.select_option(value)
+        self.locator.select_option(value=value)
 
+    def select_by_label(self, label):
+        self.should_be_visible()
+        self.locator.select_option(label=label)
 
 class Checkbox(BaseElement):
 

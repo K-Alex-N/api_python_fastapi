@@ -1,5 +1,6 @@
+import allure
+
 from ..elements.element_factory import ElementFactory
-from ..elements.single_element import *
 from .base_page import BasePage
 
 
@@ -10,8 +11,6 @@ class LoginPage(BasePage):
         self.url = "https://www.saucedemo.com/"
         el = ElementFactory(page)
         self.username_input = el.text_input("#user-name")
-        # self.username_input = TextInput(page, "#user-name", "поле ввода имени пользователя")
-
         self.password_input = el.text_input("#password")
         self.login_button = el.button("#login-button")
         self.error_message = el.text_element("[data-test='error']")
@@ -28,8 +27,10 @@ class LoginPage(BasePage):
 
     @allure.step("check if login was successful")
     def expect_login_is_successful(self):
-        self.expect_current_page_url_have("https://www.saucedemo.com/inventory.html")
+        with allure.step(f"expect current page is inventory"):
+            self.expect_current_page_url_have("https://www.saucedemo.com/inventory.html")
 
-    @allure.step("check error message")
-    def expect_error_message(self):
-        self.error_message.should_be_visible()
+    @allure.step("check if login failed")
+    def expect_login_failed(self):
+        with allure.step("expect there is an error message"):
+            self.error_message.should_be_visible()

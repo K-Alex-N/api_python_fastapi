@@ -12,11 +12,12 @@ class BaseElement:
 
     @allure.step("expect to be visible")
     def should_be_visible(self):
-        expect(self.locator).to_be_visible()
+        with allure.step(f"expect {self.selector} is visible"):
+            expect(self.locator).to_be_visible()
 
-    @allure.step("expect to be enabled")
     def should_be_enabled(self):
-        expect(self.locator).to_be_enabled()
+        with allure.step(f"expect {self.selector} is enabled"):
+            expect(self.locator).to_be_enabled()
 
     # methods for work with many element (found with one locator)
     #
