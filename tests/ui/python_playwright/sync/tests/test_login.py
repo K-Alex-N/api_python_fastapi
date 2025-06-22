@@ -1,4 +1,6 @@
-﻿import allure
+﻿import time
+
+import allure
 
 from ..pages.login_page import LoginPage
 
@@ -25,3 +27,6 @@ class TestLogin:
         """Test that user can not log in with invalid password"""
         login_page.login(VALID_USERNAME, INVALID_PASSWORD)
         login_page.expect_login_failed()
+
+    # def test_time_sleep(self):
+    #     time.sleep(9999)

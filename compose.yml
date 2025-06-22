@@ -16,7 +16,7 @@
 
   tests_api:
     build:
-      context: test_api
+      context: tests/api/test_api
       dockerfile: Dockerfile_test_api
 #    command: tail -f /dev/null
     environment:

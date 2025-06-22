@@ -1,4 +1,4 @@
-﻿.*
+﻿.dockerignore
 
 # Питон
 **/__pycache__/

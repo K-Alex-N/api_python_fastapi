@@ -6,7 +6,7 @@ from playwright.sync_api import sync_playwright
 from .pages.login_page import LoginPage
 from .pages.inventory_page import InventoryPage
 
-HEADLESS = bool(os.getenv("HEADLESS", False))
+HEADLESS = bool(os.getenv("HEADLESS", True))
 SLOW_MO = int(os.getenv("SLOW_MO", 0))
 
 STORAGE_PATH = "state.json"
@@ -16,8 +16,14 @@ STORAGE_PATH = "state.json"
 @pytest.fixture(scope="session", autouse=True)
 def ensure_login_state():
     if os.path.exists(STORAGE_PATH):
-        return
-        # проверить дату протухания!!!!!
+        # check expires time in cookies
+        with open(STORAGE_PATH) as f:
+            data = json.load(f)
+
+        expires_time = data["cookies"][0]["expires"]
+        now = datetime.now().timestamp()
+        if expires_time - now > 20: # 20 секунд должно хватить на тесты
+            return
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=HEADLESS, slow_mo=SLOW_MO)

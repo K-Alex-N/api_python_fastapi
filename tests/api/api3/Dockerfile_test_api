@@ -7,7 +7,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 #COPY tests/test_api/ .
-COPY tests/ .
+COPY tests .
 
 #ENV PYTHONPATH=/workdir
 
