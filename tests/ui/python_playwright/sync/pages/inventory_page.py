@@ -26,33 +26,34 @@ class InventoryPage(BasePage):
     def set_sort_order(self, label):
         self.sort_dropdown.select_by_label(label)
 
-    def get_product_titles_list(self) -> List[str]:
+    @allure.step("getting product titles")
+    def _get_product_titles_list(self) -> List[str]:
         return [x.text() for x in self.product_titles.all()]
 
-    def get_product_prices_list(self) -> List[float]:
+    @allure.step("getting product prices")
+    def _get_product_prices_list(self) -> List[float]:
         price_list = []
         for x in self.product_prices.all():
             price = float(x.text()[1::])
             price_list.append(price)
-
         return price_list
 
     @allure.step("check if products are sorted in correct order")
     def is_products_sorted_by_name_from_a_to_z(self):
-        item_name_list = self.get_product_titles_list()
+        item_name_list = self._get_product_titles_list()
         assert item_name_list == sorted(item_name_list)
 
     @allure.step("check if products are sorted in correct order")
     def is_products_sorted_by_name_from_z_to_a(self):
-        item_name_list = self.get_product_titles_list()
+        item_name_list = self._get_product_titles_list()
         assert item_name_list == sorted(item_name_list, reverse=True)
 
     @allure.step("check if products are sorted in correct order")
     def is_products_sorted_by_price_from_low_to_high(self):
-        product_prices_list = self.get_product_prices_list()
+        product_prices_list = self._get_product_prices_list()
         assert product_prices_list == sorted(product_prices_list)
 
     @allure.step("check if products are sorted in correct order")
     def is_products_sorted_by_price_from_high_to_low(self):
-        product_prices_list = self.get_product_prices_list()
+        product_prices_list = self._get_product_prices_list()
         assert product_prices_list == sorted(product_prices_list, reverse=True)

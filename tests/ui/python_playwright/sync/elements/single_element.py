@@ -29,8 +29,7 @@ class TextElement(BaseElement):
     def text(self) -> str:
         with allure.step("Getting inner text"):
             self.should_be_visible()
-            return self.locator.inner_text()
-            # return self.locator.text_content()
+            return self.locator.inner_text()  # .text_content()
 
     def should_have_text(self, expected: str):
         with allure.step(f"Text should have {expected}"):
@@ -39,7 +38,7 @@ class TextElement(BaseElement):
 
 
 class Dropdown(BaseElement):
-# мб его переназвать в SelectElement ??? и select_option() соответственнно
+    # мб его переназвать в SelectElement ??? и select_option() соответственнно
 
     def select_by_value(self, value):
         self.should_be_visible()
@@ -49,11 +48,9 @@ class Dropdown(BaseElement):
         self.should_be_visible()
         self.locator.select_option(label=label)
 
-    # def get_selected_option_label(self) -> str:
-    #     """Возвращает видимый текст (лейбл) выбранной в данный момент опции."""
-    #     selected_label = self.locator.evaluate("el => el.options[el.selectedIndex].text")
-    #     print(f"Текущий выбранный текст в {self.description}: '{selected_label}'")
-    #     return selected_label
+    def get_selected_option_label(self) -> str:
+        return self.locator.evaluate("el => el.options[el.selectedIndex].text")
+
 
 class Checkbox(BaseElement):
 
@@ -75,31 +72,3 @@ class Link(ClickableMixin, BaseElement):
 
     def href(self):
         return self.locator.get_attribute("href")
-
-# def select_option(self, selector: str, value: str):
-#     self.page.locator(selector).select_option(value)
-#
-# def get_attribute(self, selector: str, attribute: str) -> str:
-#     return self.page.locator(selector).get_attribute(attribute)
-#
-
-# Ожидания
-# def wait_for_element(self, selector: str, timeout: int = 5000):
-#     self.page.wait_for_selector(selector, timeout=timeout)
-
-# def wait_until_hidden(self, selector: str):
-#     self.page.locator(selector).wait_for(state="hidden")
-
-# Утилиты
-# def scroll_into_view(self, selector: str):
-#     self.page.locator(selector).scroll_into_view_if_needed()
-#
-# def take_screenshot(self, path: str):
-#     self.page.screenshot(path=path)
-#
-# def press_key(self, selector: str, key: str):
-#     self.page.locator(selector).press(key)
-
-# def hover(self, selector: str):
-#     with allure.step(f"Hover over element -> {selector}"):
-#         self.page.locator(selector).hover()

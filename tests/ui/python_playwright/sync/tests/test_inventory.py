@@ -20,7 +20,5 @@ class TestInventory:
         inventory_page.set_sort_order("Price (high to low)")
         inventory_page.is_products_sorted_by_price_from_high_to_low()
 
-
-# def test_cart_bage_work
-# спросить у Джипити как назвать функицю
-# как назвать функцию которая проверяет работу бэйджа у корзины. В тесте будет проверяться что бэйдж увеличивается или уменьшается если добавлять больше товаров в корзину
+    def test_example_of_failed_test(self, inventory_page):
+        assert "a" == "b"

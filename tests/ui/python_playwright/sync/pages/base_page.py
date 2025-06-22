@@ -23,7 +23,7 @@ class BasePage:
         return self.page.url
 
     @allure.step("expect page have title: {title}")
-    def wait_for_title(self, title: str):
+    def expect_page_have_title(self, title: str):
         expect(self.page).to_have_title(title)
 
     @allure.step("expect page have url: {url_part}")

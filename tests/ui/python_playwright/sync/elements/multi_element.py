@@ -19,5 +19,4 @@ class MultiElement(Generic[T]):
         return self.element_class(self.page, f"{self.selector} >> nth=0")
 
     def last(self) -> T:
-        # count = self.locator.count()
         return self.element_class(self.page, f"{self.selector} >> nth=last")
