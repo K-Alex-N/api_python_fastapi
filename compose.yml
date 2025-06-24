@@ -40,7 +40,7 @@
       - docker_net
 
   allure:
-    #   GUI report will be here >>> http://localhost:5050/allure-docker-service/latest-report
+    #   web-report will be here >>> http://localhost:5050/allure-docker-service/latest-report
 
     image: frankescobar/allure-docker-service:2.27.0
     container_name: allure-server
