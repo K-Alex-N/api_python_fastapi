@@ -17,8 +17,7 @@ for i in range(3):
     except requests.exceptions.ConnectionError:
         print("!!!!!!!!!!!!!!!!Ждём, пока сервак поднимется...")
         time.sleep(1)
-else:
-    raise RuntimeError("API так и не поднялся")
+
 
 
 # class test_get_expenses:

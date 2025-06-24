@@ -15,7 +15,6 @@ SLOW_MO = int(os.getenv("SLOW_MO", 0))
 STORAGE_PATH = "state.json"
 
 
-# @pytest.fixture(scope="package", autouse=True) # что будет если scope="session" поставить - интересно как файлы Конфтест разные взаимодействуют
 @pytest.fixture(scope="session", autouse=True)
 def ensure_login_state():
     if os.path.exists(STORAGE_PATH):
@@ -74,7 +73,6 @@ def pytest_runtest_makereport(item, call):
     if rep.when == "call" and rep.failed:
         page = item.funcargs.get("page", None)
         if page:
-            screenshot = f"screenshot-{item.name}.png"
             screenshot = f"allure-results/screenshot-{item.name}.png"
             page.screenshot(path=screenshot)
             allure.attach.file(screenshot, name="screenshot", attachment_type=allure.attachment_type.PNG)

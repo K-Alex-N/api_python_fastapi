@@ -21,3 +21,4 @@ COPY . .
 
 RUN chmod +x /${BUILD_WORKDIR}/entrypoint.sh
 CMD ["bash", "entrypoint.sh"]
+CMD ["pytest"]

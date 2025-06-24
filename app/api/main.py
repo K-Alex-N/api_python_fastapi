@@ -7,7 +7,6 @@ app = FastAPI()
 
 expenses = []
 
-
 @app.get("/")
 def get_expenses():
     return expenses
