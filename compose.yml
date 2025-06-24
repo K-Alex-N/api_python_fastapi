@@ -31,7 +31,7 @@
 
   tests_ui:
     build:
-      context: test_ui
+      context: .not_for_git/test_ui
       dockerfile: Dockerfile_test_ui
 #    command: tail -f /dev/null
     environment:

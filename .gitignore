@@ -5,4 +5,4 @@ allure-results
 allure-report
 
 state.json
-not_for_git
+compose_*
