@@ -8,8 +8,6 @@
       - "8000:8000"
     volumes:
       - app_data:/app
-    networks:
-      - docker_net
 
   tests_api:
     build:
@@ -22,8 +20,6 @@
       - app_data:/app
     depends_on:
       - api
-    networks:
-      - docker_net
 
   tests_ui:
     build:
@@ -36,8 +32,6 @@
       - allure-results:/test_ui/allure-results
     depends_on:
       - tests_api
-    networks:
-      - docker_net
 
   allure:
     #   web-report will be here >>> http://localhost:5050/allure-docker-service/latest-report
@@ -50,12 +44,6 @@
       - allure-results:/app/allure-results
     depends_on:
       - tests_ui
-    networks:
-      - docker_net
-
-networks:
-  docker_net:
-    driver: bridge
 
 volumes:
   app_data:
