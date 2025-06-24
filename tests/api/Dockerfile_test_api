@@ -1,14 +1,16 @@
 FROM python:3.13-alpine
-ENV PYTHONUNBUFFERED=1
+# ENV PYTHONUNBUFFERED=1
 
-WORKDIR /test_api
-ENV PYTHONPATH=/test_api
+ARG BUILD_WORKDIR=test_api
+WORKDIR /${BUILD_WORKDIR}
+ENV PYTHONPATH=/${BUILD_WORKDIR}
 
 COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY test_api .
+COPY . .
 
-CMD ["pytest"]
-#CMD ["sleep", "infinity"]
+RUN chmod +x entrypoint.sh
+CMD ["bash", "entrypoint.sh"]
+
