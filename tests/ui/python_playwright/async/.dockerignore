@@ -1,0 +1,21 @@
+﻿.dockerignore
+
+# Питон
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# пайтест
+**/.pytest_cache/
+
+# Playwright
+.playwright/
+playwright-report/
+test-results/
+*.log
+
+# Докер
+*Dockerfile*
+*compose*.yml

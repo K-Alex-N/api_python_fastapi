@@ -1,5 +1,4 @@
 ﻿services:
-  #  db:
 
   api:
     build:
@@ -8,17 +7,14 @@
     ports:
       - "8000:8000"
     volumes:
-        - app_data:/app
+      - app_data:/app
     networks:
       - docker_net
-  #    depends_on:
-  #      - db
 
   tests_api:
     build:
-      context: tests/api/test_api
+      context: tests/api
       dockerfile: Dockerfile_test_api
-#    command: tail -f /dev/null
     environment:
       - BASE_URL=http://api:8000
     volumes:
@@ -31,9 +27,8 @@
 
   tests_ui:
     build:
-      context: .not_for_git/test_ui
+      context: tests/ui/python_playwright/sync
       dockerfile: Dockerfile_test_ui
-#    command: tail -f /dev/null
     environment:
       - HEADLESS=True
       - SLOW_MO=0
