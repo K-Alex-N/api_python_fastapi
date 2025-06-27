@@ -1,5 +1,4 @@
-import asyncio
-import json
+﻿import json
 import os
 from datetime import datetime
 
@@ -75,6 +74,13 @@ def pytest_runtest_makereport(item, call):
     if rep.when == "call" and rep.failed:
         page = item.funcargs.get("page", None)
         if page:
+            # Скриншот может требовать await — но хуки pytest не async,
+            # поэтому используем sync-обертку или записываем sync-метод
+            # Playwright async API не имеет sync методов, так что нужно обойтись так:
+            # для простоты здесь делаем sync-версию (опасно, но часто срабатывает)
             screenshot = f"allure-results/screenshot-{item.name}.png"
+            # Лучше - сохранить скриншот в отдельном async hook или внутри теста при ошибке
+            # Но для минимальных изменений можно вызвать sync блокирующий asyncio.run():
+            import asyncio
             asyncio.run(page.screenshot(path=screenshot))
             allure.attach.file(screenshot, name="screenshot", attachment_type=allure.attachment_type.PNG)
