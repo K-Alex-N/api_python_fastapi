@@ -1,6 +1,5 @@
-﻿import allure
-
-from ..pages.login_page import LoginPage
+﻿from ..pages.login_page import LoginPage
+from ..utils.allure_decorators import epic, feature
 
 VALID_USERNAME = "standard_user"
 VALID_PASSWORD = "secret_sauce"
@@ -8,8 +7,8 @@ INVALID_USERNAME = "blablabla"
 INVALID_PASSWORD = "blablabla"
 
 
-@allure.epic("UI")
-@allure.feature("Login")
+@epic("UI")
+@feature("Login")
 class TestLogin:
     def test_successful_login(self, login_page: LoginPage):
         """Test that user can successfully log in with valid credentials"""
