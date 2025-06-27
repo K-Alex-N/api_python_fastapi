@@ -8,5 +8,7 @@ pytest
 #pytest -n 6
 #pytest -n 8
 
+sleep infinity
+
 #"$@"
 

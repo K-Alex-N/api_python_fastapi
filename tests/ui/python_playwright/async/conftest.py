@@ -4,7 +4,7 @@ from datetime import datetime
 
 import allure
 import pytest
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, Page
 
 from .pages.login_page import LoginPage
 from .pages.inventory_page import InventoryPage
@@ -25,7 +25,7 @@ def ensure_login_state():
         expires_time = data["cookies"][0]["expires"]
         now = datetime.now().timestamp()
         # if expires_time - now > 20: # 20 секунд должно хватить на тесты
-        if expires_time - now > 9999:  # для чистоты эксперимента
+        if expires_time - now > 9999:  # чтобы всегда новый фалл получать, для чистоты эксперимента
             return
 
     with sync_playwright() as p:
@@ -54,14 +54,14 @@ def page():
 
 
 @pytest.fixture
-def login_page(page):
+def login_page(page: Page):
     login_page = LoginPage(page)
     login_page.open()
     yield login_page
 
 
 @pytest.fixture
-def inventory_page(page):
+def inventory_page(page: Page):
     inventory_page = InventoryPage(page)
     inventory_page.open()
     yield inventory_page
