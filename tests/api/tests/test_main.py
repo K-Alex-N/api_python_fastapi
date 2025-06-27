@@ -64,7 +64,8 @@ class TestAPI:
 expense1 = Expense(
     id=1,
     description="Мороженка",
-    amount=100
+    amount=100,
+    currency="RSD",
 )
 
 expense2 = {

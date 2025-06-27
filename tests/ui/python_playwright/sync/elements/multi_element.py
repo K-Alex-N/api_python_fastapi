@@ -1,15 +1,15 @@
-﻿from typing import Type, List, TypeVar, Generic
-from playwright.sync_api import Page, Locator
+﻿from typing import Type, List
+from playwright.sync_api import Page
 
-T = TypeVar("T")
+from .base import BaseElement
 
 
-class MultiElement(Generic[T]):
+class MultiElement[T: BaseElement]:
     def __init__(self, page: Page, selector: str, element_class: Type[T]):
         self.page = page
         self.selector = selector
-        self.locator: Locator = page.locator(selector)
-        self.element_class = element_class
+        self.locator = page.locator(selector)
+        self.element_class: Type[T] = element_class
 
     def all(self) -> List[T]:
         count = self.locator.count()

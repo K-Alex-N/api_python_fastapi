@@ -6,3 +6,5 @@ allure-report
 
 state.json
 compose_*
+
+pyrightconfig.json

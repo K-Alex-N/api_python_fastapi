@@ -1,7 +1,7 @@
 ﻿import allure
 from playwright.sync_api import expect
 
-from .base import BaseElement, ClickableMixin
+from .base import BaseElement, ClickableElement
 
 
 class TextInput(BaseElement):
@@ -19,7 +19,7 @@ class TextInput(BaseElement):
         self.page.locator(selector).type(value, delay=delay_ms)
 
 
-class Button(ClickableMixin, BaseElement):
+class Button(ClickableElement):
     pass
 
 
@@ -40,11 +40,11 @@ class TextElement(BaseElement):
 class Dropdown(BaseElement):
     # мб его переназвать в SelectElement ??? и select_option() соответственнно
 
-    def select_by_value(self, value):
+    def select_by_value(self, value: str):
         self.should_be_visible()
         self.locator.select_option(value=value)
 
-    def select_by_label(self, label):
+    def select_by_label(self, label: str):
         self.should_be_visible()
         self.locator.select_option(label=label)
 
@@ -68,7 +68,7 @@ class Checkbox(BaseElement):
         return self.locator.is_checked()
 
 
-class Link(ClickableMixin, BaseElement):
+class Link(ClickableElement):
 
     def href(self):
         return self.locator.get_attribute("href")

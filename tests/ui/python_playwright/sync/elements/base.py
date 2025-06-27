@@ -20,7 +20,7 @@ class BaseElement:
 
 # Mixins
 
-class ClickableMixin:
+class ClickableElement(BaseElement):
 
     def click(self):
         """Click on element. If more than 1 element an error raises"""

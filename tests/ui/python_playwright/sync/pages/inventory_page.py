@@ -1,6 +1,7 @@
 ﻿from typing import List
 
 import allure
+from playwright.sync_api import Page
 
 from ..elements.element_factory import ElementFactory
 from .base_page import BasePage
@@ -8,7 +9,7 @@ from .base_page import BasePage
 
 class InventoryPage(BasePage):
 
-    def __init__(self, page):
+    def __init__(self, page: Page):
         super().__init__(page)
         self.url = "https://www.saucedemo.com/inventory.html"
         el = ElementFactory(page)
@@ -23,7 +24,7 @@ class InventoryPage(BasePage):
         self.goto(self.url)
 
     @allure.step("Set sort order to '{label}'")
-    def set_sort_order(self, label):
+    def set_sort_order(self, label: str) -> None:
         self.sort_dropdown.select_by_label(label)
 
     @allure.step("getting product titles")
