@@ -30,8 +30,18 @@
       - SLOW_MO=0
     volumes:
       - allure-results:/test_ui/allure-results
-    depends_on:
-      - tests_api
+
+  tests_ui_async:
+    build:
+      context: tests/ui/python_playwright/async
+      dockerfile: Dockerfile_test_ui_async
+    environment:
+      - HEADLESS=True
+      - SLOW_MO=0
+    volumes:
+      - allure-results:/test_ui/allure-results
+
+
 
   allure:
     #   web-report will be here >>> http://localhost:5050/allure-docker-service/latest-report
@@ -43,7 +53,7 @@
     volumes:
       - allure-results:/app/allure-results
     depends_on:
-      - tests_ui
+      - tests_ui_async
 
 volumes:
   app_data:

@@ -24,8 +24,8 @@ def ensure_login_state():
 
         expires_time = data["cookies"][0]["expires"]
         now = datetime.now().timestamp()
-        # if expires_time - now > 20: # 20 секунд должно хватить на тесты
-        if expires_time - now > 9999:  # чтобы всегда новый фалл получать, для чистоты эксперимента
+        if expires_time - now > 20: # 20 секунд должно хватить на тесты
+        # if expires_time - now > 9999:  # чтобы всегда новый фалл получать, для чистоты эксперимента
             return
 
     with sync_playwright() as p:

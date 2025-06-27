@@ -16,7 +16,7 @@ SLOW_MO = int(os.getenv("SLOW_MO", 0))
 STORAGE_PATH = "state.json"
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="function", autouse=True)
 async def ensure_login_state():
     if os.path.exists(STORAGE_PATH):
         # check expires time in cookies
@@ -25,8 +25,8 @@ async def ensure_login_state():
 
         expires_time = data["cookies"][0]["expires"]
         now = datetime.now().timestamp()
-        # if expires_time - now > 20: # 20 секунд должно хватить на тесты
-        if expires_time - now > 9999:  # чтобы всегда новый фалл получать, для чистоты эксперимента
+        if expires_time - now > 20: # 20 секунд должно хватить на тесты
+        # if expires_time - now > 9999:  # чтобы всегда новый фалл получать, для чистоты эксперимента
             return
 
     async with async_playwright() as p:
@@ -45,12 +45,19 @@ async def ensure_login_state():
 
 
 @pytest.fixture
-async def page():
+async def page(request):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=HEADLESS, slow_mo=SLOW_MO)
         context = await browser.new_context(storage_state=STORAGE_PATH)
         page = await context.new_page()
+
         yield page
+
+        if request.node.rep_call.failed:
+            screenshot = f"allure-results/screenshot-{request.node.name}.png"
+            await page.screenshot(path=screenshot)
+            allure.attach.file(screenshot, name="screenshot", attachment_type=allure.attachment_type.PNG)
+
         await browser.close()
 
 
@@ -68,13 +75,9 @@ async def inventory_page(page: Page):
     yield inventory_page
 
 
-@pytest.hookimpl(hookwrapper=True)
-def pytest_runtest_makereport(item, call):
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item):
     outcome = yield
     rep = outcome.get_result()
-    if rep.when == "call" and rep.failed:
-        page = item.funcargs.get("page", None)
-        if page:
-            screenshot = f"allure-results/screenshot-{item.name}.png"
-            asyncio.run(page.screenshot(path=screenshot))
-            allure.attach.file(screenshot, name="screenshot", attachment_type=allure.attachment_type.PNG)
+
+    setattr(item, f"rep_{rep.when}", rep)
