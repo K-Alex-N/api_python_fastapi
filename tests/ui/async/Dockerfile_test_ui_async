@@ -5,12 +5,12 @@ ARG BUILD_WORKDIR=test_ui
 WORKDIR /${BUILD_WORKDIR}
 ENV PYTHONPATH=/${BUILD_WORKDIR}
 
-RUN apt-get update && apt-get install -y \
-    curl \
-    git \
-    unzip \
-    wget \
-    && apt-get clean
+#RUN apt-get update && apt-get install -y \
+##    curl \
+#    git \
+#    unzip \
+#    wget \
+#    && apt-get clean
 
 COPY requirements.txt .
 RUN pip install --upgrade pip
