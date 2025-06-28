@@ -3,7 +3,7 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 #ENV PYTHONPATH=/app
-
+RUN apk add --no-cache curl
 COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt

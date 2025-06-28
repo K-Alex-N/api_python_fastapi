@@ -1,5 +1,4 @@
-FROM python:3.13-alpine
-# ENV PYTHONUNBUFFERED=1
+FROM python:3.13-slim
 
 ARG BUILD_WORKDIR=test_api
 WORKDIR /${BUILD_WORKDIR}
@@ -10,8 +9,8 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-#
-RUN chmod +x entrypoint.sh
-CMD ["bash", "entrypoint.sh"]
 
-#CMD ["pytest"]
+#RUN chmod +x entrypoint.sh
+#CMD ["bash", "entrypoint.sh"]
+
+CMD ["pytest"]

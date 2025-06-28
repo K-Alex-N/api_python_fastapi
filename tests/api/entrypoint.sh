@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+dockerize -wait tcp://my-api-server:8000 -timeout 60s \
+
 pytest
 #pytest -n 2
 #pytest -n 3

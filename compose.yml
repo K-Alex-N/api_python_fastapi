@@ -8,6 +8,11 @@
       - "8000:8000"
     volumes:
       - app_data:/app
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://api:8000/" ]
+      interval: 2s
+      timeout: 1s
+      start_period: 1s
 
   tests_api:
     build:
@@ -19,7 +24,8 @@
       - allure-results:/test_api/allure-results
       - app_data:/app
     depends_on:
-      - api
+      api:
+        condition: service_healthy
 
   tests_ui:
     build:
@@ -41,8 +47,6 @@
     volumes:
       - allure-results:/test_ui/allure-results
 
-
-
   allure:
     #   web-report will be here >>> http://localhost:5050/allure-docker-service/latest-report
 
@@ -52,9 +56,10 @@
       - "5050:5050"
     volumes:
       - allure-results:/app/allure-results
-    depends_on:
-      - tests_ui_async
+#    depends_on:
+#      - tests_ui_async
 
 volumes:
   app_data:
   allure-results:
+
