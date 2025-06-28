@@ -29,7 +29,7 @@
 
   tests_ui:
     build:
-      context: tests/ui/python_playwright/sync
+      context: tests/ui/sync
       dockerfile: Dockerfile_test_ui
     environment:
       - HEADLESS=True
@@ -39,7 +39,7 @@
 
   tests_ui_async:
     build:
-      context: tests/ui/python_playwright/async
+      context: tests/ui/async
       dockerfile: Dockerfile_test_ui_async
     environment:
       - HEADLESS=True
