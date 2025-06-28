@@ -10,7 +10,7 @@
       - app_data:/app
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://api:8000/" ]
-      interval: 2s
+      interval: 1s
       timeout: 1s
       start_period: 1s
 
@@ -48,16 +48,13 @@
       - allure-results:/test_ui/allure-results
 
   allure:
-    #   web-report will be here >>> http://localhost:5050/allure-docker-service/latest-report
-
+    # web-report will be here >>> http://localhost:5050/allure-docker-service/latest-report
     image: frankescobar/allure-docker-service:2.27.0
     container_name: allure-server
     ports:
       - "5050:5050"
     volumes:
       - allure-results:/app/allure-results
-#    depends_on:
-#      - tests_ui_async
 
 volumes:
   app_data:

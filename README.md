@@ -1,6 +1,9 @@
 # api_python_fastapi
 for docker
 
+Комментарий для докер-копоз файла
+https://1drv.ms/x/c/6399a0f415bd70c8/EbY4_7V1KEBIkaZc1B0_IKQB8T2xSWTXzQel6y8OXf-dwQ?e=PJ6eEC
+
 Start up 
 
     prerequizites 
