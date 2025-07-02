@@ -7,10 +7,10 @@ class TransactionBase(BaseModel):
     category: str
     type: str  # "income" or "expense"
     description: Optional[str] = None
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=datetime.now)
 
-class TransactionCreate(TransactionBase):
-    pass
+# class TransactionCreate(TransactionBase):
+#     pass
 
 class Transaction(TransactionBase):
     id: str

@@ -47,32 +47,90 @@
 
 # ---------------------------------------------------------
 
-from fastapi import FastAPI, HTTPException
-
-from .schemas import TransactionCreate, Transaction
-from .crud import add_transaction, get_all_transactions, delete_transaction
-
-app = FastAPI(title="Personal Finance Tracker")
-
-@app.post("/transactions", response_model=Transaction)
-async def create_transaction(transaction: TransactionCreate):
-    return await add_transaction(transaction)
-
-@app.get("/transactions", response_model=list[Transaction])
-async def read_transactions():
-    return await get_all_transactions()
-
-@app.delete("/transactions/{transaction_id}")
-async def remove_transaction(transaction_id: str):
-    deleted = await delete_transaction(transaction_id)
-    if not deleted:
-        raise HTTPException(status_code=404, detail="Transaction not found")
-    return {"message": "Deleted successfully"}
+# from fastapi import FastAPI, HTTPException
+#
+# from .schemas import TransactionCreate, Transaction
+# from .crud import add_transaction, get_all_transactions, delete_transaction
+#
+# app = FastAPI()
+#
+# @app.post("/transactions", response_model=Transaction)
+# async def create_transaction(transaction: TransactionCreate):
+#     return await add_transaction(transaction)
+#
+# @app.get("/transactions", response_model=list[Transaction])
+# async def read_transactions():
+#     return await get_all_transactions()
+#
+# @app.delete("/transactions/{transaction_id}")
+# async def remove_transaction(transaction_id: str):
+#     deleted = await delete_transaction(transaction_id)
+#     if not deleted:
+#         raise HTTPException(status_code=404, detail="Transaction not found")
+#     return {"message": "Deleted successfully"}
 
 
 # ---------------------------------------------------------
 
+# from fastapi import FastAPI, HTTPException
+# from schemas import Transaction, TransactionCreate
+# from crud_async import add_transaction_async, delete_transaction_async
+# from crud_sync import get_all_transactions_sync
+#
+# app = FastAPI(title="Finance Tracker with Sync + Async")
+#
+# @app.post("/transactions", response_model=Transaction)
+# async def create_transaction(transaction: TransactionCreate):
+#     return await add_transaction_async(transaction)
+#
+# @app.get("/transactions", response_model=list[Transaction])
+# def get_transactions():
+#     return get_all_transactions_sync()
+#
+# @app.delete("/transactions/{transaction_id}")
+# async def delete_transaction(transaction_id: str):
+#     deleted = await delete_transaction_async(transaction_id)
+#     if not deleted:
+#         raise HTTPException(status_code=404, detail="Transaction not found")
+#     return {"message": "Deleted successfully"}
 
+# ---------------------------------------------------------
+
+from fastapi import FastAPI, HTTPException
+from .schemas import Transaction
+from .crud_async import add_random_transaction_async, get_random_transaction_async
+from .crud_sync import add_random_transaction_sync, get_random_transaction_sync
+
+app = FastAPI(title="Finance Tracker (Sync + Async)")
+
+# --- ASYNC Routes ---
+
+@app.post("/async/transaction", response_model=Transaction)
+async def create_async_transaction():
+    return await add_random_transaction_async()
+
+@app.get("/async/transaction", response_model=Transaction)
+async def read_async_transaction():
+    transaction = await get_random_transaction_async()
+    if not transaction:
+        raise HTTPException(status_code=404, detail="No transactions found")
+    return transaction
+
+# --- SYNC Routes ---
+
+@app.post("/sync/transaction", response_model=Transaction)
+def create_sync_transaction():
+    return add_random_transaction_sync()
+
+@app.get("/sync/transaction", response_model=Transaction)
+def read_sync_transaction():
+    transaction = get_random_transaction_sync()
+    if not transaction:
+        raise HTTPException(status_code=404, detail="No transactions found")
+    return transaction
+
+
+# ---------------------------------------------------------
 
 if __name__ == "__main__":  # это не запускается если через Докер!!!
     uvicorn.run("main:app", reload=True)
