@@ -122,8 +122,8 @@ async def healthcheck():
 
 
 @app.post("/test_add")
-def test_post():
-    sync_db.transactions.insert_one({"amount": 14})
+async def test_post():
+    await async_db.transactions.insert_one({"amount": 14})
 
 
 # --- ASYNC Routes ---

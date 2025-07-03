@@ -1,6 +1,6 @@
 ﻿services:
 
-  mongodb:
+  mongo:
     image: mongo:6.0
     ports:
       - "27017:27017"
@@ -9,15 +9,14 @@
     restart: always
 
   mongo-express:
-    image: mongo-express
+    image: mongo-express:1.0.2-20-alpine3.19
     ports:
       - "8081:8081"
     environment:
-      ME_CONFIG_MONGODB_SERVER: mongodb
       ME_CONFIG_BASICAUTH_USERNAME: admin
       ME_CONFIG_BASICAUTH_PASSWORD: pass
     depends_on:
-      - mongodb
+      - mongo
     restart: always
 
   api:
@@ -34,37 +33,62 @@
       timeout: 2s
       start_period: 2s
     depends_on:
-      - mongodb
+      - mongo
     restart: always
     environment:
-      - MONGODB_HOST=mongodb
+      - MONGODB_HOST=mongo
+
+  # Prometheus Service
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus/:/etc/prometheus/ # Здесь будет наш prometheus.yml
+      - prometheus_data:/prometheus # Для хранения временных данных
+    command: --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver
+    ports:
+      - "9090:9090"
+    depends_on:
+      - api # мб даже хэлфчек поставить
+
+  # Grafana Service
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana # Для хранения дашбордов и настроек
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
 
 # тесты
 
-  locust_master:
-    build:
-      context: tests/performance
-      dockerfile: Dockerfile_perf
-    command: locust -f locustfile.py --master --host http://api:8000
-    ports:
-      - "8089:8089"
-#    networks:
-#      - my_network
-    depends_on:
-      api:
-        condition: service_healthy
-
-  locust_worker:
-    build:
-      context: tests/performance
-      dockerfile: Dockerfile_perf
-    command: locust -f locustfile.py --worker --master-host locust_master # название мастер-сервиса
-#    networks:
-#      - my_network
-    deploy:
-      replicas: 3
-    depends_on:
-      - locust_master
+#  locust_master:
+#    build:
+#      context: tests/performance
+#      dockerfile: Dockerfile_perf
+#    command: locust -f locustfile.py --master --host http://api:8000
+#    ports:
+#      - "8089:8089"
+##    networks:
+##      - my_network
+#    depends_on:
+#      api:
+#        condition: service_healthy
+#
+#  locust_worker:
+#    build:
+#      context: tests/performance
+#      dockerfile: Dockerfile_perf
+#    command: locust -f locustfile.py --worker --master-host locust_master # название мастер-сервиса
+##    networks:
+##      - my_network
+#    deploy:
+#      replicas: 3
+#    depends_on:
+#      - locust_master
 
 
 #  tests_api:
@@ -112,5 +136,9 @@
 volumes:
   mongo_data:
   app_data:
+  prometheus_data:
+  grafana_data:
   allure-results:
+
+
 

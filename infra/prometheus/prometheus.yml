@@ -1,0 +1,23 @@
+# prometheus/prometheus.yml
+global:
+  scrape_interval: 15s # Как часто Prometheus будет собирать метрики
+
+scrape_configs:
+  # Собираем метрики с самого Prometheus
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Собираем метрики с нашего Flask-приложения 'app'
+  - job_name: 'flask_app'
+    metrics_path: '/metrics' # Путь, по которому приложение выставляет метрики
+    static_configs:
+      - targets: ['app:5000'] # 'app' - это имя сервиса в docker-compose.yml
+                               # '5000' - это порт, который открыт внутри контейнера 'app'
+
+  # Опционально: Метрики Locust (если вы используете встроенный экспортер Locust или сторонний)
+  # Locust начиная с версии 2.0+ имеет встроенный Prometheus экспортер на порту 8089/metrics
+  - job_name: 'locust'
+    metrics_path: '/stats/requests' # Зависит от версии Locust и используемого экспортера
+    static_configs:
+      - targets: ['locust_master:8089'] # Locust Master Web UI по умолчанию экспортирует метрики
