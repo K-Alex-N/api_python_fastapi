@@ -3,7 +3,8 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 #ENV PYTHONPATH=/app
-RUN apk add --no-cache curl
+
+RUN apk add --no-cache curl # для хэлфсчека нужно
 COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt

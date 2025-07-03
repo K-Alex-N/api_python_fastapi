@@ -14,3 +14,7 @@ class TransactionBase(BaseModel):
 
 class Transaction(TransactionBase):
     id: str
+
+class HealthCheckResponse(BaseModel):
+    status: str
+    database: str

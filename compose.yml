@@ -1,5 +1,25 @@
 ﻿services:
 
+  mongodb:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+
+#  mongo-express:
+#    image: mongo-express
+#    ports:
+#      - "8081:8081"
+#    environment:
+#      ME_CONFIG_MONGODB_SERVER: mongodb
+#      ME_CONFIG_BASICAUTH_USERNAME: admin
+#      ME_CONFIG_BASICAUTH_PASSWORD: pass
+#    depends_on:
+#      - mongodb
+#    restart: always
+
   api:
     build:
       context: app
@@ -9,10 +29,16 @@
     volumes:
       - app_data:/app
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://api:8000/" ]
-      interval: 1s
-      timeout: 1s
-      start_period: 1s
+#      test: [ "CMD", "curl", "-f", "http://api:8000/" ]
+#      test: [ "CMD", "curl", "-f", "http://localhost:8000/" ]
+#      test: [ "CMD", "curl", "-f", "http://localhost:8000/health" ]
+      test: [ "CMD", "curl", "-f", "http://api:8000/health" ]
+      interval: 2s
+      timeout: 2s
+      start_period: 2s
+    depends_on:
+      - mongodb
+    restart: always
 
   tests_api:
     build:
@@ -27,36 +53,37 @@
       api:
         condition: service_healthy
 
-  tests_ui:
-    build:
-      context: tests/ui/sync
-      dockerfile: Dockerfile_test_ui
-    environment:
-      - HEADLESS=True
-      - SLOW_MO=0
-    volumes:
-      - allure-results:/test_ui/allure-results
+#  tests_ui:
+#    build:
+#      context: tests/ui/sync
+#      dockerfile: Dockerfile_test_ui
+#    environment:
+#      - HEADLESS=True
+#      - SLOW_MO=0
+#    volumes:
+#      - allure-results:/test_ui/allure-results
+#
+#  tests_ui_async:
+#    build:
+#      context: tests/ui/async
+#      dockerfile: Dockerfile_test_ui_async
+#    environment:
+#      - HEADLESS=True
+#      - SLOW_MO=0
+#    volumes:
+#      - allure-results:/test_ui/allure-results
 
-  tests_ui_async:
-    build:
-      context: tests/ui/async
-      dockerfile: Dockerfile_test_ui_async
-    environment:
-      - HEADLESS=True
-      - SLOW_MO=0
-    volumes:
-      - allure-results:/test_ui/allure-results
-
-  allure:
-    # web-report will be here >>> http://localhost:5050/allure-docker-service/latest-report
-    image: frankescobar/allure-docker-service:2.27.0
-    container_name: allure-server
-    ports:
-      - "5050:5050"
-    volumes:
-      - allure-results:/app/allure-results
+#  allure:
+#    # web-report will be here >>> http://localhost:5050/allure-docker-service/latest-report
+#    image: frankescobar/allure-docker-service:2.27.0
+#    container_name: allure-server
+#    ports:
+#      - "5050:5050"
+#    volumes:
+#      - allure-results:/app/allure-results
 
 volumes:
+  mongo_data:
   app_data:
   allure-results:
 

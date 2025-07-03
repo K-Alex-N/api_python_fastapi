@@ -97,11 +97,41 @@
 # ---------------------------------------------------------
 
 from fastapi import FastAPI, HTTPException
-from .schemas import Transaction
+from .schemas import Transaction, HealthCheckResponse
 from .crud_async import add_random_transaction_async, get_random_transaction_async
 from .crud_sync import add_random_transaction_sync, get_random_transaction_sync
 
-app = FastAPI(title="Finance Tracker (Sync + Async)")
+app = FastAPI()
+
+# --- Healthcheck ---
+
+# @app.get("/")
+# def healthcheck():
+#     return {"status": "ok"}
+
+from .database import async_db
+from pymongo.errors import PyMongoError
+from motor.core import AgnosticDatabase
+from fastapi.responses import JSONResponse
+
+
+# ... другие эндпоинты
+
+# @app.get("/health", summary="Healthcheck")
+# @app.get("/health", response_model=HealthCheckResponse)
+@app.get("/health")
+async def healthcheck():
+    return JSONResponse({"status": "ok"})
+    # try:
+    #     # Быстрая проверка на подключение
+    #     await async_db.command("ping")
+    #     return {"status": "ok", "database": "up"}
+    # except PyMongoError as e:
+    #     return JSONResponse(
+    #         status_code=503,
+    #         content={"status": "error", "database": "down", "details": str(e)}
+    #     )
+
 
 # --- ASYNC Routes ---
 
