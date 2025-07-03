@@ -115,32 +115,15 @@ from motor.core import AgnosticDatabase
 from fastapi.responses import JSONResponse
 
 
-# @app.get("/health", summary="Healthcheck")
-# @app.get("/health", response_model=HealthCheckResponse)
 @app.get("/health")
-def healthcheck():
-    # sync_db.command("ping")
-    # await sync_db.command("ping")
-    # return {"status": "ok", "database": "up"}
-    return JSONResponse({"status": "ok"})
-    # try:
-    #     # Быстрая проверка на подключение
-    #     # await async_db.command("ping")
-    #     await sync_db.command("ping")
-    #     return {"status": "ok", "database": "up"}
-    # except PyMongoError as e:
-    #     return JSONResponse(
-    #         status_code=503,
-    #         content={"status": "error", "database": "down", "details": str(e)}
-    #     )
-
-
-collection = sync_db.transactions
+async def healthcheck():
+    await async_db.command("ping")
+    return {"status": "ok"}
 
 
 @app.post("/test_add")
 def test_post():
-    collection.insert_one({"amount": 14})
+    sync_db.transactions.insert_one({"amount": 14})
 
 
 # --- ASYNC Routes ---

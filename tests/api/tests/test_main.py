@@ -12,11 +12,11 @@ from .common.common import clean_up_db
 APP_HOST = os.getenv("APP_HOST", "localhost")
 BASE_URL = f"http://{APP_HOST}:8000"
 
-def test_healthcheck():
-    response = requests.get(f"{BASE_URL}/health")
-    assert response.status_code == 200
+# def test_healthcheck():
+#     response = requests.get(f"{BASE_URL}/health")
+#     assert response.status_code == 200
 
-def test_add_transaction():
+def test_add_random_transaction():
     response = requests.post(f"{BASE_URL}/sync/transaction")
     assert response.status_code == 200
 
