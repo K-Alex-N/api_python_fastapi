@@ -109,22 +109,24 @@ app = FastAPI()
 # def healthcheck():
 #     return {"status": "ok"}
 
-from .database import async_db
+from .database import async_db, sync_db
 from pymongo.errors import PyMongoError
 from motor.core import AgnosticDatabase
 from fastapi.responses import JSONResponse
 
 
-# ... другие эндпоинты
-
 # @app.get("/health", summary="Healthcheck")
 # @app.get("/health", response_model=HealthCheckResponse)
 @app.get("/health")
-async def healthcheck():
+def healthcheck():
+    # sync_db.command("ping")
+    # await sync_db.command("ping")
+    # return {"status": "ok", "database": "up"}
     return JSONResponse({"status": "ok"})
     # try:
     #     # Быстрая проверка на подключение
-    #     await async_db.command("ping")
+    #     # await async_db.command("ping")
+    #     await sync_db.command("ping")
     #     return {"status": "ok", "database": "up"}
     # except PyMongoError as e:
     #     return JSONResponse(
@@ -133,11 +135,20 @@ async def healthcheck():
     #     )
 
 
+collection = sync_db.transactions
+
+
+@app.post("/test_add")
+def test_post():
+    collection.insert_one({"amount": 14})
+
+
 # --- ASYNC Routes ---
 
 @app.post("/async/transaction", response_model=Transaction)
 async def create_async_transaction():
     return await add_random_transaction_async()
+
 
 @app.get("/async/transaction", response_model=Transaction)
 async def read_async_transaction():
@@ -146,11 +157,13 @@ async def read_async_transaction():
         raise HTTPException(status_code=404, detail="No transactions found")
     return transaction
 
+
 # --- SYNC Routes ---
 
 @app.post("/sync/transaction", response_model=Transaction)
 def create_sync_transaction():
     return add_random_transaction_sync()
+
 
 @app.get("/sync/transaction", response_model=Transaction)
 def read_sync_transaction():
@@ -169,5 +182,3 @@ if __name__ == "__main__":  # это не запускается если чер
 # date (auto + modification)
 # Expense One-time + Recurring
 # add_income
-
-

@@ -1,3 +1,5 @@
+from pickle import APPEND
+
 import allure
 import requests
 import time
@@ -7,10 +9,15 @@ import os
 
 from .common.common import clean_up_db
 
-BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")  # для докера возьмет http://api:8000 из композ-ямл
+APP_HOST = os.getenv("APP_HOST", "localhost")
+BASE_URL = f"http://{APP_HOST}:8000"
 
 def test_healthcheck():
     response = requests.get(f"{BASE_URL}/health")
+    assert response.status_code == 200
+
+def test_add_transaction():
+    response = requests.post(f"{BASE_URL}/sync/transaction")
     assert response.status_code == 200
 
 # @allure.epic("API")

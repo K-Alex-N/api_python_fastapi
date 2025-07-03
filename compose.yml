@@ -8,17 +8,17 @@
       - mongo_data:/data/db
     restart: always
 
-#  mongo-express:
-#    image: mongo-express
-#    ports:
-#      - "8081:8081"
-#    environment:
-#      ME_CONFIG_MONGODB_SERVER: mongodb
-#      ME_CONFIG_BASICAUTH_USERNAME: admin
-#      ME_CONFIG_BASICAUTH_PASSWORD: pass
-#    depends_on:
-#      - mongodb
-#    restart: always
+  mongo-express:
+    image: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: pass
+    depends_on:
+      - mongodb
+    restart: always
 
   api:
     build:
@@ -31,21 +31,23 @@
     healthcheck:
 #      test: [ "CMD", "curl", "-f", "http://api:8000/" ]
 #      test: [ "CMD", "curl", "-f", "http://localhost:8000/" ]
-#      test: [ "CMD", "curl", "-f", "http://localhost:8000/health" ]
-      test: [ "CMD", "curl", "-f", "http://api:8000/health" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/health" ]
+#      test: [ "CMD", "curl", "-f", "http://api:8000/health" ]
       interval: 2s
       timeout: 2s
       start_period: 2s
     depends_on:
       - mongodb
     restart: always
+    environment:
+      - MONGODB_HOST=mongodb
 
   tests_api:
     build:
       context: tests/api
       dockerfile: Dockerfile_test_api
     environment:
-      - BASE_URL=http://api:8000
+      - APP_HOST=api
     volumes:
       - allure-results:/test_api/allure-results
       - app_data:/app
