@@ -29,10 +29,7 @@
     volumes:
       - app_data:/app
     healthcheck:
-#      test: [ "CMD", "curl", "-f", "http://api:8000/" ]
-#      test: [ "CMD", "curl", "-f", "http://localhost:8000/" ]
-      test: [ "CMD", "curl", "-f", "http://localhost:8000/health" ]
-#      test: [ "CMD", "curl", "-f", "http://api:8000/health" ]
+      test: [ "CMD", "curl", "-f", "http://api:8000/health" ]
       interval: 2s
       timeout: 2s
       start_period: 2s
@@ -42,18 +39,46 @@
     environment:
       - MONGODB_HOST=mongodb
 
-  tests_api:
+# тесты
+
+  locust_master:
     build:
-      context: tests/api
-      dockerfile: Dockerfile_test_api
-    environment:
-      - APP_HOST=api
-    volumes:
-      - allure-results:/test_api/allure-results
-      - app_data:/app
+      context: tests/performance
+      dockerfile: Dockerfile_perf
+    command: locust -f locustfile.py --master --host http://api:8000
+    ports:
+      - "8089:8089"
+#    networks:
+#      - my_network
     depends_on:
       api:
         condition: service_healthy
+
+  locust_worker:
+    build:
+      context: tests/performance
+      dockerfile: Dockerfile_perf
+    command: locust -f locustfile.py --worker --master-host locust_master # название мастер-сервиса
+#    networks:
+#      - my_network
+    deploy:
+      replicas: 3
+    depends_on:
+      - locust_master
+
+
+#  tests_api:
+#    build:
+#      context: tests/api
+#      dockerfile: Dockerfile_test_api
+#    environment:
+#      - APP_HOST=api
+#    volumes:
+#      - allure-results:/test_api/allure-results
+#      - app_data:/app
+#    depends_on:
+#      api:
+#        condition: service_healthy
 
 #  tests_ui:
 #    build:
