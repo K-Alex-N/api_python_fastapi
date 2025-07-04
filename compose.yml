@@ -62,23 +62,23 @@
 
 
 # тесты
-
-  locust_master:
-    build: tests/performance
-    command: --master --host http://api:8000
-    ports:
-      - "8089:8089"
-    depends_on:
-      api:
-        condition: service_healthy
-
-  locust_worker:
-    build: tests/performance
-    command: --worker --master-host locust_master
-    deploy:
-      replicas: 3
-    depends_on:
-      - locust_master
+#
+#  locust_master:
+#    build: tests/performance
+#    command: --master --host http://api:8000
+#    ports:
+#      - "8089:8089"
+#    depends_on:
+#      api:
+#        condition: service_healthy
+#
+#  locust_worker:
+#    build: tests/performance
+#    command: --worker --master-host locust_master
+#    deploy:
+#      replicas: 3
+#    depends_on:
+#      - locust_master
 
 #  tests_api:
 #    build: tests/api
@@ -99,22 +99,20 @@
 #    volumes:
 #      - allure-results:/test_ui/allure-results
 #
-#  tests_ui_async:
-#    build: tests/ui/async
-#    environment:
-#      - HEADLESS=True
-#      - SLOW_MO=0
-#    volumes:
-#      - allure-results:/test_ui/allure-results
-#
-#  allure:
-#    # web-report will be here >>> http://localhost:5050/allure-docker-service/latest-report
-#    image: frankescobar/allure-docker-service:2.27.0
-#    container_name: allure-server
-#    ports:
-#      - "5050:5050"
-#    volumes:
-#      - allure-results:/app/allure-results
+  tests_ui_async:
+    build: tests/ui/async
+    environment:
+      - HEADLESS=True
+      - SLOW_MO=0
+    volumes:
+      - allure-results:/test_ui/allure-results
+
+  allure: # http://localhost:5050/allure-docker-service/latest-report
+    image: frankescobar/allure-docker-service:2.27.0
+    ports:
+      - "5050:5050"
+    volumes:
+      - allure-results:/app/allure-results
 
 volumes:
   mongo_data:
