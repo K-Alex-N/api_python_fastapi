@@ -20,9 +20,7 @@
     restart: always
 
   api:
-    build:
-      context: app
-      dockerfile: Dockerfile_app
+    build: app
     ports:
       - "8000:8000"
     volumes:
@@ -38,100 +36,85 @@
     environment:
       - MONGODB_HOST=mongo
 
-  # Prometheus Service
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheus
-    volumes:
-      - ./prometheus/:/etc/prometheus/ # Здесь будет наш prometheus.yml
-      - prometheus_data:/prometheus # Для хранения временных данных
-    command: --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver
-    ports:
-      - "9090:9090"
-    depends_on:
-      - api # мб даже хэлфчек поставить
-
-  # Grafana Service
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    volumes:
-      - grafana_data:/var/lib/grafana # Для хранения дашбордов и настроек
-    ports:
-      - "3000:3000"
-    depends_on:
-      - prometheus
+#  # Prometheus Service
+#  prometheus:
+#    image: prom/prometheus:latest
+#    container_name: prometheus
+#    volumes:
+#      - ./prometheus/:/etc/prometheus/ # Здесь будет наш prometheus.yml
+#      - prometheus_data:/prometheus # Для хранения временных данных
+#    command: --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver
+#    ports:
+#      - "9090:9090"
+#    depends_on:
+#      - api # мб даже хэлфчек поставить
+#
+#  # Grafana Service
+#  grafana:
+#    image: grafana/grafana:latest
+#    container_name: grafana
+#    volumes:
+#      - grafana_data:/var/lib/grafana # Для хранения дашбордов и настроек
+#    ports:
+#      - "3000:3000"
+#    depends_on:
+#      - prometheus
 
 
 # тесты
 
 #  locust_master:
-#    build:
-#      context: tests/performance
-#      dockerfile: Dockerfile_perf
+#    build: tests/performance
 #    command: locust -f locustfile.py --master --host http://api:8000
 #    ports:
 #      - "8089:8089"
-##    networks:
-##      - my_network
 #    depends_on:
 #      api:
 #        condition: service_healthy
 #
 #  locust_worker:
-#    build:
-#      context: tests/performance
-#      dockerfile: Dockerfile_perf
+#    build: tests/performance
 #    command: locust -f locustfile.py --worker --master-host locust_master # название мастер-сервиса
-##    networks:
-##      - my_network
 #    deploy:
 #      replicas: 3
 #    depends_on:
 #      - locust_master
 
+  tests_api:
+    build: tests/api
+    environment:
+      - APP_HOST=api
+    volumes:
+      - allure-results:/test_api/allure-results
+      - app_data:/app
+    depends_on:
+      api:
+        condition: service_healthy
 
-#  tests_api:
-#    build:
-#      context: tests/api
-#      dockerfile: Dockerfile_test_api
-#    environment:
-#      - APP_HOST=api
-#    volumes:
-#      - allure-results:/test_api/allure-results
-#      - app_data:/app
-#    depends_on:
-#      api:
-#        condition: service_healthy
+  tests_ui:
+    build: tests/ui/sync
+    environment:
+      - HEADLESS=True
+      - SLOW_MO=0
+    volumes:
+      - allure-results:/test_ui/allure-results
 
-#  tests_ui:
-#    build:
-#      context: tests/ui/sync
-#      dockerfile: Dockerfile_test_ui
-#    environment:
-#      - HEADLESS=True
-#      - SLOW_MO=0
-#    volumes:
-#      - allure-results:/test_ui/allure-results
-#
-#  tests_ui_async:
-#    build:
-#      context: tests/ui/async
-#      dockerfile: Dockerfile_test_ui_async
-#    environment:
-#      - HEADLESS=True
-#      - SLOW_MO=0
-#    volumes:
-#      - allure-results:/test_ui/allure-results
+  tests_ui_async:
+    build: tests/ui/async
+    environment:
+      - HEADLESS=True
+      - SLOW_MO=0
+    volumes:
+      - allure-results:/test_ui/allure-results
 
-#  allure:
-#    # web-report will be here >>> http://localhost:5050/allure-docker-service/latest-report
-#    image: frankescobar/allure-docker-service:2.27.0
-#    container_name: allure-server
-#    ports:
-#      - "5050:5050"
-#    volumes:
-#      - allure-results:/app/allure-results
+  allure:
+    # web-report will be here >>> http://localhost:5050/allure-docker-service/latest-report
+    image: frankescobar/allure-docker-service:2.27.0
+    container_name: allure-server
+    ports:
+      - "5050:5050"
+    volumes:
+      - allure-results:/app/allure-results
 
 volumes:
   mongo_data:
