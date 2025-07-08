@@ -1,11 +1,14 @@
-﻿from .database import sync_db
-from .models import transaction_helper
-import random
-from faker import Faker
+﻿import random
 from datetime import datetime
+
+from faker import Faker
+
+from .database import sync_db
+from .models import transaction_helper
 
 faker = Faker()
 collection = sync_db.transactions
+
 
 def add_random_transaction_sync():
     data = {
@@ -18,6 +21,7 @@ def add_random_transaction_sync():
     result = collection.insert_one(data)
     doc = collection.find_one({"_id": result.inserted_id})
     return transaction_helper(doc)
+
 
 def get_random_transaction_sync():
     count = collection.count_documents({})

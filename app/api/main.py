@@ -1,4 +1,6 @@
-﻿import uvicorn
+﻿import random
+
+import uvicorn
 # from fastapi import FastAPI, HTTPException
 #
 # from .models import Expense
@@ -97,11 +99,15 @@
 # ---------------------------------------------------------
 
 from fastapi import FastAPI, HTTPException
+from prometheus_fastapi_instrumentator import Instrumentator
+from prometheus_client import Counter, Gauge
+
 from .schemas import Transaction, HealthCheckResponse
 from .crud_async import add_random_transaction_async, get_random_transaction_async
 from .crud_sync import add_random_transaction_sync, get_random_transaction_sync
 
 app = FastAPI()
+Instrumentator().instrument(app).expose(app)
 
 # --- Healthcheck ---
 
@@ -155,6 +161,21 @@ def read_sync_transaction():
         raise HTTPException(status_code=404, detail="No transactions found")
     return transaction
 
+# ---------------for prometheus------------------------------------------
+
+
+ERROR_COUNTER = Counter("fastapi_errors_total", "Total number of simulated errors")
+ACTIVE_USERS = Gauge("fastapi_active_users", "Number of active users")
+
+@app.get("/")
+def read_root():
+    ACTIVE_USERS.set(random.randint(5, 50))  # Пример бизнес-метрики
+    return {"message": "Hello from FastAPI"}
+
+@app.get("/error")
+def generate_error():
+    ERROR_COUNTER.inc()
+    raise ValueError("Simulated error")
 
 # ---------------------------------------------------------
 

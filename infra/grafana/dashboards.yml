@@ -1,0 +1,8 @@
+﻿apiVersion: 1
+
+providers:
+  - name: 'default'
+    folder: 'My Dashboards'
+    type: file
+    options:
+      path: /etc/grafana/dashboards

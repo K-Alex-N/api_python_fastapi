@@ -34,31 +34,30 @@
       - mongo
     restart: always
     environment:
-      - MONGODB_HOST=mongo
+      MONGO_HOST: mongo
 
-#  # Prometheus Service
-#  prometheus:
-#    image: prom/prometheus:latest
-#    container_name: prometheus
-#    volumes:
-#      - ./prometheus/:/etc/prometheus/ # Здесь будет наш prometheus.yml
-#      - prometheus_data:/prometheus # Для хранения временных данных
-#    command: --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver
-#    ports:
-#      - "9090:9090"
-#    depends_on:
-#      - api # мб даже хэлфчек поставить
-#
-#  # Grafana Service
-#  grafana:
-#    image: grafana/grafana:latest
-#    container_name: grafana
-#    volumes:
+  prometheus:
+    image: prom/prometheus:v3.5.0-rc.0
+    volumes:
+      - ./infra/prometheus/:/etc/prometheus/ # Здесь будет наш prometheus.yml
+      - prometheus_data:/prometheus # Для хранения временных данных
+    command: --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver
+    ports:
+      - "9090:9090"
+    depends_on:
+      - api # мб даже хэлфчек поставить
+
+  grafana:
+    image: grafana/grafana:12.0.2-ubuntu
+    volumes:
 #      - grafana_data:/var/lib/grafana # Для хранения дашбордов и настроек
-#    ports:
-#      - "3000:3000"
-#    depends_on:
-#      - prometheus
+      - ./infra/grafana/dashboards:/etc/grafana/dashboards
+      - ./infra/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./infra/grafana/datasources:/etc/grafana/provisioning/datasources
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
 
 
 # тесты
@@ -99,20 +98,20 @@
 #    volumes:
 #      - allure-results:/test_ui/allure-results
 #
-  tests_ui_async:
-    build: tests/ui/async
-    environment:
-      - HEADLESS=True
-      - SLOW_MO=0
-    volumes:
-      - allure-results:/test_ui/allure-results
-
-  allure: # http://localhost:5050/allure-docker-service/latest-report
-    image: frankescobar/allure-docker-service:2.27.0
-    ports:
-      - "5050:5050"
-    volumes:
-      - allure-results:/app/allure-results
+#  tests_ui_async:
+#    build: tests/ui/async
+#    environment:
+#      - HEADLESS=True
+#      - SLOW_MO=0
+#    volumes:
+#      - allure-results:/test_ui/allure-results
+#
+#  allure: # http://localhost:5050/allure-docker-service/latest-report
+#    image: frankescobar/allure-docker-service:2.27.0
+#    ports:
+#      - "5050:5050"
+#    volumes:
+#      - allure-results:/app/allure-results
 
 volumes:
   mongo_data:
