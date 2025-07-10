@@ -1407,3 +1407,11 @@
 {"@timestamp": "2025-07-10T22:04:27.695813", "level": "INFO", "message": "GET /health - 200", "logger": "fastapi_logger", "module": "main", "ip": "172.18.0.5", "endpoint": "/health", "method": "GET", "status": 200}
 {"@timestamp": "2025-07-10T22:04:29.727668", "level": "INFO", "message": "GET /health - 200", "logger": "fastapi_logger", "module": "main", "ip": "172.18.0.5", "endpoint": "/health", "method": "GET", "status": 200}
 {"@timestamp": "2025-07-10T22:04:31.857931", "level": "INFO", "message": "GET /health - 200", "logger": "fastapi_logger", "module": "main", "ip": "172.18.0.5", "endpoint": "/health", "method": "GET", "status": 200}
+{"@timestamp": "2025-07-10T22:04:33.922422", "level": "INFO", "message": "GET /health - 200", "logger": "fastapi_logger", "module": "main", "ip": "172.18.0.5", "endpoint": "/health", "method": "GET", "status": 200}
+{"@timestamp": "2025-07-10T22:04:35.961247", "level": "INFO", "message": "GET /health - 200", "logger": "fastapi_logger", "module": "main", "ip": "172.18.0.5", "endpoint": "/health", "method": "GET", "status": 200}
+{"@timestamp": "2025-07-10T22:04:37.997830", "level": "INFO", "message": "GET /health - 200", "logger": "fastapi_logger", "module": "main", "ip": "172.18.0.5", "endpoint": "/health", "method": "GET", "status": 200}
+{"@timestamp": "2025-07-10T22:04:40.037771", "level": "INFO", "message": "GET /health - 200", "logger": "fastapi_logger", "module": "main", "ip": "172.18.0.5", "endpoint": "/health", "method": "GET", "status": 200}
+{"@timestamp": "2025-07-10T22:04:42.078588", "level": "INFO", "message": "GET /health - 200", "logger": "fastapi_logger", "module": "main", "ip": "172.18.0.5", "endpoint": "/health", "method": "GET", "status": 200}
+{"@timestamp": "2025-07-10T22:04:44.117496", "level": "INFO", "message": "GET /health - 200", "logger": "fastapi_logger", "module": "main", "ip": "172.18.0.5", "endpoint": "/health", "method": "GET", "status": 200}
+{"@timestamp": "2025-07-10T22:04:46.154329", "level": "INFO", "message": "GET /health - 200", "logger": "fastapi_logger", "module": "main", "ip": "172.18.0.5", "endpoint": "/health", "method": "GET", "status": 200}
+{"@timestamp": "2025-07-10T22:04:48.201898", "level": "INFO", "message": "GET /health - 200", "logger": "fastapi_logger", "module": "main", "ip": "172.18.0.5", "endpoint": "/health", "method": "GET", "status": 200}

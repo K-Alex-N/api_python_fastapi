@@ -3,16 +3,22 @@
 app = Flask(__name__)
 
 services_list = [
-    ("Kibana", "5601", "Нужно индекс прописать..."),
+    ("Kibana", "5601", "Чтобы начал показывать логи нужно индекс прописать..."),
     ("API (Swagger)", "8000/docs",
      "Свагер. АПИшки наделаны под каждый сервис. Какой то логики и смысла там нет. Ничего интересного."),
     ("GUI MongoDB", "8081", "Графический интерфейс для Монго"),
     ("Elasticsearch", "9200", "Будет маленький Json'чик с информацией об Эластике"),
-    ("Grafana", "3000", "логин admin, пароль admin. За"),
-    ("", "", ""),
+    ("Grafana", "3000", "логин admin, пароль admin. Затем Skip нажать надо. Шаблон простой сделал. "),
+    ("Allure", "5050", "Покажет результаты всех тестов (sync/async, UI/API). Некоторые тесты упавшие, это специально чтобы покаать что там скриншот будет делаться.  "),
+    ("Locast", "8089", "можно перформанс запустить. Выбрать Виртуальных пользователей, ... и время например 30 (это будут секунды)"),
+    ("Prometheus", "9090", "??? чего тут смотреть"),
+    # ("", "", ""),
+    # ("", "", ""),
 ]
 
-
+image_on_github = "https://github.com/K-Alex-N/assets/main/docker/2025-07-04%2000_31_51-pet-project__docker.drawio%20-%20draw.io.png"
+raw_image = image_on_github.replace("github", "raw.githubusercontent")
+print(raw_image)
 @app.route("/")
 def index():
     services = []
@@ -23,7 +29,7 @@ def index():
             "comment": comment
         })
 
-    return render_template("index.html", services=services)
+    return render_template("index.html", services=services, image=raw_image)
 
 
 if __name__ == "__main__":
