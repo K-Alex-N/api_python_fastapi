@@ -25,6 +25,7 @@
       - "8000:8000"
     volumes:
       - app_data:/app
+      - ./app/api/logs:/app/logs
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://api:8000/health" ]
       interval: 2s
@@ -32,35 +33,66 @@
       start_period: 2s
     depends_on:
       - mongo
+      - elasticsearch
     restart: always
     environment:
       MONGO_HOST: mongo
+      ELASTIC_HOST: http://elasticsearch:9200
 
-  prometheus:
-    image: prom/prometheus:v3.5.0-rc.0
-    volumes:
-      - ./infra/prometheus/:/etc/prometheus/ # Здесь будет наш prometheus.yml
-      - prometheus_data:/prometheus # Для хранения временных данных
-    command: --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver
+## ----------метрики-------------
+#
+#  prometheus:
+#    image: prom/prometheus:v3.5.0-rc.0
+#    volumes:
+#      - ./infra/prometheus/:/etc/prometheus/ # Здесь будет наш prometheus.yml
+#      - prometheus_data:/prometheus # Для хранения временных данных
+#    command: --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver
+#    ports:
+#      - "9090:9090"
+#    depends_on:
+#      - api # мб даже хэлфчек поставить
+#
+#  grafana:
+#    image: grafana/grafana:12.0.2-ubuntu
+#    volumes:
+##      - grafana_data:/var/lib/grafana # Для хранения дашбордов и настроек
+#      - ./infra/grafana/dashboards:/etc/grafana/dashboards
+#      - ./infra/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+#      - ./infra/grafana/datasources:/etc/grafana/provisioning/datasources
+#    ports:
+#      - "3000:3000"
+#    depends_on:
+#      - prometheus
+
+# ----------логи-------------
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.0.2
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
     ports:
-      - "9090:9090"
-    depends_on:
-      - api # мб даже хэлфчек поставить
+      - "9200:9200"
 
-  grafana:
-    image: grafana/grafana:12.0.2-ubuntu
-    volumes:
-#      - grafana_data:/var/lib/grafana # Для хранения дашбордов и настроек
-      - ./infra/grafana/dashboards:/etc/grafana/dashboards
-      - ./infra/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
-      - ./infra/grafana/datasources:/etc/grafana/provisioning/datasources
+  kibana:
+    image: docker.elastic.co/kibana/kibana:9.0.2
     ports:
-      - "3000:3000"
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     depends_on:
-      - prometheus
+      - elasticsearch
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:9.0.2
+    volumes:
+      - ./infra/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./app/api/logs:/app/logs
+    depends_on:
+      - elasticsearch
 
 
-# тесты
+# ----------тесты-------------
 #
 #  locust_master:
 #    build: tests/performance
