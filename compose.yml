@@ -33,11 +33,19 @@
       start_period: 2s
     depends_on:
       - mongo
-      - elasticsearch
+#      - elasticsearch
     restart: always
     environment:
       MONGO_HOST: mongo
       ELASTIC_HOST: http://elasticsearch:9200
+
+# ----------welcome-page-------------
+
+  welcome-page:
+    build: welcome-page
+    ports:
+      - "5000:5000"
+
 
 ## ----------метрики-------------
 #
@@ -64,32 +72,32 @@
 #    depends_on:
 #      - prometheus
 
-# ----------логи-------------
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:9.0.2
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
-    ports:
-      - "9200:9200"
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:9.0.2
-    ports:
-      - "5601:5601"
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-    depends_on:
-      - elasticsearch
-
-  logstash:
-    image: docker.elastic.co/logstash/logstash:9.0.2
-    volumes:
-      - ./infra/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - ./app/api/logs:/app/logs
-    depends_on:
-      - elasticsearch
+## ----------логи-------------
+#
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:9.0.2
+#    environment:
+#      - discovery.type=single-node
+#      - xpack.security.enabled=false
+#    ports:
+#      - "9200:9200"
+#
+#  kibana:
+#    image: docker.elastic.co/kibana/kibana:9.0.2
+#    ports:
+#      - "5601:5601"
+#    environment:
+#      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+#    depends_on:
+#      - elasticsearch
+#
+#  logstash:
+#    image: docker.elastic.co/logstash/logstash:9.0.2
+#    volumes:
+#      - ./infra/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+#      - ./app/api/logs:/app/logs
+#    depends_on:
+#      - elasticsearch
 
 
 # ----------тесты-------------
