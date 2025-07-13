@@ -40,11 +40,11 @@
       ELASTIC_HOST: http://elasticsearch:9200
 
 # ----------welcome-page-------------
-
-  welcome-page:
-    build: welcome-page
-    ports:
-      - "5000:5000"
+#
+#  welcome-page:
+#    build: welcome-page
+#    ports:
+#      - "5000:5000"
 
 
 ## ----------метрики-------------
