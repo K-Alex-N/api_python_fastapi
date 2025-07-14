@@ -1,7 +1,7 @@
 ﻿import random
 
 import uvicorn
-from dns import transaction
+
 # from fastapi import FastAPI, HTTPException
 #
 # from .models import Expense
@@ -114,10 +114,12 @@ from app.api.logger_config import setup_logger
 logger = setup_logger()
 app = FastAPI(lifespan=lifespan)
 
-from transactions import routes
+from transactions import routes as transactions_routes
+from categories import routes as categories_routes
 
 # app.include_router(routes.router)
-app.include_router(routes.router, prefix="/transactions")
+app.include_router(transactions_routes.router)
+app.include_router(categories_routes.router)
 
 
 
