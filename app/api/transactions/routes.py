@@ -8,13 +8,12 @@ from app.api.transactions.models import Transaction
 
 router = APIRouter(prefix="/transactions", tags=["Transactions"])
 
+
 @router.get("/", response_model=List[TransactionOut])
-# @router.get("/")
-# async def get_transactions():
 async def get_transactions() -> List[TransactionOut]:
     txs = await Transaction.find_all(fetch_links=True).to_list()
-    # return txs
     return [TransactionOut.from_model(tx) for tx in txs]
+
 
 # @router.get("/{id}")
 # async def get_transaction(id: int) -> TransactionOut: # скорее Object_id или UUID должен быть
@@ -48,15 +47,12 @@ async def create_transaction(data: TransactionCreate) -> TransactionOut:
     # await tx.insert()
     # return TransactionOut.from_model(tx)
 
-
     tx = Transaction(
         **data.model_dump(exclude={"category_id"}),
-        category=category # type: ignore
+        category=category  # type: ignore
     )
     await tx.insert()
     return TransactionOut.from_model(tx)
-
-
 
 # @router.post("/")
 # async def create_transaction(data: TransactionCreate):
@@ -66,21 +62,3 @@ async def create_transaction(data: TransactionCreate) -> TransactionOut:
 #     tx = Transaction(**data.dict(exclude={"category_id"}), category=category)
 #     await tx.insert()
 #     return tx
-
-
-
-
-
-# @router.get("/users/", tags=["users"])
-# async def read_users():
-#     return [{"username": "Rick"}, {"username": "Morty"}]
-#
-#
-# @router.get("/users/me", tags=["users"])
-# async def read_user_me():
-#     return {"username": "fakecurrentuser"}
-#
-#
-# @router.get("/users/{username}", tags=["users"])
-# async def read_user(username: str):
-#     return {"username": username}
