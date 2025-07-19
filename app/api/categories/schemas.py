@@ -1,5 +1,7 @@
 ﻿from uuid import UUID
-from typing import Optional, Literal
+from typing import Optional, Literal, List
+
+from pydantic import BaseModel, RootModel
 
 from app.api.schemas import BaseOutModel
 
@@ -15,6 +17,10 @@ class CategoryCreate(CategoryBase):
 
 class CategoryOut(CategoryBase):
     id: UUID
+
+
+class CategoryOutList(RootModel[List[CategoryOut]]):
+    pass
 
 
 class CategoryUpdate(BaseOutModel):

@@ -30,26 +30,24 @@ async def create_category(category: CategoryCreate) -> CategoryOut:
     return CategoryOut.from_model(cat)
 
 
-# @router.patch("/{id}", response_model=CategoryOut)
-# async def update_category(cat_id: UUID, category: CategoryCreate) -> CategoryOut:
-#     cat = await Category.get(cat_id)
-#     if not cat:
-#         raise HTTPException(status_code=404, detail="Category not found")
-#     await cat.update(category)
-#     return CategoryOut.from_model(cat)
-
-
 @router.patch("/{category_id}", response_model=CategoryOut)
-async def update_category(category_id: UUID, data: CategoryUpdate) -> CategoryOut:
+async def update_category(category_id: UUID, category: CategoryUpdate) -> CategoryOut:
     cat = await Category.get(category_id)
     if not cat:
         raise HTTPException(status_code=404, detail="Category not found")
 
-    if data.name is not None:
-        cat.name = data.name
-    if data.type is not None:
-        cat.type = data.type
+    if category.name is not None:
+        cat.name = category.name
+    if category.type is not None:
+        cat.type = category.type
 
-    await cat.save() # type: ignore
-    # return CategoryOut.model_validate(cat)
+    await cat.save()  # type: ignore
     return CategoryOut.from_model(cat)
+
+@router.delete("/{category_id}")
+async def delete_category(category_id: UUID):
+    cat = await Category.get(category_id)
+    if not cat:
+        raise HTTPException(status_code=404, detail="Category not found")
+
+    await cat.delete()  # type: ignore

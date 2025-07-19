@@ -36,6 +36,7 @@ async def lifespan(app: FastAPI):
         uuidRepresentation="standard"
     )
     db = client.test
+    # db = client["test"]
     await init_beanie(database=db, document_models=[Transaction, Category])
     yield
     client.close()
