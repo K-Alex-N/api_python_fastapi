@@ -5,6 +5,7 @@ from bson import ObjectId
 from pydantic import BaseModel, Field
 
 from app.api.categories.schemas import CategoryOut
+from app.api.schemas import BaseOutModel
 from app.api.transactions.models import Transaction
 
 
@@ -38,14 +39,14 @@ from app.api.transactions.models import Transaction
 #             ),
 #         )
 
-class TransactionCreate(BaseModel):
+class TransactionCreate(BaseOutModel):
     amount: float
     date: datetime
     description: str
     category_id: UUID
 
 
-class TransactionOut(BaseModel):
+class TransactionOut(BaseOutModel):
     id: UUID
     amount: float
     date: datetime
@@ -53,16 +54,16 @@ class TransactionOut(BaseModel):
     # category_id: UUID
     category: CategoryOut
 
-    @staticmethod
-    def from_model(tx: Transaction) -> "TransactionOut":
-        return TransactionOut(
-            id=tx.id,
-            amount=tx.amount,
-            date=tx.date,
-            description=tx.description,
-            category=CategoryOut(
-                id=tx.category.id,
-                name=tx.category.name,
-                type=tx.category.type
-            )
-        )
+    # @staticmethod
+    # def from_model(tx: Transaction) -> "TransactionOut":
+    #     return TransactionOut(
+    #         id=tx.id,
+    #         amount=tx.amount,
+    #         date=tx.date,
+    #         description=tx.description,
+    #         category=CategoryOut(
+    #             id=tx.category.id,
+    #             name=tx.category.name,
+    #             type=tx.category.type
+    #         )
+    #     )

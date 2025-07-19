@@ -2,6 +2,7 @@ from datetime import datetime
 from uuid import UUID, uuid4
 from enum import Enum
 
+from typing import Literal
 from pydantic import Field
 from beanie import Document
 
@@ -20,7 +21,7 @@ from beanie import Document
 class Category(Document):
     id: UUID = Field(default_factory=uuid4)
     name: str
-    type: str  # 'income' or 'expense'
+    type: Literal["income", "expense"]
 
     class Settings:
         name = "categories"

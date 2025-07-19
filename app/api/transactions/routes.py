@@ -38,27 +38,9 @@ async def create_transaction(data: TransactionCreate) -> TransactionOut:
     if not category:
         raise HTTPException(status_code=404, detail="Category not found")
 
-    # tx = Transaction(
-    #     amount=data.amount,
-    #     date=data.date,
-    #     description=data.description,
-    #     category=category
-    # )
-    # await tx.insert()
-    # return TransactionOut.from_model(tx)
-
     tx = Transaction(
         **data.model_dump(exclude={"category_id"}),
         category=category  # type: ignore
     )
-    await tx.insert()
+    await tx.insert()  # type: ignore
     return TransactionOut.from_model(tx)
-
-# @router.post("/")
-# async def create_transaction(data: TransactionCreate):
-#     category = await Category.get(data.category_id)
-#     if not category:
-#         raise HTTPException(status_code=404, detail="Category not found")
-#     tx = Transaction(**data.dict(exclude={"category_id"}), category=category)
-#     await tx.insert()
-#     return tx

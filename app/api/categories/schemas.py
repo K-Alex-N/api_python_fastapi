@@ -1,39 +1,22 @@
-﻿from datetime import datetime
-from enum import Enum
-from uuid import UUID
+﻿from uuid import UUID
+from typing import Optional, Literal
 
-from bson import ObjectId
-from pydantic import BaseModel, Field
+from app.api.schemas import BaseOutModel
 
 
-# class Type(Enum):
-#     INCOME = "income"
-#     EXPENSE = "expense"
-#
-#
-# class CategoryCreate(BaseModel):
-#     name: str
-#     type: str  # 'income' or 'expense'
-#
-#
-# class CategoryOut(CategoryCreate):
-#     # id: ObjectId
-#     id: str | UUID
-
-class CategoryCreate(BaseModel):
+class CategoryBase(BaseOutModel):
     name: str
-    type: str  # 'income' or 'expense'
+    type: Literal["income", "expense"]
 
-class CategoryOut(BaseModel):
+
+class CategoryCreate(CategoryBase):
+    pass
+
+
+class CategoryOut(CategoryBase):
     id: UUID
-    name: str
-    type: str
 
 
-# class Categories:
-#     id: int
-#     type: Type
-#
-#
-# asd = Categories()
-# asd.type = Type.INCOME
+class CategoryUpdate(BaseOutModel):
+    name: Optional[str] = None
+    type: Optional[Literal["income", "expense"]] = None

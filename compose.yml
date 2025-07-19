@@ -54,7 +54,7 @@
 #    volumes:
 #      - ./infra/prometheus/:/etc/prometheus/ # Здесь будет наш prometheus.yml
 #      - prometheus_data:/prometheus # Для хранения временных данных
-#    command: --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver
+#    command: --common.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver
 #    ports:
 #      - "9090:9090"
 #    depends_on:
