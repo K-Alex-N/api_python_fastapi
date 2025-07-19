@@ -22,4 +22,4 @@ class TestInventory:
         inventory_page.is_products_sorted_by_price_from_high_to_low()
 
     def test_example_of_failed_test(self, inventory_page: InventoryPage):
-        assert "a" == "b"
+        assert 1 == 2

@@ -9,7 +9,7 @@ class LoginPage(BasePage):
 
     def __init__(self, page: Page):
         super().__init__(page)
-        self.url = "https://www.saucedemo.com/"
+        self.url = "https://www.saucedemo.com/"  # вынест базовый URL. А здесь его складывать с path. В данном случае ничего складывать не нужно, просто БэйсУрл буду использовать
         el = ElementFactory(page)
         self.username_input = el.text_input("#user-name")
         self.password_input = el.text_input("#password")
@@ -26,6 +26,8 @@ class LoginPage(BasePage):
         self.password_input.fill(password)
         self.login_button.click()
 
+    # мб создать подметоды login_with_valid_credential и т.д. Тогда сюда можно будет еще вынести чать кода и сами тесты станут ЧИЩЕ
+    
     @allure.step("check if login was successful")
     def expect_login_is_successful(self):
         with allure.step(f"expect current page is inventory"):
