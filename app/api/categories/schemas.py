@@ -1,7 +1,7 @@
 ﻿from uuid import UUID
 from typing import Optional, Literal, List
 
-from pydantic import BaseModel, RootModel
+from pydantic import RootModel
 
 from app.api.schemas import BaseOutModel
 

@@ -1,8 +1,9 @@
 ﻿from datetime import datetime
+from typing import List
 from uuid import UUID
 
 from bson import ObjectId
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, RootModel
 
 from app.api.categories.schemas import CategoryOut
 from app.api.schemas import BaseOutModel
@@ -53,6 +54,9 @@ class TransactionOut(BaseOutModel):
     description: str
     # category_id: UUID
     category: CategoryOut
+
+class TransactionOutList(RootModel[List[TransactionOut]]):
+    pass
 
     # @staticmethod
     # def from_model(tx: Transaction) -> "TransactionOut":

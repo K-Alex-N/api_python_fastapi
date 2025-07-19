@@ -5,8 +5,8 @@ from faker import Faker
 fake = Faker()
 
 
-class Payloads:
-    create_category = {
+def category_payload():
+    return {
         "name": fake.name(),
         "type": random.choice(["income", "expense"])
     }

@@ -12,7 +12,16 @@ router = APIRouter(prefix="/transactions", tags=["Transactions"])
 @router.get("/", response_model=List[TransactionOut])
 async def get_transactions() -> List[TransactionOut]:
     txs = await Transaction.find_all(fetch_links=True).to_list()
-    return [TransactionOut.from_model(tx) for tx in txs]
+    return TransactionOut.from_model_list(txs)
+
+
+@router.get("/{id}", response_model=TransactionOut)
+async def get_transaction_by_id(transaction_id: int) -> TransactionOut:
+    tx = await Transaction.find_by_id(transaction_id)
+    if not tx:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+
+    return TransactionOut.from_model(tx)
 
 
 # @router.get("/{id}")
