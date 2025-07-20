@@ -45,10 +45,11 @@ async def update_category(category_id: UUID, category: CategoryUpdate) -> Catego
     return CategoryOut.from_model(cat)
 
 
-@router.delete("/{category_id}")
-async def delete_category(category_id: UUID):
+@router.delete("/{category_id}", response_model=dict)
+async def delete_category(category_id: UUID) -> dict:
     cat = await Category.get(category_id)
     if not cat:
         raise HTTPException(status_code=404, detail="Category not found")
 
     await cat.delete()  # type: ignore
+    return {"message": "Category deleted successfully"}

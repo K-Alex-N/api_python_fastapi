@@ -52,10 +52,14 @@ class TransactionsAPI(Helper):
     def update_transaction(self, transaction_id):
         response = requests.patch(
             url=self.endpoints.update_transaction(transaction_id),
-            json=payload_create_transaction
+            json=payload_create_transaction()
         )
 
         assert response.status_code == 200, response.json()
+
+
+
+
 
     def delete_transaction(self, transaction_id):
         response = requests.delete(

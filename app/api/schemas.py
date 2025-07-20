@@ -14,7 +14,6 @@ T = TypeVar("T", bound="BaseOutModel")
 class BaseOutModel(BaseModel):
     model_config = ConfigDict(
         from_attributes=True, # Позволяет строить схему из объекта (например, Beanie Document)
-        populate_by_name=True, # Позволяет использовать алиасы (_id → id) в BaseModel
         arbitrary_types_allowed=True # Разрешает сложные типы (Link, ObjectId, UUID)
     )
 

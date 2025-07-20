@@ -27,13 +27,12 @@ class TestTransactions(TransactionsAPI):
         self.create_transaction()
         self.get_all_transactions()
 
-    @pytest.mark.skip
+    # @pytest.mark.skip
     def test_update_transaction(self):
         transaction = self.create_transaction()
         self.update_transaction(transaction.id)
 
-    @pytest.mark.skip
+    # @pytest.mark.skip
     def test_delete_transaction(self):
         transaction = self.create_transaction()
-        print("\n\n\n", transaction.id)
         self.delete_transaction(transaction.id)

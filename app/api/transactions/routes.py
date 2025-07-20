@@ -4,7 +4,7 @@ from uuid import UUID
 from fastapi import APIRouter, HTTPException
 
 from app.api.categories.models import Category
-from app.api.transactions.schemas import TransactionCreate, TransactionOut
+from app.api.transactions.schemas import TransactionCreate, TransactionOut, TransactionUpdate
 from app.api.transactions.models import Transaction
 
 router = APIRouter(prefix="/transactions", tags=["Transactions"])
@@ -31,26 +31,41 @@ async def create_transaction(data: TransactionCreate) -> TransactionOut:
 
 
 @router.get("/{transaction_id}", response_model=TransactionOut)
-async def get_transaction_by_id(transaction_id: UUID) -> TransactionOut:
+async def get_transaction(transaction_id: UUID) -> TransactionOut:
     tx = await Transaction.get(transaction_id, fetch_links=True)
     if not tx:
         raise HTTPException(status_code=404, detail="Transaction not found")
 
     return TransactionOut.from_model(tx)
 
-# @router.get("/{id}")
-# async def get_transaction(id: int) -> TransactionOut: # скорее Object_id или UUID должен быть
-#     tx = await Transaction.find_by_id(id)
-#     if not tx:
-#         raise HTTPException(status_code=404, detail="Transaction not found")
-#     return tx
+
+@router.patch("/{transaction_id}", response_model=TransactionOut)
+async def update_transaction(transaction_id: UUID, data: TransactionUpdate) -> TransactionOut:
+    tx = await Transaction.get(transaction_id, fetch_links=True)
+    if not tx:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+
+    update_data = data.model_dump(exclude_unset=True)
+
+    if "category_id" in update_data:
+        new_category = await Category.get(update_data["category_id"])
+        if not new_category:
+            raise HTTPException(status_code=404, detail="New category not found")
+        tx.category = new_category  # type: ignore
+        update_data.pop("category_id")
+
+    for field, value in update_data.items():
+        setattr(tx, field, value)
+
+    await tx.save()  # type: ignore
+    return TransactionOut.from_model(tx)
 
 
-# # @router.post("/")
-# @router.post("/", response_model=TransactionOut)
-# async def create_transaction(transaction: TransactionCreate):
-# # async def create_transaction(transaction: TransactionCreate) -> TransactionOut:
-#     tx = Transaction(**transaction.model_dump())
-#     await tx.insert()
-#     return tx
-#     # return TransactionOut.from_model(tx)
+@router.delete("/{transaction_id}", response_model=dict)
+async def delete_transaction(transaction_id: UUID) -> dict:
+    tx = await Transaction.get(transaction_id)
+    if not tx:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+
+    await tx.delete()  # type: ignore
+    return {"message": "Transaction deleted successfully"}
