@@ -1,6 +1,5 @@
 from datetime import datetime
 from uuid import UUID, uuid4
-from enum import Enum
 
 from pydantic import Field
 from beanie import Document, Link
@@ -21,10 +20,11 @@ from app.api.categories.models import Category
 
 class Transaction(Document):
     id: UUID = Field(default_factory=uuid4)
-    amount: float
+    amount: float = Field(gt=0)
     date: datetime
     description: str = ""
     category: Link[Category]
+
     # category: Link[Category] | Category
 
     class Settings:

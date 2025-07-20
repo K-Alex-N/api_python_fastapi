@@ -16,7 +16,6 @@ class TestTransactions(TransactionsAPI):
     # @pytest.mark.skip
     def test_get_transaction_by_id(self):
         transaction = self.create_transaction()
-        print(transaction)
         self.get_transaction_by_id(transaction.id)
 
     @pytest.mark.skip

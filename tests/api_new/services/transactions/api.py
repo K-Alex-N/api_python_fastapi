@@ -1,4 +1,5 @@
 ﻿import requests
+from pydantic import UUID4
 
 from app.api.transactions.schemas import TransactionOut, TransactionOutList
 
@@ -10,15 +11,12 @@ from tests.api_new.services.transactions.payloads import payload_create_transact
 
 class TransactionsAPI(Helper):
     endpoints = Endpoints()
-
     category = CategoriesAPI()
 
-    def create_transaction(self):
+    def create_transaction(self) -> TransactionOut:
         payload = payload_create_transaction()
         category = self.category.create_category()
-        print("\n\n\n", payload)
         payload["category_id"] = str(category.id)
-        print("\n\n\n", payload)
         response = requests.post(
             url=self.endpoints.create_transaction,
             json=payload,
@@ -33,17 +31,28 @@ class TransactionsAPI(Helper):
         assert response.status_code == 200, response.json()
         return TransactionOutList.model_validate(response.json())
 
-    def get_transaction_by_id(self, transaction_id):
+
+
+
+
+
+    def get_transaction_by_id(self, transaction_id: UUID4):
         response = requests.get(
             url=self.endpoints.get_transaction_by_id(transaction_id)
         )
 
         assert response.status_code == 200, response.json()
 
+
+
+
+
+
+
     def update_transaction(self, transaction_id):
         response = requests.patch(
             url=self.endpoints.update_transaction(transaction_id),
-            json=self.payloads.create_transaction
+            json=payload_create_transaction
         )
 
         assert response.status_code == 200, response.json()

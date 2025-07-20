@@ -1,4 +1,5 @@
 ﻿from typing import List
+from uuid import UUID
 
 from fastapi import APIRouter, HTTPException
 
@@ -15,14 +16,27 @@ async def get_transactions() -> List[TransactionOut]:
     return TransactionOut.from_model_list(txs)
 
 
-@router.get("/{id}", response_model=TransactionOut)
-async def get_transaction_by_id(transaction_id: int) -> TransactionOut:
-    tx = await Transaction.find_by_id(transaction_id)
+@router.post("/", response_model=TransactionOut)
+async def create_transaction(data: TransactionCreate) -> TransactionOut:
+    category = await Category.get(data.category_id)
+    if not category:
+        raise HTTPException(status_code=404, detail="Category not found")
+
+    tx = Transaction(
+        **data.model_dump(exclude={"category_id"}),
+        category=category  # type: ignore
+    )
+    await tx.insert()  # type: ignore
+    return TransactionOut.from_model(tx)
+
+
+@router.get("/{transaction_id}", response_model=TransactionOut)
+async def get_transaction_by_id(transaction_id: UUID) -> TransactionOut:
+    tx = await Transaction.get(transaction_id, fetch_links=True)
     if not tx:
         raise HTTPException(status_code=404, detail="Transaction not found")
 
     return TransactionOut.from_model(tx)
-
 
 # @router.get("/{id}")
 # async def get_transaction(id: int) -> TransactionOut: # скорее Object_id или UUID должен быть
@@ -40,16 +54,3 @@ async def get_transaction_by_id(transaction_id: int) -> TransactionOut:
 #     await tx.insert()
 #     return tx
 #     # return TransactionOut.from_model(tx)
-
-@router.post("/", response_model=TransactionOut)
-async def create_transaction(data: TransactionCreate) -> TransactionOut:
-    category = await Category.get(data.category_id)
-    if not category:
-        raise HTTPException(status_code=404, detail="Category not found")
-
-    tx = Transaction(
-        **data.model_dump(exclude={"category_id"}),
-        category=category  # type: ignore
-    )
-    await tx.insert()  # type: ignore
-    return TransactionOut.from_model(tx)

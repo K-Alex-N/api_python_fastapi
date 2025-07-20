@@ -21,7 +21,7 @@ class BaseOutModel(BaseModel):
     @classmethod
     def from_model(cls: Type[T], model: object) -> T:
         instance = cls.model_validate(model)
-        logger.info(f"{cls.__name__}: created object")  # 👈 проще некуда
+        logger.info(f"{cls.__name__}: created object")
         return instance
 
     @classmethod
