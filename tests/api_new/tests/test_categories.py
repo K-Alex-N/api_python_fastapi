@@ -14,7 +14,6 @@ class TestCategories(CategoriesAPI):
     #     @pytest.mark.skip
     def test_get_category_by_id(self):
         category = self.create_category()
-        print("\n\n\n\n", category, "\n\n\n\n")
         self.get_category_by_id(category.id)
 
     #     @pytest.mark.skip

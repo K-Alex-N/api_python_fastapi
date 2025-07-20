@@ -5,65 +5,40 @@ from app.api.transactions.schemas import TransactionOut, TransactionOutList
 
 from tests.api_new.common.helper import Helper
 from tests.api_new.services.categories.api import CategoriesAPI
-from tests.api_new.services.transactions.endpoints import Endpoints
+from tests.api_new.services.transactions.endpoints import endpoints
 from tests.api_new.services.transactions.payloads import payload_create_transaction
 
 
 class TransactionsAPI(Helper):
-    endpoints = Endpoints()
     category = CategoriesAPI()
 
     def create_transaction(self) -> TransactionOut:
-        payload = payload_create_transaction()
         category = self.category.create_category()
-        payload["category_id"] = str(category.id)
         response = requests.post(
-            url=self.endpoints.create_transaction,
-            json=payload,
+            url=endpoints.create_transaction,
+            json=payload_create_transaction(category_id=str(category.id))
         )
-
         assert response.status_code == 200, response.json()
         return TransactionOut.model_validate(response.json())
 
     def get_all_transactions(self) -> TransactionOutList:
-        response = requests.get(url=self.endpoints.get_all_transactions)
-
+        response = requests.get(url=endpoints.get_all_transactions)
         assert response.status_code == 200, response.json()
         return TransactionOutList.model_validate(response.json())
 
-
-
-
-
-
-    def get_transaction_by_id(self, transaction_id: UUID4):
-        response = requests.get(
-            url=self.endpoints.get_transaction_by_id(transaction_id)
-        )
-
+    def get_transaction_by_id(self, transaction_id: UUID4) -> TransactionOut:
+        response = requests.get(url=endpoints.get_transaction_by_id(transaction_id))
         assert response.status_code == 200, response.json()
+        return TransactionOut.model_validate(response.json())
 
-
-
-
-
-
-
-    def update_transaction(self, transaction_id):
+    def update_transaction(self, transaction_id) -> TransactionOut:
         response = requests.patch(
-            url=self.endpoints.update_transaction(transaction_id),
+            url=endpoints.update_transaction(transaction_id),
             json=payload_create_transaction()
         )
-
         assert response.status_code == 200, response.json()
-
-
-
-
+        return TransactionOut.model_validate(response.json())
 
     def delete_transaction(self, transaction_id):
-        response = requests.delete(
-            url=self.endpoints.delete_transaction(transaction_id)
-        )
-
+        response = requests.delete(url=endpoints.delete_transaction(transaction_id))
         assert response.status_code == 200, response.json()
