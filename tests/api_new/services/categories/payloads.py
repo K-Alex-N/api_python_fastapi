@@ -23,6 +23,13 @@ class Payloads:
         del payload["type"]
         return payload
 
+    def category_without_name_and_type(self):
+        payload = self.category()
+        del payload["type"]
+        del payload["name"]
+        print(payload)
+        return payload
+
     def category_with_wrong_name(self):
         payload = self.category()
         payload["name"] = fake.pyfloat() # should be str
