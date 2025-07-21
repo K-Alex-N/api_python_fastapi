@@ -13,4 +13,24 @@ class Payloads:
             "type": random.choice(["income", "expense"])
         }
 
-payload = Payloads()
+    def category_without_name(self):
+        payload = self.category()
+        del payload["name"]
+        return payload
+
+    def category_without_type(self):
+        payload = self.category()
+        del payload["type"]
+        return payload
+
+    def category_with_wrong_name(self):
+        payload = self.category()
+        payload["name"] = fake.pyfloat() # should be str
+        return payload
+
+    def category_with_wrong_type(self):
+        payload = self.category()
+        payload["type"] = "wrong_type" # should be only "income" or "expense"
+        return payload
+
+payloads = Payloads()
