@@ -1,13 +1,14 @@
 ﻿import pytest
 
-from tests.api_new.services.categories.api import CategoriesAPI
 from tests.api_new.services.categories.create_category import CreateCategory
+from tests.api_new.services.categories.delete_category import DeleteCategory
 from tests.api_new.services.categories.get_all_categories import GetAllCategories
 from tests.api_new.services.categories.get_category import GetCategory
 from tests.api_new.services.categories.payloads import payloads
+from tests.api_new.services.categories.update_category import UpdateCategory
 
 
-class TestCategories(CategoriesAPI, GetAllCategories, CreateCategory, GetCategory):
+class TestCategories(DeleteCategory, UpdateCategory, GetAllCategories, CreateCategory, GetCategory):
 
     @pytest.mark.parametrize(
         "is_test, payload",
@@ -65,9 +66,32 @@ class TestCategories(CategoriesAPI, GetAllCategories, CreateCategory, GetCategor
         ]
     )
     def test_update_category(self, is_test, category_id, payload):
-        self.update_category(is_test, category_id, payload)
+        if category_id is None:
+            category_id = self.get_random_category_id()
 
-    def test_delete_category(self):
-        category_id = self.get_random_category_id()
-        # get_category_id_if_category_id_is_None()
+        self.update_category(category_id, payload)
+        if is_test == "positive":
+            assert self.check_response_is(200)
+            self.validate_category()
+        else:
+            assert self.check_response_is(422)
+
+    @pytest.mark.parametrize(
+        "is_test, category_id",
+        [
+            ("positive", None),
+            ("negative", "wrong id"),
+        ]
+    )
+    def test_delete_category(self, is_test, category_id):
+        if category_id is None:
+            category_id = self.get_random_category_id()
+
         self.delete_category(category_id)
+
+        if is_test == "positive":
+            assert self.check_response_is(200)
+            assert self.is_category_deleted(category_id)
+        else:
+            assert self.check_response_is(422)
+

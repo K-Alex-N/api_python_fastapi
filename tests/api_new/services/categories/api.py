@@ -8,7 +8,7 @@ from tests.api_new.services.categories.endpoints import endpoints
 from tests.api_new.services.categories.payloads import payloads
 
 
-class CategoriesAPI(BaseTest, Helper):
+# class CategoriesAPI(BaseTest, Helper):
 
     # def create_category(self, is_test, payload) -> CategoryOut | None:
     #     self.response = requests.post(
@@ -50,27 +50,27 @@ class CategoriesAPI(BaseTest, Helper):
         #     assert response.status_code == 422, response.json()
         #     return None
 
-    def update_category(self, is_test, category_id, payload) -> CategoryOut | None:
-        if not category_id: # а если подать пустую строку то тоже пройдет условие?
-            category_id = self.get_one_category_id()
+    # def update_category(self, is_test, category_id, payload) -> CategoryOut | None:
+    #     if not category_id: # а если подать пустую строку то тоже пройдет условие?
+    #         category_id = self.get_one_category_id()
+    #
+    #     # response = requests.patch(
+    #     #     url=endpoints.update_category(category_id),
+    #     #     json=payload
+    #     # )
+    #     # self.attach_response(response.json())
+    #
+    #     if is_test == "positive":
+    #         assert response.status_code == 200, response.json()
+    #         return CategoryOut.model_validate(response.json())
+    #     else:
+    #         assert response.status_code == 422, response.json()
+    #         return None
 
-        response = requests.patch(
-            url=endpoints.update_category(category_id),
-            json=payload
-        )
-        self.attach_response(response.json())
-
-        if is_test == "positive":
-            assert response.status_code == 200, response.json()
-            return CategoryOut.model_validate(response.json())
-        else:
-            assert response.status_code == 422, response.json()
-            return None
-
-    def delete_category(self, category_id: UUID4) -> None:
-        response = requests.delete(url=endpoints.delete_category(category_id))
-        assert response.status_code == 200, response.json()
-        self.attach_response(response.json())
-        # check that there is no anymore this id in DB
-        # for this
+    # def delete_category(self, category_id: UUID4) -> None:
+    #     response = requests.delete(url=endpoints.delete_category(category_id))
+    #     assert response.status_code == 200, response.json()
+    #     self.attach_response(response.json())
+    #     # check that there is no anymore this id in DB
+    #     # for this
 
