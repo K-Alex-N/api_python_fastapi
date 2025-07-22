@@ -1,9 +1,12 @@
-﻿from ..pages.inventory_page import InventoryPage
+﻿import allure
+
+from ..pages.inventory_page import InventoryPage
 from ..utils.allure_decorators import epic, feature
 
 
 @epic("UI")
-@feature("Inventory")
+# @feature("Inventory")
+@allure.feature("Inventory")
 class TestInventory:
     def test_products_sort_by_name_from_a_to_z(self, inventory_page: InventoryPage):
         # by default sort order is 'Name (A to Z)'

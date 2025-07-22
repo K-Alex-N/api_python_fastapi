@@ -29,11 +29,11 @@ class LoginPage(BasePage):
     @allure.step("check if login was successful")
     def expect_login_is_successful(self):
         with allure.step(f"expect current page is inventory"):
-            self.expect_current_page_url_have("https://www.saucedemo.com/inventory.html")
+            self.expect_page_have_url("https://www.saucedemo.com/inventory.html")
 
     @allure.step("check if login failed")
     def expect_login_failed(self):
         with allure.step("expect there is an error message"):
             self.error_message.should_be_visible()
         with allure.step(f"expect current page remain the same"):
-            self.expect_current_page_url_have("https://www.saucedemo.com/")
+            self.expect_page_have_url("https://www.saucedemo.com/")

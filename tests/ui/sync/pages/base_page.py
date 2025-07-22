@@ -28,5 +28,5 @@ class BasePage:
         expect(self.page).to_have_title(title)
 
     @allure.step("expect page have url: {url_part}")
-    def expect_current_page_url_have(self, url_part: str):
+    def expect_page_have_url(self, url_part: str):
         expect(self.page).to_have_url(url_part)

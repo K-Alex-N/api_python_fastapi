@@ -1,4 +1,5 @@
-﻿import pytest
+﻿import allure
+import pytest
 
 from ..pages.login_page import LoginPage
 from ..utils.allure_decorators import epic, feature
@@ -7,8 +8,9 @@ VALID_USERNAME = "standard_user"
 VALID_PASSWORD = "secret_sauce"
 
 
-@epic("UI")
-@feature("Login")
+# @epic("UI")
+@feature("Login")  # затем я так переделал? возмодно ИДЕшка подчеркивала. Попробовать удалить все в utils
+@allure.epic("UI")
 class TestLogin:
 
     @pytest.mark.parametrize(
