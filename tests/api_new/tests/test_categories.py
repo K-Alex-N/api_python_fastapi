@@ -26,7 +26,7 @@ class TestCategories(CategoriesAPI, CreateCategory):
         # self.create_category(payload) - попробовать все через self прописать
         if is_test == "positive":
             assert create_category_endpoint.check_response_is(200)
-            create_category_endpoint.validate()
+            create_category_endpoint.validate_category()
         else:
             assert create_category_endpoint.check_response_is(422)
 

@@ -17,5 +17,5 @@ class CreateCategory(BaseTest, Helper):
         )
         self.attach_response(self.response_json)
 
-    def validate(self):
+    def validate_category(self):
         CategoryOut.model_validate(self.response_json)
