@@ -39,9 +39,6 @@ class InventoryPage(BasePage):
             price_list.append(price)
         return price_list
 
-    # мб просто объединить вот эти четыре метода в один класс. чтобы типа через точку запускать под метод - пример - is_products_sorted_by.name_from_z_to_a
-    # но как тогда вызвать по красивому этот класс. -- вероятно это надо сделать в конструкторе страницы. сразу там инициализировать "подклассы"
-    
     @allure.step("check if products are sorted in correct order")
     def is_products_sorted_by_name_from_a_to_z(self):
         item_name_list = self._get_product_titles_list()

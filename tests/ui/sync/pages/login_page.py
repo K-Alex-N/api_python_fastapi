@@ -26,8 +26,6 @@ class LoginPage(BasePage):
         self.password_input.fill(password)
         self.login_button.click()
 
-    # мб создать подметоды login_with_valid_credential и т.д. Тогда сюда можно будет еще вынести чать кода и сами тесты станут ЧИЩЕ
-    
     @allure.step("check if login was successful")
     def expect_login_is_successful(self):
         with allure.step(f"expect current page is inventory"):
@@ -37,5 +35,5 @@ class LoginPage(BasePage):
     def expect_login_failed(self):
         with allure.step("expect there is an error message"):
             self.error_message.should_be_visible()
-
-        # добавить проверку что на той же странице остались
+        with allure.step(f"expect current page remain the same"):
+            self.expect_current_page_url_have("https://www.saucedemo.com/")
