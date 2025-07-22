@@ -29,28 +29,26 @@ class CategoriesAPI(BaseTest, Helper):
     #         assert self.check_response_is(422)
     #         return None
 
-    def get_all_categories(self) -> CategoryOutList:
-        response = requests.get(url=endpoints.get_all_categories)
-        assert response.status_code == 200, response.json()
-        self.attach_response(response.json())
-        return CategoryOutList.model_validate(response.json())
+    # def get_all_categories(self) -> CategoryOutList:
+    #     self.
+    #     assert response.status_code == 200, response.json()
+    #     return CategoryOutList.model_validate(response.json())
 
-    def get_one_category_id(self):
-        categories = self.get_all_categories()
-        return categories.model_dump()[0]["id"]
+    # def get_one_category_id(self):
+    #     categories = self.get_all_categories()
+    #     return categories.model_dump()[0]["id"]
 
-    def get_category_by_id(self, is_test="positive", category_id: UUID4 = None) -> CategoryOut | None:
-        if category_id is None:
-            category_id = self.get_one_category_id()
-        response = requests.get(url=endpoints.get_category_by_id(category_id))
-        self.attach_response(response.json())
+    # def get_category_by_id(self, is_test="positive", category_id: UUID4 = None) -> CategoryOut | None:
+        # if category_id is None:
+        #     category_id = self.get_one_category_id()
 
-        if is_test == "positive":
-            assert response.status_code == 200, response.json()
-            return CategoryOut.model_validate(response.json())
-        else:
-            assert response.status_code == 422, response.json()
-            return None
+
+        # if is_test == "positive":
+        #     assert response.status_code == 200, response.json()
+        #     return CategoryOut.model_validate(response.json())
+        # else:
+        #     assert response.status_code == 422, response.json()
+        #     return None
 
     def update_category(self, is_test, category_id, payload) -> CategoryOut | None:
         if not category_id: # а если подать пустую строку то тоже пройдет условие?

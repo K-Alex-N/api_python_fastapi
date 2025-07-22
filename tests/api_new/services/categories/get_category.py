@@ -1,4 +1,4 @@
-import requests
+﻿import requests
 
 from app.api.categories.schemas import CategoryOut
 from tests.api_new.common.base_test import BaseTest
@@ -6,12 +6,11 @@ from tests.api_new.common.helper import Helper
 from tests.api_new.services.categories.endpoints import endpoints
 
 
-class CreateCategory(BaseTest, Helper):
+class GetCategory(BaseTest, Helper):
 
-    def create_category(self, payload):
-        self.response = requests.post(
-            url=endpoints.create_category,
-            json=payload
+    def get_category_by_id(self, category_id):
+        self.response = requests.get(
+            url=endpoints.get_category_by_id(category_id)
         )
         self.response_json = self.response.json()
         self.attach_response(self.response_json)

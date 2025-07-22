@@ -2,12 +2,13 @@
 
 from tests.api_new.services.categories.api import CategoriesAPI
 from tests.api_new.services.categories.create_category import CreateCategory
+from tests.api_new.services.categories.get_all_categories import GetAllCategories
+from tests.api_new.services.categories.get_category import GetCategory
 from tests.api_new.services.categories.payloads import payloads
 
 
-class TestCategories(CategoriesAPI, CreateCategory):
+class TestCategories(CategoriesAPI, GetAllCategories, CreateCategory, GetCategory):
 
-    @pytest.mark.skip
     @pytest.mark.parametrize(
         "is_test, payload",
         [
@@ -19,18 +20,13 @@ class TestCategories(CategoriesAPI, CreateCategory):
         ]
     )
     def test_create_category(self, is_test, payload):
-
-        # self.create_category(is_test, payload)
-        create_category_endpoint = CreateCategory()
-        create_category_endpoint.create_category(payload)
-        # self.create_category(payload) - попробовать все через self прописать
+        self.create_category(payload)
         if is_test == "positive":
-            assert create_category_endpoint.check_response_is(200)
-            create_category_endpoint.validate_category()
+            assert self.check_response_is(200)
+            self.validate_category()
         else:
-            assert create_category_endpoint.check_response_is(422)
+            assert self.check_response_is(422)
 
-    @pytest.mark.skip
     @pytest.mark.parametrize(
         "is_test, category_id",
         [
@@ -40,13 +36,20 @@ class TestCategories(CategoriesAPI, CreateCategory):
         ]
     )
     def test_get_category_by_id(self, is_test, category_id):
-        self.get_category_by_id(is_test, category_id)
+        if category_id is None:
+            category_id = self.get_random_category_id()
 
-    @pytest.mark.skip
+        self.get_category_by_id(category_id)
+        if is_test == "positive":
+            assert self.check_response_is(200)
+            self.validate_category()
+        else:
+            assert self.check_response_is(422)
+
     def test_get_all_categories(self):
         self.get_all_categories()
-
-    #     @pytest.mark.skip
+        assert self.check_response_is(200)
+        self.validate_list_of_categories()
 
     @pytest.mark.parametrize(
         "is_test, category_id, payload",
@@ -64,8 +67,7 @@ class TestCategories(CategoriesAPI, CreateCategory):
     def test_update_category(self, is_test, category_id, payload):
         self.update_category(is_test, category_id, payload)
 
-    @pytest.mark.skip
     def test_delete_category(self):
-        category_id = self.get_one_category_id()
+        category_id = self.get_random_category_id()
         # get_category_id_if_category_id_is_None()
         self.delete_category(category_id)
