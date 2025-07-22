@@ -1,10 +1,11 @@
 ﻿import pytest
 
 from tests.api_new.services.categories.api import CategoriesAPI
+from tests.api_new.services.categories.create_category import CreateCategory
 from tests.api_new.services.categories.payloads import payloads
 
 
-class TestCategories(CategoriesAPI):
+class TestCategories(CategoriesAPI, CreateCategory):
 
     @pytest.mark.skip
     @pytest.mark.parametrize(
@@ -18,7 +19,16 @@ class TestCategories(CategoriesAPI):
         ]
     )
     def test_create_category(self, is_test, payload):
-        self.create_category(is_test, payload)
+
+        # self.create_category(is_test, payload)
+        create_category_endpoint = CreateCategory()
+        create_category_endpoint.create_category(payload)
+        # self.create_category(payload) - попробовать все через self прописать
+        if is_test == "positive":
+            assert create_category_endpoint.check_response_is(200)
+            create_category_endpoint.validate()
+        else:
+            assert create_category_endpoint.check_response_is(422)
 
     @pytest.mark.skip
     @pytest.mark.parametrize(
@@ -57,4 +67,5 @@ class TestCategories(CategoriesAPI):
     @pytest.mark.skip
     def test_delete_category(self):
         category_id = self.get_one_category_id()
+        # get_category_id_if_category_id_is_None()
         self.delete_category(category_id)
