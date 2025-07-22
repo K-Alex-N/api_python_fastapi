@@ -4,7 +4,7 @@ from pydantic import UUID4
 from app.api.categories.schemas import CategoryOut, CategoryOutList
 from tests.api_new.common.base_test import BaseTest
 from tests.api_new.common.helper import Helper
-from tests.api_new.services.categories.endpoints import endpoints
+from tests.api_new.services.categories.urls import urls
 from tests.api_new.services.categories.payloads import payloads
 
 

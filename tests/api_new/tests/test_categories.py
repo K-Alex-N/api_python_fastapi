@@ -22,6 +22,7 @@ class TestCategories(DeleteCategory, UpdateCategory, GetAllCategories, CreateCat
     )
     def test_create_category(self, is_test, payload):
         self.create_category(payload)
+
         if is_test == "positive":
             assert self.check_response_is(200)
             self.validate_category()
@@ -41,6 +42,7 @@ class TestCategories(DeleteCategory, UpdateCategory, GetAllCategories, CreateCat
             category_id = self.get_random_category_id()
 
         self.get_category_by_id(category_id)
+
         if is_test == "positive":
             assert self.check_response_is(200)
             self.validate_category()
@@ -70,6 +72,7 @@ class TestCategories(DeleteCategory, UpdateCategory, GetAllCategories, CreateCat
             category_id = self.get_random_category_id()
 
         self.update_category(category_id, payload)
+
         if is_test == "positive":
             assert self.check_response_is(200)
             self.validate_category()

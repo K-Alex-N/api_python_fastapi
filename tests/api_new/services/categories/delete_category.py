@@ -2,15 +2,14 @@
 
 from tests.api_new.common.base_test import BaseTest
 from tests.api_new.common.helper import Helper
-from tests.api_new.services.categories.endpoints import endpoints
-from tests.api_new.services.categories.get_all_categories import GetAllCategories
+from tests.api_new.services.categories.urls import urls
 from tests.api_new.services.categories.get_category import GetCategory
 
 
 class DeleteCategory(BaseTest, Helper):
     def delete_category(self, category_id):
         self.response = requests.delete(
-            url=endpoints.delete_category(category_id)
+            url=urls.delete_category(category_id)
         )
 
         self.response_json = self.response.json()

@@ -5,14 +5,14 @@ import requests
 from app.api.categories.schemas import CategoryOutList
 from tests.api_new.common.base_test import BaseTest
 from tests.api_new.common.helper import Helper
-from tests.api_new.services.categories.endpoints import endpoints
+from tests.api_new.services.categories.urls import urls
 
 
 class GetAllCategories(BaseTest, Helper):
 
     def get_all_categories(self):
         self.response = requests.get(
-            url=endpoints.get_all_categories
+            url=urls.get_all_categories
         )
 
         self.response_json = self.response.json()
