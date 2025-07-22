@@ -11,7 +11,7 @@ class InventoryPage(BasePage):
 
     def __init__(self, page: Page):
         super().__init__(page)
-        self.url = "https://www.saucedemo.com/inventory.html"
+        self.url = self.base_url + "/inventory.html"
         el = ElementFactory(page)
         self.product_titles = el.text_elements(".inventory_item_name")
         self.product_prices = el.text_elements(".inventory_item_price")

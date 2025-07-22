@@ -12,18 +12,20 @@ INVALID_PASSWORD = "wrong_password"
 @epic("UI")
 @feature("Login")
 class TestLogin:
-    def test_successful_login(self, login_page: LoginPage):
-        """Test that user can successfully log in with valid credentials"""
-        login_page.login(VALID_USERNAME, VALID_PASSWORD)
-        login_page.expect_login_is_successful()
 
-    @pytest.mark.parametrize("user, password", [
-        (VALID_USERNAME, INVALID_PASSWORD),
-        (INVALID_USERNAME, VALID_PASSWORD),
-        (VALID_USERNAME, ""),
-        ("", VALID_PASSWORD),
-    ])
-    def test_login_with_invalid_credentials(self, user, password, login_page: LoginPage):
-        """Test that user can not log in with invalid credentials"""
+    @pytest.mark.parametrize(
+        "is_test, user, password",
+        [
+            ("positive", VALID_USERNAME, VALID_PASSWORD),
+            ("negative", VALID_USERNAME, "wrong_password"),
+            ("negative", VALID_USERNAME, ""),
+            ("negative", "wrong_username", VALID_PASSWORD),
+            ("negative", "", VALID_PASSWORD),
+        ]
+    )
+    def test_login(self, is_test, user, password, login_page: LoginPage):
         login_page.login(user, password)
-        login_page.expect_login_failed()
+        if is_test == "positive":
+            login_page.expect_login_is_successful()
+        else:
+            login_page.expect_login_failed()

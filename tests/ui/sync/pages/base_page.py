@@ -5,6 +5,7 @@ from playwright.sync_api import Page, expect
 class BasePage:
     def __init__(self, page: Page):
         self.page = page
+        self.base_url = "https://www.saucedemo.com"
 
     @allure.step("Go to URL -> {url}")
     def goto(self, url: str):

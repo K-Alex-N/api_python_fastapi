@@ -9,7 +9,7 @@ class LoginPage(BasePage):
 
     def __init__(self, page: Page):
         super().__init__(page)
-        self.url = "https://www.saucedemo.com/"  # вынест базовый URL. А здесь его складывать с path. В данном случае ничего складывать не нужно, просто БэйсУрл буду использовать
+        self.url = self.base_url + "/"
         el = ElementFactory(page)
         self.username_input = el.text_input("#user-name")
         self.password_input = el.text_input("#password")
@@ -37,3 +37,5 @@ class LoginPage(BasePage):
     def expect_login_failed(self):
         with allure.step("expect there is an error message"):
             self.error_message.should_be_visible()
+
+        # добавить проверку что на той же странице остались

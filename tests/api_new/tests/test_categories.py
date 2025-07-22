@@ -24,7 +24,7 @@ class TestCategories(CategoriesAPI):
     @pytest.mark.parametrize(
         "is_test, category_id",
         [
-            ("positive", None),  # id will be taken after
+            ("positive", None),  # None will be replaced by real id after
             ("negative", "wrong id"),
             ("negative", 12345678),
         ]
