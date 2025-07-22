@@ -18,5 +18,5 @@ class DeleteCategory(BaseTest, Helper):
     @staticmethod
     def is_category_deleted(category_id):
         get_endpoint = GetCategory()
-        category = get_endpoint.get_category_by_id(category_id)
-        return True if not category else False
+        response = get_endpoint.get_category_by_id(category_id)
+        return True if not response else False
