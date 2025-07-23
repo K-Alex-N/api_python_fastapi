@@ -1,10 +1,4 @@
-# import pytest
-#
-# from tests.api.services.categories.create_category import CreateCategory
-# from tests.api.services.categories.delete_category import DeleteCategory
-# from tests.api.services.categories.get_all_categories import GetAllCategories
-# from tests.api.services.categories.payloads import Payloads
-# from tests.api.services.transactions.create_transaction import CreateTransaction
+
 #
 #
 # @pytest.fixture(scope="session", autouse=True)

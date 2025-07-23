@@ -3,7 +3,7 @@ import json
 import allure
 
 
-class BaseEndpoint():
+class BaseEndpoint:
     response = None
     response_json = None
 
