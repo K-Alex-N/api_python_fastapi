@@ -1,7 +1,7 @@
 import allure
 import requests
 
-from tests.api_new.services.transactions.base_transaction import TransactionEndpoint
+from tests.api.services.transactions.base_transaction import TransactionEndpoint
 
 
 class DeleteTransaction(TransactionEndpoint):
@@ -12,7 +12,7 @@ class DeleteTransaction(TransactionEndpoint):
             url=url.delete_transaction(transaction_id)
         )
         self.response_json = self.response.json()
-        self.attach_response(self.response_json)
+        self.allure_attach_response(self.response_json)
 
     @staticmethod
     @allure.step("Check if transaction with id {transaction_id} deleted")

@@ -1,6 +1,6 @@
 ﻿import pytest
 
-from tests.api_new.services.transactions.api import TransactionsAPI
+from tests.api.services.transactions.api import TransactionsAPI
 
 
 class TestTransactions(TransactionsAPI):

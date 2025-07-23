@@ -1,5 +1,5 @@
-from tests.api_new.services.categories.api import CategoriesAPI
-from tests.api_new.services.transactions.api import TransactionsAPI
+from tests.api.services.categories.api import CategoriesAPI
+from tests.api.services.transactions.api import TransactionsAPI
 
 category = CategoriesAPI()
 transaction = TransactionsAPI()

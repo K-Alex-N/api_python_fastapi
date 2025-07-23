@@ -1,7 +1,7 @@
 import allure
 
 from app.api.transactions.schemas import TransactionOut, TransactionOutList
-from tests.api_new.common.base_endpoint import BaseEndpoint
+from tests.api.common.base_endpoint import BaseEndpoint
 
 
 class TransactionEndpoint(BaseEndpoint):

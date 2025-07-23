@@ -1,4 +1,4 @@
-from tests.api_new.common.config import BASE_URL
+from tests.api.common.config import BASE_URL
 
 
 class URLs:

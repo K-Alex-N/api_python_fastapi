@@ -1,8 +1,8 @@
 import allure
 import requests
 
-from tests.api_new.services.transactions.base_transaction import TransactionEndpoint
-from tests.api_new.services.transactions.urls import url
+from tests.api.services.transactions.base_transaction import TransactionEndpoint
+from tests.api.services.transactions.urls import url
 
 
 class GetTransaction(TransactionEndpoint):
@@ -13,4 +13,4 @@ class GetTransaction(TransactionEndpoint):
             url=url.get_transaction_by_id(transaction_id)
         )
         self.response_json = self.response.json()
-        self.attach_response(self.response_json)
+        self.allure_attach_response(self.response_json)

@@ -1,8 +1,8 @@
 import allure
 import requests
 
-from tests.api_new.services.categories.base_category import CategoryEndpoint
-from tests.api_new.services.categories.urls import url
+from tests.api.services.categories.base_category import CategoryEndpoint
+from tests.api.services.categories.urls import url
 
 
 class CreateCategory(CategoryEndpoint):
@@ -13,7 +13,4 @@ class CreateCategory(CategoryEndpoint):
             url=url.create_category,
             json=payload
         )
-        self.response_json = self.response.json()
-        self.attach_response(self.response_json)
-
-        # self._process_response()
+        self._process_response()

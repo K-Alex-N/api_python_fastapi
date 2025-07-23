@@ -3,8 +3,8 @@ import random
 import allure
 import requests
 
-from tests.api_new.services.transactions.base_transaction import TransactionEndpoint
-from tests.api_new.services.transactions.urls import url
+from tests.api.services.transactions.base_transaction import TransactionEndpoint
+from tests.api.services.transactions.urls import url
 
 
 class GetAllTransactions(TransactionEndpoint):
@@ -16,7 +16,7 @@ class GetAllTransactions(TransactionEndpoint):
         )
 
         self.response_json = self.response.json()
-        self.attach_response(self.response_json)
+        self.allure_attach_response(self.response_json)
         return self.response
 
     @allure.step("Get random transaction id")

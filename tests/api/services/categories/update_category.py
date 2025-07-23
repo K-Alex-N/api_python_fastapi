@@ -1,8 +1,8 @@
 ﻿import allure
 import requests
 
-from tests.api_new.services.categories.base_category import CategoryEndpoint
-from tests.api_new.services.categories.urls import url
+from tests.api.services.categories.base_category import CategoryEndpoint
+from tests.api.services.categories.urls import url
 
 
 class UpdateCategory(CategoryEndpoint):
@@ -13,6 +13,4 @@ class UpdateCategory(CategoryEndpoint):
             url=url.update_category(category_id),
             json=payload
         )
-
-        self.response_json = self.response.json()
-        self.attach_response(self.response_json)
+        self._process_response()

@@ -3,8 +3,8 @@
 import allure
 import requests
 
-from tests.api_new.services.categories.base_category import CategoryEndpoint
-from tests.api_new.services.categories.urls import url
+from tests.api.services.categories.base_category import CategoryEndpoint
+from tests.api.services.categories.urls import url
 
 
 class GetAllCategories(CategoryEndpoint):
@@ -14,9 +14,7 @@ class GetAllCategories(CategoryEndpoint):
         self.response = requests.get(
             url=url.get_all_categories
         )
-
-        self.response_json = self.response.json()
-        self.attach_response(self.response_json)
+        self._process_response()
         return self.response
 
     @allure.step("Get random category id")
