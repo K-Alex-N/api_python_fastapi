@@ -25,6 +25,12 @@ class TestCategories(DeleteCategory, UpdateCategory, GetAllCategories, CreateCat
 
         if is_test == "positive":
             assert self.check_response_is(200)
+
+            # посмотреть что такое HTTPStatus.OK и как код будет из-за него выглядеть?
+            # from http import HTTPStatus  # Используем enum HTTPStatus вместо магических чисел
+            # assert_status_code(response.status_code, HTTPStatus.OK)
+            # HTTPStatus.OK, HTTPStatus.CREATED, HTTPStatus.NOT_FOUND
+
             self.validate_category()
         else:
             assert self.check_response_is(422)
