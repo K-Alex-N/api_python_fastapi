@@ -1,0 +1,16 @@
+import allure
+import requests
+
+from tests.api_new.services.transactions.base_transaction import TransactionEndpoint
+from tests.api_new.services.transactions.urls import url
+
+
+class GetTransaction(TransactionEndpoint):
+
+    @allure.step("Get transaction by id: {transaction_id}")
+    def get_transaction_by_id(self, transaction_id):
+        self.response = requests.get(
+            url=url.get_transaction_by_id(transaction_id)
+        )
+        self.response_json = self.response.json()
+        self.attach_response(self.response_json)

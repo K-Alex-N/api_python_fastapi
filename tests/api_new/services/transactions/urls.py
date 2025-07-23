@@ -1,7 +1,7 @@
 from tests.api_new.common.config import BASE_URL
 
 
-class Endpoints:
+class URLs:
     BASE_URL_TRANSACTIONS = BASE_URL + '/transactions/'
 
     create_transaction = BASE_URL_TRANSACTIONS
@@ -11,4 +11,4 @@ class Endpoints:
     delete_transaction = lambda self, _id: f"{self.BASE_URL_TRANSACTIONS}{_id}"
 
 
-endpoints = Endpoints()
+url = URLs()
