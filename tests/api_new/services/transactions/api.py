@@ -3,9 +3,6 @@ from pydantic import UUID4
 
 from app.api.transactions.schemas import TransactionOut, TransactionOutList
 
-from tests.api_new.common.helper import Helper
-from tests.api_new.services.categories.api import CategoriesAPI
-from tests.api_new.services.transactions.urls import endpoints
 from tests.api_new.services.transactions.payloads import payload_create_transaction
 
 
