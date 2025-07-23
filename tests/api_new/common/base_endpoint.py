@@ -25,3 +25,12 @@ class BaseEndpoint():
     def _process_response(self):
         self.response_json = self.response.json()
         self.attach_response(self.response_json)
+
+    # https://habr.com/ru/articles/709380/
+    #
+    # import allure
+    # from jsonschema import validate
+    #
+    # @allure.step('Validating schema')
+    # def validate_schema(instance: dict, schema: dict) -> None:
+    #     validate(instance=instance, schema=schema)
