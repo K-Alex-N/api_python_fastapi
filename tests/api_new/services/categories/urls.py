@@ -11,4 +11,4 @@ class URLs:
     delete_category = lambda self, _id: f"{self.CATEGORIES_URL}{_id}"
 
 
-urls = URLs()
+url = URLs()

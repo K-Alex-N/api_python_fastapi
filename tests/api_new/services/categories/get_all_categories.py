@@ -1,27 +1,25 @@
 ﻿import random
 
+import allure
 import requests
 
-from app.api.categories.schemas import CategoryOutList
-from tests.api_new.common.base_test import BaseTest
-from tests.api_new.common.helper import Helper
-from tests.api_new.services.categories.urls import urls
+from tests.api_new.services.categories.base_category import CategoryEndpoint
+from tests.api_new.services.categories.urls import url
 
 
-class GetAllCategories(BaseTest, Helper):
+class GetAllCategories(CategoryEndpoint):
 
+    @allure.step("Get all categories")
     def get_all_categories(self):
         self.response = requests.get(
-            url=urls.get_all_categories
+            url=url.get_all_categories
         )
 
         self.response_json = self.response.json()
         self.attach_response(self.response_json)
         return self.response
 
-    def validate_list_of_categories(self):
-        CategoryOutList.model_validate(self.response_json)
-
+    @allure.step("Get random category id")
     def get_random_category_id(self):
         categories = self.get_all_categories().json()
         l = len(categories)
