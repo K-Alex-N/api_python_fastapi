@@ -1,13 +1,16 @@
 ﻿from http import HTTPStatus
 
+import allure
 import pytest
 
 from tests.api.services.categories.create_category import CreateCategory
 from tests.api.services.categories.payloads import payloads
 
 
-class TestCreateCategories(CreateCategory):
+class TestCreateCategory(CreateCategory):
 
+    @allure.epic("Categories")
+    @allure.feature("Create category")
     @pytest.mark.parametrize(
         "is_test, payload",
         [

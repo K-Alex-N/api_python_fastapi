@@ -6,7 +6,7 @@ from tests.api.services.categories.get_all_categories import GetAllCategories
 from tests.api.services.categories.get_category import GetCategory
 
 
-class TestCategories(GetCategory, GetAllCategories):
+class TestGetCategory(GetCategory, GetAllCategories):
 
     @pytest.mark.parametrize(
         "is_test, category_id",

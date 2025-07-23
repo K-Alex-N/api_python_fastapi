@@ -1,13 +1,15 @@
 ﻿from http import HTTPStatus
 
+import allure
 import pytest
 
 from tests.api.services.categories.delete_category import DeleteCategory
 from tests.api.services.categories.get_all_categories import GetAllCategories
 
 
-class TestCategories(DeleteCategory, GetAllCategories):
+class TestDeleteCategory(DeleteCategory, GetAllCategories):
 
+    @allure.epic()
     @pytest.mark.parametrize(
         "is_test, category_id",
         [

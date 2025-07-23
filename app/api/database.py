@@ -24,7 +24,7 @@ async def lifespan(app: FastAPI):
         MONGO_URL,
         uuidRepresentation="standard"
     )
-    db = client.test
+    db = client.my_finance
     await init_beanie(database=db, document_models=[Transaction, Category])
     yield
     client.close()
