@@ -9,7 +9,6 @@ from tests.api.services.categories.get_all_categories import GetAllCategories
 
 class TestDeleteCategory(DeleteCategory, GetAllCategories):
 
-    @allure.epic()
     @pytest.mark.parametrize(
         "is_test, category_id",
         [

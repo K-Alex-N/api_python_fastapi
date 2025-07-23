@@ -13,6 +13,4 @@ class UpdateTransaction(TransactionEndpoint):
             url=url.update_transaction(transaction_id),
             json=payload
         )
-
-        self.response_json = self.response.json()
-        self.allure_attach_response(self.response_json)
+        self._process_response()

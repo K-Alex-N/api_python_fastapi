@@ -12,5 +12,4 @@ class GetTransaction(TransactionEndpoint):
         self.response = requests.get(
             url=url.get_transaction_by_id(transaction_id)
         )
-        self.response_json = self.response.json()
-        self.allure_attach_response(self.response_json)
+        self._process_response()

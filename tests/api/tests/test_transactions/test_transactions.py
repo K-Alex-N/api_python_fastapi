@@ -1,12 +1,16 @@
-﻿import pytest
+﻿from http import HTTPStatus
+
+import pytest
+import requests
 
 from tests.api.services.transactions.api import TransactionsAPI
+from tests.api.services.transactions.payloads import payloads
+from tests.api.services.transactions.urls import url
 
 
 class TestTransactions(TransactionsAPI):
 
-    def test_create_transaction(self):
-        self.create_transaction()
+
 
     def test_get_transaction_by_id(self):
         transaction = self.create_transaction()
