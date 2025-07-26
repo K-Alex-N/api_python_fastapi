@@ -15,7 +15,7 @@ class GetAllTransactions(TransactionEndpoint):
             url=url.get_all_transactions
         )
 
-        self._process_response()
+        self.process_response()
         return self.response
 
     @allure.step("Get random transaction id")

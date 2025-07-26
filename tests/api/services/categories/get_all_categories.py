@@ -14,7 +14,7 @@ class GetAllCategories(CategoryEndpoint):
         self.response = requests.get(
             url=url.get_all_categories
         )
-        self._process_response()
+        self.process_response()
         return self.response
 
     @allure.step("Get random category id")

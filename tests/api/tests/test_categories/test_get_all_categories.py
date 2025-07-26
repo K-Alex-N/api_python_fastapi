@@ -1,7 +1,5 @@
 ﻿from http import HTTPStatus
 
-import allure
-
 from tests.api.services.categories.get_all_categories import GetAllCategories
 
 

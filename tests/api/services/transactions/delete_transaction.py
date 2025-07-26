@@ -13,7 +13,7 @@ class DeleteTransaction(TransactionEndpoint):
         self.response = requests.delete(
             url=url.delete_transaction(transaction_id)
         )
-        self._process_response()
+        self.process_response()
 
     @staticmethod
     @allure.step("Check if transaction with id {transaction_id} deleted")

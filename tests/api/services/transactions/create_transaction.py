@@ -13,4 +13,4 @@ class CreateTransaction(TransactionEndpoint):
             url=url.create_transaction,
             json=payload
         )
-        self._process_response()
+        self.process_response()

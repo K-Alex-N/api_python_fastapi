@@ -13,4 +13,4 @@ class CreateCategory(CategoryEndpoint):
             url=url.create_category,
             json=payload
         )
-        self._process_response()
+        self.process_response()

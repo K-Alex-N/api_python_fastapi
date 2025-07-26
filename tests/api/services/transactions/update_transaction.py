@@ -13,4 +13,4 @@ class UpdateTransaction(TransactionEndpoint):
             url=url.update_transaction(transaction_id),
             json=payload
         )
-        self._process_response()
+        self.process_response()

@@ -11,10 +11,9 @@ class BaseEndpoint:
     def check_response_is(self, status_code=200):
         return self.response.status_code == status_code
 
-    @staticmethod
-    def allure_attach_response(response):
+    def allure_attach_response(self):
         allure.attach(
-            json.dumps(response, indent=4),
+            json.dumps(self.response_json, indent=4),
             name="API Response",
             attachment_type=allure.attachment_type.JSON
         )
@@ -32,6 +31,6 @@ class BaseEndpoint:
         schema.model_validate(self.response_json)
         self.allure_attach_schema(schema)
 
-    def _process_response(self):
+    def process_response(self):
         self.response_json = self.response.json()
-        self.allure_attach_response(self.response_json)
+        self.allure_attach_response()

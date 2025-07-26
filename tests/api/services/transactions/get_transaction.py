@@ -12,4 +12,4 @@ class GetTransaction(TransactionEndpoint):
         self.response = requests.get(
             url=url.get_transaction_by_id(transaction_id)
         )
-        self._process_response()
+        self.process_response()
