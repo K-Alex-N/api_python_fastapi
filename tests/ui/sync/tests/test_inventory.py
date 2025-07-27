@@ -6,7 +6,7 @@ from ..utils.allure_decorators import epic, feature
 
 @epic("UI")
 # @feature("Inventory")
-@allure.feature("Inventory")
+@allure.feature("Inventory рорм")
 class TestInventory:
     def test_products_sort_by_name_from_a_to_z(self, inventory_page: InventoryPage):
         # by default sort order is 'Name (A to Z)'
