@@ -4,7 +4,7 @@ WORKDIR /welcome
 
 COPY . .
 
-RUN pip install flask
+RUN pip install Flask==3.1.1
 
 EXPOSE 5000
 

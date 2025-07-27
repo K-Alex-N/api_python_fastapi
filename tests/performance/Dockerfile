@@ -3,7 +3,7 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-RUN pip install locust # можно и без requirements.txt
+RUN pip install locust==2.37.11 # можно и без requirements.txt
 
 COPY locustfile.py .
 

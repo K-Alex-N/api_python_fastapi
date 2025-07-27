@@ -15,10 +15,10 @@ class TestLogin:
         "is_test, user, password",
         [
             ("positive", VALID_USERNAME, VALID_PASSWORD),
-            ("negative", VALID_USERNAME, "wrong_password"),
-            ("negative", VALID_USERNAME, ""),
-            ("negative", "wrong_username", VALID_PASSWORD),
-            ("negative", "", VALID_PASSWORD),
+            ("-negative", VALID_USERNAME, "wrong_password"),
+            ("-negative", VALID_USERNAME, ""),
+            ("-negative", "wrong_username", VALID_PASSWORD),
+            ("-negative", "", VALID_PASSWORD),
         ]
     )
     def test_login(self, is_test, user, password, login_page: LoginPage):

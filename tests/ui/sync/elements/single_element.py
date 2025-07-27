@@ -26,19 +26,18 @@ class Button(ClickableElement):
 class TextElement(BaseElement):
     """ elements that have text (<div>, <span> etc) """
 
+    @allure.step("Getting inner text")
     def text(self) -> str:
-        with allure.step("Getting inner text"):
-            self.should_be_visible()
-            return self.locator.inner_text()  # .text_content()
+        self.should_be_visible()
+        return self.locator.inner_text()
 
-    def should_have_text(self, expected: str):
-        with allure.step(f"Text should have {expected}"):
-            self.should_be_visible()
-            expect(self.locator).to_have_text(expected)
+    @allure.step("Text should have {expected_text}")
+    def should_have_text(self, expected_text: str):
+        self.should_be_visible()
+        expect(self.locator).to_have_text(expected_text)
 
 
 class Dropdown(BaseElement):
-    # мб его переназвать в SelectElement ??? и select_option() соответственнно
 
     def select_by_value(self, value: str):
         self.should_be_visible()

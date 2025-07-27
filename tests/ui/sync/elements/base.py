@@ -19,8 +19,6 @@ class BaseElement:
             expect(self.locator).to_be_enabled()
 
 
-# Mixins
-
 class ClickableElement(BaseElement):
 
     def click(self):
