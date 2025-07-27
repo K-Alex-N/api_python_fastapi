@@ -5,6 +5,7 @@ from datetime import datetime
 
 import allure
 import pytest
+import pytest_asyncio
 from playwright.async_api import async_playwright, Page
 
 from .pages.login_page import LoginPage
@@ -16,7 +17,7 @@ SLOW_MO = int(os.getenv("SLOW_MO", 0))
 STORAGE_PATH = "state.json"
 
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest_asyncio.fixture(scope="function", autouse=True)
 async def ensure_login_state():
     if os.path.exists(STORAGE_PATH):
         # check expires time in cookies
@@ -43,8 +44,7 @@ async def ensure_login_state():
         await context.storage_state(path=STORAGE_PATH)
         await browser.close()
 
-
-@pytest.fixture
+@pytest_asyncio.fixture
 async def page(request):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=HEADLESS, slow_mo=SLOW_MO)
@@ -60,15 +60,14 @@ async def page(request):
 
         await browser.close()
 
-
-@pytest.fixture
+@pytest_asyncio.fixture
 async def login_page(page: Page):
     login_page = LoginPage(page)
     await login_page.open()
     yield login_page
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def inventory_page(page: Page):
     inventory_page = InventoryPage(page)
     await inventory_page.open()

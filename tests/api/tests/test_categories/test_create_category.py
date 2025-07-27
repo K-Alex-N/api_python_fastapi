@@ -12,10 +12,10 @@ class TestCreateCategory(CreateCategory):
         "is_test, payload",
         [
             ("positive", payloads.category()),
-            ("negative", payloads.category_without_name()),
-            ("negative", payloads.category_without_type()),
-            ("negative", payloads.category_with_wrong_name()),
-            ("negative", payloads.category_with_wrong_type()),
+            ("-negative", payloads.category_without_name()),
+            ("-negative", payloads.category_without_type()),
+            ("-negative", payloads.category_with_wrong_name()),
+            ("-negative", payloads.category_with_wrong_type()),
         ]
     )
     def test_create_category(self, is_test, payload):

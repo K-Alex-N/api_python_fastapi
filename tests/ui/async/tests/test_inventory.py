@@ -1,10 +1,9 @@
-﻿import pytest
+﻿import allure
+import pytest
 from ..pages.inventory_page import InventoryPage
-from ..utils.allure_decorators import epic, feature
 
-
-@epic("UI_async")
-@feature("Inventory_async")
+@allure.epic("UI_async")
+@allure.feature("Inventory_async")
 @pytest.mark.asyncio
 class TestInventory:
     async def test_products_sort_by_name_from_a_to_z_async(self, inventory_page: InventoryPage):

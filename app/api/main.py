@@ -1,111 +1,11 @@
-﻿import random
-
-import uvicorn
-
-# from fastapi import FastAPI, HTTPException
-#
-# from .models import Expense
-#
-# app = FastAPI()
-#
-# expenses = []
-#
-# @app.get("/")
-# def get_expenses():
-#     return expenses
-#
-#
-# @app.get("/expenses_amount")
-# def get_expenses_amount():
-#     return sum(expense["amount"] for expense in expenses)
-#
-#
-# @app.get("/{id}")
-# def get_expense(id: int):
-#     for s in expenses:
-#         if s["id"] == id:
-#             return s
-#     raise HTTPException(status_code=404, detail="Not found")
-#
-#
-# @app.post("/")
-# def add_expense(expense: Expense):
-#     expenses.append({
-#         "id": len(expenses) + 1,
-#         "description": expense.description,
-#         "amount": expense.amount,
-#         "currency": expense.currency
-#     })
-#     return {"success": True, "message": "Expense added"}
-#
-#
-# @app.put("/{id}")
-# def update_expense(id: int, expense: Expense):
-#     ...
-#
-#
-# @app.delete("/{id}")
-# def delete_expense(id: int):
-#     ...
-
-# ---------------------------------------------------------
-
-# from fastapi import FastAPI, HTTPException
-#
-# from .schemas import TransactionCreate, Transaction
-# from .crud import add_transaction, get_all_transactions, delete_transaction
-#
-# app = FastAPI()
-#
-# @app.post("/transactions", response_model=Transaction)
-# async def create_transaction(transaction: TransactionCreate):
-#     return await add_transaction(transaction)
-#
-# @app.get("/transactions", response_model=list[Transaction])
-# async def read_transactions():
-#     return await get_all_transactions()
-#
-# @app.delete("/transactions/{transaction_id}")
-# async def remove_transaction(transaction_id: str):
-#     deleted = await delete_transaction(transaction_id)
-#     if not deleted:
-#         raise HTTPException(status_code=404, detail="Transaction not found")
-#     return {"message": "Deleted successfully"}
-
-
-# ---------------------------------------------------------
-
-# from fastapi import FastAPI, HTTPException
-# from schemas import Transaction, TransactionCreate
-# from crud_async import add_transaction_async, delete_transaction_async
-# from crud_sync import get_all_transactions_sync
-#
-# app = FastAPI(title="Finance Tracker with Sync + Async")
-#
-# @app.post("/transactions", response_model=Transaction)
-# async def create_transaction(transaction: TransactionCreate):
-#     return await add_transaction_async(transaction)
-#
-# @app.get("/transactions", response_model=list[Transaction])
-# def get_transactions():
-#     return get_all_transactions_sync()
-#
-# @app.delete("/transactions/{transaction_id}")
-# async def delete_transaction(transaction_id: str):
-#     deleted = await delete_transaction_async(transaction_id)
-#     if not deleted:
-#         raise HTTPException(status_code=404, detail="Transaction not found")
-#     return {"message": "Deleted successfully"}
-
-# ---------------------------------------------------------
-
-from fastapi import FastAPI, HTTPException, Request, Response
+﻿from fastapi import FastAPI, HTTPException, Request, Response
 from prometheus_fastapi_instrumentator import Instrumentator
 from prometheus_client import Counter, Gauge
 import string
 
-from app.api.database import lifespan
-from app.api.logger_config import setup_logger
+from .database import lifespan
+from .logger_config import setup_logger
+
 # from .logger_config import setup_logger
 # from .schemas import Transaction, HealthCheckResponse
 # from .crud_async import add_random_transaction_async, get_random_transaction_async
@@ -114,32 +14,25 @@ from app.api.logger_config import setup_logger
 logger = setup_logger()
 app = FastAPI(lifespan=lifespan)
 
-from app.api.transactions import routes as transactions_routes
-from app.api.categories import routes as categories_routes
+from .transactions import routes as transactions_routes
+from .categories import routes as categories_routes
 
-# app.include_router(routes.router)
 app.include_router(transactions_routes.router)
 app.include_router(categories_routes.router)
-
-
-
-
-
-
 
 # --- Healthcheck ---
 
 
-# from .database import async_db, sync_db
-# from pymongo.errors import PyMongoError
-# from motor.core import AgnosticDatabase
-# from fastapi.responses import JSONResponse
-#
-#
-# @app.get("/health")
-# async def healthcheck():
-#     await async_db.command("ping")
-#     return {"status": "ok"}
+from .database import async_db
+from pymongo.errors import PyMongoError
+from motor.core import AgnosticDatabase
+from fastapi.responses import JSONResponse
+
+
+@app.get("/health")
+async def healthcheck():
+    await async_db.command("ping")
+    return {"status": "ok"}
 #
 #
 # @app.post("/test_add")
@@ -252,9 +145,6 @@ app.include_router(categories_routes.router)
 # ---------------------------------------------------------
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", reload=True)
+    import uvicorn
 
-# improvements
-# date (auto + modification)
-# Expense One-time + Recurring
-# add_income
+    uvicorn.run("main:app", reload=True)

@@ -12,8 +12,8 @@ class TestGetTransaction(GetTransaction, GetAllTransactions):
         "is_test, transaction_id",
         [
             ("positive", "placeholder id"),
-            ("negative", "wrong id"),
-            ("negative", 12345678),
+            ("-negative", "wrong id"),
+            ("-negative", 12345678),
         ]
     )
     def test_get_transaction_by_id(self, is_test, transaction_id):

@@ -12,7 +12,7 @@ class TestDeleteTransaction(DeleteTransaction, GetAllTransactions):
         "is_test, transaction_id",
         [
             ("positive", "placeholder id"),  # will be replaced by real id
-            ("negative", "wrong id"),
+            ("-negative", "wrong id"),
         ]
     )
     def test_delete_transaction(self, is_test, transaction_id):

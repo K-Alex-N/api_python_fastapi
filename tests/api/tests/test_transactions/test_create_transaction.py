@@ -12,14 +12,14 @@ class TestCreateTransaction(CreateTransaction):
         "is_test, payload",
         [
             ("positive", payloads.create_transaction),
-            ("negative", payloads.create_transaction_without_amount),
-            ("negative", payloads.create_transaction_without_date),
-            ("negative", payloads.create_transaction_without_description),
-            ("negative", payloads.create_transaction_without_category_id),
-            ("negative", payloads.create_transaction_with_wrong_amount),
-            ("negative", payloads.create_transaction_with_wrong_date),
-            ("negative", payloads.create_transaction_with_wrong_description),
-            ("negative", payloads.create_transaction_with_wrong_category_id),
+            ("-negative", payloads.create_transaction_without_amount),
+            ("-negative", payloads.create_transaction_without_date),
+            ("-negative", payloads.create_transaction_without_description),
+            ("-negative", payloads.create_transaction_without_category_id),
+            ("-negative", payloads.create_transaction_with_wrong_amount),
+            ("-negative", payloads.create_transaction_with_wrong_date),
+            ("-negative", payloads.create_transaction_with_wrong_description),
+            ("-negative", payloads.create_transaction_with_wrong_category_id),
         ]
     )
     def test_create_transaction(self, is_test, payload):

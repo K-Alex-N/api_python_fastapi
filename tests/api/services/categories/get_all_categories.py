@@ -20,5 +20,5 @@ class GetAllCategories(CategoryEndpoint):
     @allure.step("Get random category id")
     def get_random_category_id(self):
         categories = self.get_all_categories().json()
-        l = len(categories)
-        return categories[random.randrange(0, l)]["id"]
+        random_category_number = random.randint(0, len(categories) - 1)
+        return categories[random_category_number]["id"]

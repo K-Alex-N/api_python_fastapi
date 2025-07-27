@@ -3,9 +3,9 @@ from uuid import UUID
 
 from fastapi import APIRouter, HTTPException
 
-from app.api.categories.models import Category
-from app.api.transactions.schemas import TransactionCreate, TransactionOut, TransactionUpdate
-from app.api.transactions.models import Transaction
+from ..categories.models import Category
+from .schemas import TransactionCreate, TransactionOut, TransactionUpdate
+from .models import Transaction
 
 router = APIRouter(prefix="/transactions", tags=["Transactions"])
 

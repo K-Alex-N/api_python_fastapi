@@ -1,3 +1,4 @@
+import pytest
 from faker import Faker
 
 from tests.api.services.categories.get_all_categories import GetAllCategories
@@ -8,7 +9,8 @@ fake = Faker()
 class Payloads:
 
     @staticmethod
-    def create_transaction(category_id: str = None) -> dict:
+    # @pytest.fixture()
+    def create_transaction() -> dict:
         category_id = GetAllCategories().get_random_category_id()
         return {
             "amount": fake.pyint(min_value=10, max_value=2000),
@@ -16,6 +18,14 @@ class Payloads:
             "description": fake.sentence(),
             "category_id": category_id
         }
+
+
+    # # мб transaction = self.create_transaction() через фикстуру получать?
+    # @staticmethod
+    # def create_transaction_without_amount(transaction) -> dict:
+    #     # transaction = self.create_transaction()
+    #     del transaction["amount"]
+    #     return transaction
 
     def create_transaction_without_amount(self) -> dict:
         transaction = self.create_transaction()

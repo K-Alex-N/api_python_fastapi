@@ -12,8 +12,8 @@ class TestGetCategory(GetCategory, GetAllCategories):
         "is_test, category_id",
         [
             ("positive", "placeholder id"),
-            ("negative", "wrong id"),
-            ("negative", 12345678),
+            ("-negative", "wrong id"),
+            ("-negative", 12345678),
         ]
     )
     def test_get_category_by_id(self, is_test, category_id):

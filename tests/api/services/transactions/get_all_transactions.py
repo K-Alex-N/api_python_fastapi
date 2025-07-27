@@ -14,12 +14,11 @@ class GetAllTransactions(TransactionEndpoint):
         self.response = requests.get(
             url=url.get_all_transactions
         )
-
         self.process_response()
         return self.response
 
     @allure.step("Get random transaction id")
     def get_random_transaction_id(self):
         transactions = self.get_all_transactions().json()
-        l = len(transactions)
-        return transactions[random.randrange(0, l)]["id"]
+        random_transaction_number = random.randint(0, len(transactions) - 1)
+        return transactions[random_transaction_number]["id"]

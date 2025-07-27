@@ -4,7 +4,7 @@ from uuid import UUID, uuid4
 from pydantic import Field
 from beanie import Document, Link
 
-from app.api.categories.models import Category
+from ..categories.models import Category
 
 
 class Transaction(Document):

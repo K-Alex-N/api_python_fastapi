@@ -16,10 +16,10 @@ class TestUpdateCategory(UpdateCategory, GetAllCategories):
             ("positive", "placeholder id", payloads.category_without_name()),
             ("positive", "placeholder id", payloads.category_without_type()),
             ("positive", "placeholder id", payloads.category_without_name_and_type()),
-            ("negative", "placeholder id", payloads.category_with_wrong_name()),
-            ("negative", "placeholder id", payloads.category_with_wrong_type()),
-            ("negative", "wrong id", payloads.category()),
-            ("negative", 12345678, payloads.category_without_name()),
+            ("-negative", "placeholder id", payloads.category_with_wrong_name()),
+            ("-negative", "placeholder id", payloads.category_with_wrong_type()),
+            ("-negative", "wrong id", payloads.category()),
+            ("-negative", 12345678, payloads.category_without_name()),
         ]
     )
     def test_update_category(self, is_test, category_id, payload):

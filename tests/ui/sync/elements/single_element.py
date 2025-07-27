@@ -7,10 +7,10 @@ from .base import BaseElement, ClickableElement
 class TextInput(BaseElement):
     """ input field (<input type="text">) """
 
+    @allure.step("Fill input with value: {value}")
     def fill(self, value: str):
-        with allure.step(f"Fill input {self.selector} with value: {value}"):
-            self.should_be_visible()
-            self.locator.fill(value)
+        self.should_be_visible()
+        self.locator.fill(value)
 
     def clear(self):
         self.locator.clear()

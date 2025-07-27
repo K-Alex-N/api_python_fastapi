@@ -12,7 +12,7 @@ class TestDeleteCategory(DeleteCategory, GetAllCategories):
         "is_test, category_id",
         [
             ("positive", "placeholder id"), # will be replaced by real id
-            ("negative", "wrong id"),
+            ("-negative", "wrong id"),
         ]
     )
     def test_delete_category(self, is_test, category_id):

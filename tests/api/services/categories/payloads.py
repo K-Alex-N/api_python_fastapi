@@ -27,12 +27,11 @@ class Payloads:
         payload = self.category()
         del payload["type"]
         del payload["name"]
-        print(payload)
         return payload
 
     def category_with_wrong_name(self):
         payload = self.category()
-        payload["name"] = fake.pyfloat() # should be str
+        payload["name"] = fake.pyint() # should be str
         return payload
 
     def category_with_wrong_type(self):
