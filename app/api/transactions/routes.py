@@ -18,7 +18,7 @@ async def get_transactions() -> List[TransactionOut]:
 
 @router.post("/", response_model=TransactionOut)
 async def create_transaction(data: TransactionCreate) -> TransactionOut:
-    category = await Category.get(data.category_id)
+    category = await Category.get(data.category_id, fetch_links=True)
     if not category:
         raise HTTPException(status_code=404, detail="Category not found")
 
@@ -48,7 +48,7 @@ async def update_transaction(transaction_id: UUID, data: TransactionUpdate) -> T
     update_data = data.model_dump(exclude_unset=True)
 
     if "category_id" in update_data:
-        new_category = await Category.get(update_data["category_id"])
+        new_category = await Category.get(update_data["category_id"], fetch_links=True)
         if not new_category:
             raise HTTPException(status_code=404, detail="New category not found")
         tx.category = new_category  # type: ignore

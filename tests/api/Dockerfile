@@ -1,19 +1,20 @@
 FROM python:3.13-slim
 ENV PYTHONUNBUFFERED=1
 
-#ARG BUILD_WORKDIR=test_api
-#WORKDIR /${BUILD_WORKDIR}
-#ENV PYTHONPATH=/${BUILD_WORKDIR}
+WORKDIR tests/api
+ENV PYTHONPATH=tests/api
 
 COPY requirements.txt .
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
-COPY . tests/api/
-COPY __init__.py tests
+COPY . .
+#COPY . api/
+COPY __init__.py ..
 
-#RUN chmod +x test/api/entrypoint.sh
-#CMD ["bash", "test/api/entrypoint.sh"]
+RUN chmod +x entrypoint.sh
+CMD ["bash", "entrypoint.sh"]
 #
-CMD ["pytest", "tests"]
+#CMD ["pytest", "tests/api/tests/test_categories"]
+#CMD ["pytest", "tests/api/tests/test_transactions"]
+#CMD ["pytest"]
 #CMD ["sleep", "infinity"]

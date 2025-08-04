@@ -127,29 +127,29 @@
     environment:
       - APP_HOST=api
     volumes:
-      - allure-results:/tests/api/allure-results
+      - allure-results:/allure-results
       - app_data:/app
     depends_on:
       api:
         condition: service_healthy
 
 # ui
-
-  tests_ui:
-    build: tests/ui/sync
-    environment:
-      - HEADLESS=True
-      - SLOW_MO=0
-    volumes:
-      - allure-results:/tests/ui/sync/allure-results
-
-  tests_ui_async:
-    build: tests/ui/async
-    environment:
-      - HEADLESS=True
-      - SLOW_MO=0
-    volumes:
-      - allure-results:/tests/allure-results
+#
+#  tests_ui:
+#    build: tests/ui/sync
+#    environment:
+#      - HEADLESS=True
+#      - SLOW_MO=0
+#    volumes:
+#      - allure-results:/test_ui/allure-results
+#
+#  tests_ui_async:
+#    build: tests/ui/async
+#    environment:
+#      - HEADLESS=True
+#      - SLOW_MO=0
+#    volumes:
+#      - allure-results:/test_ui/allure-results
 
 ## allure
 #

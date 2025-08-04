@@ -19,10 +19,10 @@ def clean_db():
 
 @pytest.fixture(scope="session", autouse=True)
 def prefill_db():
-    number_of_categories = 2
+    number_of_categories = 5
     for _ in range(number_of_categories):
         CreateCategory().create_category(payloads.category())
 
-    number_of_transactions = 2
+    number_of_transactions = 5
     for _ in range(number_of_transactions):
         CreateTransaction().create_transaction(payload_trnx.create_transaction())
