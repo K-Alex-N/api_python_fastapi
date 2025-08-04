@@ -19,11 +19,11 @@
 - Установлен **Docker**.
 
 ### Запуск
+```bash
 git clone https://github.com/K-Alex-N/api_python_fastapi.git
-
 cd api_python_fastapi
 docker compose up
-
+```
 
 
 
