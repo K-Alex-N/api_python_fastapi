@@ -8,8 +8,9 @@ INVALID_USERNAME = "blablabla"
 INVALID_PASSWORD = "blablabla"
 
 
-@allure.epic("UI_async")
-@allure.feature("Login_async")
+@allure.epic("UI")
+@allure.feature("Async")
+@allure.story("Login")
 @pytest.mark.asyncio
 class TestLogin:
 

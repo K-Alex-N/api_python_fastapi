@@ -1,11 +1,14 @@
 ﻿from http import HTTPStatus
 
+import allure
 import pytest
 
 from tests.api.services.transactions.delete_transaction import DeleteTransaction
 from tests.api.services.transactions.get_all_transactions import GetAllTransactions
 
-
+@allure.epic("API")
+@allure.feature("Transaction")
+@allure.story("DeleteTransaction")
 class TestDeleteTransaction(DeleteTransaction, GetAllTransactions):
 
     @pytest.mark.parametrize(

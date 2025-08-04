@@ -1,11 +1,14 @@
 ﻿from http import HTTPStatus
 
+import allure
 import pytest
 
 from tests.api.services.transactions.get_all_transactions import GetAllTransactions
 from tests.api.services.transactions.get_transaction import GetTransaction
 
-
+@allure.epic("API")
+@allure.feature("Transaction")
+@allure.story("GetTransaction")
 class TestGetTransaction(GetTransaction, GetAllTransactions):
 
     @pytest.mark.parametrize(

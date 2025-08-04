@@ -2,16 +2,12 @@ FROM python:3.13-alpine
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
-ENV PYTHONPATH=/app
 
 RUN apk add --no-cache curl # для хэлфсчека нужно
 COPY requirements.txt .
 RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
-# copy app and tests
 COPY . .
-#COPY /tests ./tests
-
 
 EXPOSE 8000
 

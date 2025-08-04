@@ -103,22 +103,22 @@
 # тесты
 # performance
 
-#  locust_master:
-#    build: tests/performance
-#    command: --master --host http://api:8000
-#    ports:
-#      - "8089:8089"
-#    depends_on:
-#      api:
-#        condition: service_healthy
-#
-#  locust_worker:
-#    build: tests/performance
-#    command: --worker --master-host locust_master
-#    deploy:
-#      replicas: 3
-#    depends_on:
-#      - locust_master
+  locust_master:
+    build: tests/performance
+    command: --master --host http://api:8000
+    ports:
+      - "8089:8089"
+    depends_on:
+      api:
+        condition: service_healthy
+
+  locust_worker:
+    build: tests/performance
+    command: --worker --master-host locust_master
+    deploy:
+      replicas: 3
+    depends_on:
+      - locust_master
 #
 ## api
 #
@@ -149,7 +149,7 @@
       - HEADLESS=True
       - SLOW_MO=0
     volumes:
-      - allure-results:/tests/allure-results
+      - allure-results:/tests/ui/async/allure-results
 
 ## allure
 #

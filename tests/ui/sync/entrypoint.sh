@@ -2,7 +2,7 @@
 #set -e
 
 #pytest
-pytest tests/ui/sync
+pytest
 #pytest -n 2
 #pytest -n 3
 #pytest -n 4

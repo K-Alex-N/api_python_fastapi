@@ -8,7 +8,8 @@ VALID_PASSWORD = "secret_sauce"
 
 
 @allure.epic("UI")
-@allure.feature("Login")
+@allure.feature("Sync")
+@allure.story("Login")
 class TestLogin:
 
     @pytest.mark.parametrize(
