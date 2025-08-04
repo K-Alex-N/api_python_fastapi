@@ -1,15 +1,34 @@
-# api_python_fastapi
-for docker
-![Альтернативный текст](https://1drv.ms/i/c/6399a0f415bd70c8/ES4kgYXah4lIpoiMWvgO2P0BK110aXin-lwnqsr-mzL3bA?e=6f396V)
-
-![Альтернативный текст](https://onedrive.live.com/?photosData=%2Fshare%2F6399A0F415BD70C8%21s8581242e87da4889a6888c5af80ed8fd%3Fithint%3Dphoto%26e%3D6f396V%26migratedtospo%3Dtrue&redeem=aHR0cHM6Ly8xZHJ2Lm1zL2kvYy82Mzk5YTBmNDE1YmQ3MGM4L0VTNGtnWVhhaDRsSXBvaU1XdmdPMlAwQksxMTBhWGluLWx3bnFzci1tekwzYkE%5FZT02ZjM5NlY&view=8)
+## Описание
+многоконтейнерное приложение
+# API проект на **FastAPI**, разработанный для автоматизированного деплоя и запуска с помощью **Docker Compose**.
 
 
-запустить докер композ...
-открыть http://127.0.0.1:5000/
-далее можно посмотреть ааллю...
+## 📁 Структура проекта
+- `app/` — код приложения FastAPI  
+- `infra/` — инфраструктурные конфигурации (Docker, сети, тома и т.п.)  
+- `tests/` — тесты приложения  
+- `welcome-page/` — статическая начальная страница или UI  
+- `docker-compose.yml` — основная конфигурация Docker Compose  
+- `.gitignore`  
+- `requirements-dev.txt` — зависимости для разработки  
+- `README.md`, `todo.txt` — документация и черновики
+
+## 🚀 Быстрый старт
+
+### Требования
+- Установлены **Docker** и **Docker Compose**.
+
+### Запуск
+```bash
+git clone https://github.com/K‑Alex‑N/api_python_fastapi.git
+cd api_python_fastapi
+docker compose up
+```
 
 
+
+[//]: # (image_on_github = "https://github.com/K-Alex-N/assets/main/docker/2025-07-04%2000_31_51-pet-project__docker.drawio%20-%20draw.io.png")
+[//]: # (raw_image = image_on_github.replace&#40;"github", "raw.githubusercontent"&#41;)
 
 
 <img src="https://1drv.ms/i/c/6399a0f415bd70c8/ES4kgYXah4lIpoiMWvgO2P0BK110aXin-lwnqsr-mzL3bA?e=6f396V" alt="Логотип GitHub" width="100">
