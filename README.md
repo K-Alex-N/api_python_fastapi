@@ -1,5 +1,6 @@
 ## Описание
-- Многоконтейнерное приложение на Python с центральным API-cервером на FastAPI
+- Многоконтейнерное приложение на Python с центральным API-cервером на FastAPI.
+- запус всего проекта (16 контейнеров) одной командой (докер композз)
 - 60+ тестов с отчетом в Allure
 - Каждый тип тестов "упакован" в свой докер-контейнер. 
 - Тестовые данные генеритуются динамически с помощью Faker
@@ -41,6 +42,8 @@ docker compose up
 welcome page -   
 allure report - 
 
+## еще несколько особенностей
+- данные в контейнерах очищены с помоью .dockerignore и не копирования "всего вподряд".
 
 [//]: # (image_on_github = "https://github.com/K-Alex-N/assets/main/docker/2025-07-04%2000_31_51-pet-project__docker.drawio%20-%20draw.io.png")
 [//]: # (raw_image = image_on_github.replace&#40;"github", "raw.githubusercontent"&#41;)
