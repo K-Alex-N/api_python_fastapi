@@ -1,22 +1,35 @@
 ## Описание
-многоконтейнерное приложение
-# API проект на **FastAPI**, разработанный для автоматизированного деплоя и запуска с помощью **Docker Compose**.
-
+- Многоконтейнерное приложение на Python с центральным API-cервером на FastAPI
+- 60+ тестов с отчетом в Allure
+- Каждый тип тестов "упакован" в свой докер-контейнер. 
+- Тестовые данные генеритуются динамически с помощью Faker
+- Логи в Kibana
+- Метрики в Grafana (со старта контейнер создается с преднастроенным дашбордом). 
 
 ## 📁 Структура проекта
-- `app/` — код приложения FastAPI  
-- `infra/` — инфраструктурные конфигурации (Docker, сети, тома и т.п.)  
-- `tests/` — тесты приложения  
-- `welcome-page/` — статическая начальная страница или UI  
-- `docker-compose.yml` — основная конфигурация Docker Compose  
-- `.gitignore`  
-- `requirements-dev.txt` — зависимости для разработки  
-- `README.md`, `todo.txt` — документация и черновики
+- `app/` — API сервер на FastAPI  
+- `infra/` — инфраструктура (ELK, Grafana)
+- `tests/`
+  - `api/` — API тесты приложения с использованием Pytest, Requests и валидацией данных через Pydentic.
+  - `ui/` — UI тесты стороннего ресурса (https://www.saucedemo.com/) с использованием Playwright
+    - `sync/` — синхронные тесты. 1 тест "упадет" чтобы показать что в этом случае автоматически будет получен скриншот. 
+    - `async/` — асинхронные тесты 
+  - `performance/` — перформанс тесты приложения с применением Locust 
+- `welcome-page/` — начальная страница (Flask) для удобной навигации по сервисам
+- `docker-compose.yml` — основная конфигурация Docker Compose
+
+## Схема проекта
+
+
+
+
+
+
 
 ## 🚀 Быстрый старт
 
 ### Требования
-- Установлен **Docker**.
+- Установленный Docker
 
 ### Запуск
 ```bash
@@ -24,47 +37,16 @@ git clone https://github.com/K-Alex-N/api_python_fastapi.git
 cd api_python_fastapi
 docker compose up
 ```
-
+### После запуска (16 контейнеров) 
+welcome page -   
+allure report - 
 
 
 [//]: # (image_on_github = "https://github.com/K-Alex-N/assets/main/docker/2025-07-04%2000_31_51-pet-project__docker.drawio%20-%20draw.io.png")
 [//]: # (raw_image = image_on_github.replace&#40;"github", "raw.githubusercontent"&#41;)
+[//]: # (Комментарий для докер-копоз файла)
+[//]: # (https://1drv.ms/x/c/6399a0f415bd70c8/EbY4_7V1KEBIkaZc1B0_IKQB8T2xSWTXzQel6y8OXf-dwQ?e=PJ6eEC)
 
-
-<img src="https://1drv.ms/i/c/6399a0f415bd70c8/ES4kgYXah4lIpoiMWvgO2P0BK110aXin-lwnqsr-mzL3bA?e=6f396V" alt="Логотип GitHub" width="100">
-
-![Логотип GitHub](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png "Логотип Гитхаба")
-
-Комментарий для докер-копоз файла
-https://1drv.ms/x/c/6399a0f415bd70c8/EbY4_7V1KEBIkaZc1B0_IKQB8T2xSWTXzQel6y8OXf-dwQ?e=PJ6eEC
-
-Start up 
-
-    prerequizites 
-        docker installed 
-
-    copy project on your machine
-        for example: git clone ...
-
-    start
-        docker compose up - как-т овыделить это цветом
-
-
-
-About 
-    Many docker conteiners work together
-    One allure report
-    2 languages (Python and C#)
-    speed test comparison below (link to this section)
-        python vs C# 
-        selenium vs playwright 
-        sync vs async 
-        single process vs multiprocessing
-
-Docker schema
-
-
-Speed test comparison 
 
 
 
