@@ -3,8 +3,8 @@ from uuid import UUID
 
 from fastapi import APIRouter, HTTPException
 
-from app.api.categories.models import Category
-from app.api.categories.schemas import CategoryCreate, CategoryOut, CategoryUpdate
+from .models import Category
+from .schemas import CategoryCreate, CategoryOut, CategoryUpdate
 
 router = APIRouter(prefix="/categories", tags=["Categories"])
 

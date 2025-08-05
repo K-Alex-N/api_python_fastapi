@@ -1,12 +1,15 @@
 ﻿from http import HTTPStatus
 
+import allure
 import pytest
 
 from tests.api.services.categories.get_all_categories import GetAllCategories
 from tests.api.services.categories.payloads import payloads
 from tests.api.services.categories.update_category import UpdateCategory
 
-
+@allure.epic("API")
+@allure.feature("Category")
+@allure.story("UpdateCategory")
 class TestUpdateCategory(UpdateCategory, GetAllCategories):
 
     @pytest.mark.parametrize(
@@ -16,10 +19,10 @@ class TestUpdateCategory(UpdateCategory, GetAllCategories):
             ("positive", "placeholder id", payloads.category_without_name()),
             ("positive", "placeholder id", payloads.category_without_type()),
             ("positive", "placeholder id", payloads.category_without_name_and_type()),
-            ("negative", "placeholder id", payloads.category_with_wrong_name()),
-            ("negative", "placeholder id", payloads.category_with_wrong_type()),
-            ("negative", "wrong id", payloads.category()),
-            ("negative", 12345678, payloads.category_without_name()),
+            ("-negative", "placeholder id", payloads.category_with_wrong_name()),
+            ("-negative", "placeholder id", payloads.category_with_wrong_type()),
+            ("-negative", "wrong id", payloads.category()),
+            ("-negative", 12345678, payloads.category_without_name()),
         ]
     )
     def test_update_category(self, is_test, category_id, payload):

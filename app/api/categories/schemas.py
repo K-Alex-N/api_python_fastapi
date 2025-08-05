@@ -3,7 +3,7 @@ from typing import Optional, Literal, List
 
 from pydantic import RootModel
 
-from app.api.schemas import BaseOutModel
+from ..schemas import BaseOutModel
 
 
 class CategoryBase(BaseOutModel):

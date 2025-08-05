@@ -12,4 +12,4 @@ class GetCategory(CategoryEndpoint):
         self.response = requests.get(
             url=url.get_category_by_id(category_id)
         )
-        self._process_response()
+        self.process_response()

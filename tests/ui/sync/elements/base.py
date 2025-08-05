@@ -13,12 +13,11 @@ class BaseElement:
         with allure.step(f"expect {self.selector} is visible"):
             expect(self.locator).to_be_visible()
 
+    @allure.step("expect to be enabled")
     def should_be_enabled(self):
         with allure.step(f"expect {self.selector} is enabled"):
             expect(self.locator).to_be_enabled()
 
-
-# Mixins
 
 class ClickableElement(BaseElement):
 

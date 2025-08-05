@@ -1,18 +1,21 @@
 ﻿from http import HTTPStatus
 
+import allure
 import pytest
 
 from tests.api.services.categories.delete_category import DeleteCategory
 from tests.api.services.categories.get_all_categories import GetAllCategories
 
-
-class TestCategories(DeleteCategory, GetAllCategories):
+@allure.epic("API")
+@allure.feature("Category")
+@allure.story("DeleteCategory")
+class TestDeleteCategory(DeleteCategory, GetAllCategories):
 
     @pytest.mark.parametrize(
         "is_test, category_id",
         [
-            ("positive", "placeholder id"), # will be replaced by real id after
-            ("negative", "wrong id"),
+            ("positive", "placeholder id"), # will be replaced by real id
+            ("-negative", "wrong id"),
         ]
     )
     def test_delete_category(self, is_test, category_id):

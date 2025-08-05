@@ -1,10 +1,5 @@
-import json
-
-import allure
-from allure_commons.types import AttachmentType
-
 from app.api.categories.schemas import CategoryOut, CategoryOutList
-from tests.api.common.base_endpoint import BaseEndpoint
+from tests.api.base_endpoint import BaseEndpoint
 
 
 class CategoryEndpoint(BaseEndpoint):

@@ -19,14 +19,14 @@ class BasePage:
     def back(self):
         self.page.go_back()
 
-    @allure.step("get current url")
+    @allure.step("Get current url")
     def get_current_url(self) -> str:
         return self.page.url
 
-    @allure.step("expect page have title: {title}")
+    @allure.step("Expect page have title: {title}")
     def expect_page_have_title(self, title: str):
         expect(self.page).to_have_title(title)
 
-    @allure.step("expect page have url: {url_part}")
+    @allure.step("Expect page have url: {url_part}")
     def expect_page_have_url(self, url_part: str):
         expect(self.page).to_have_url(url_part)

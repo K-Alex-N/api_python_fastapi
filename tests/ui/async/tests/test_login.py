@@ -1,6 +1,6 @@
-﻿import pytest
+﻿import allure
+import pytest
 from ..pages.login_page import LoginPage
-from ..utils.allure_decorators import epic, feature
 
 VALID_USERNAME = "standard_user"
 VALID_PASSWORD = "secret_sauce"
@@ -8,8 +8,9 @@ INVALID_USERNAME = "blablabla"
 INVALID_PASSWORD = "blablabla"
 
 
-@epic("UI_async")
-@feature("Login_async")
+@allure.epic("UI")
+@allure.feature("Async")
+@allure.story("Login")
 @pytest.mark.asyncio
 class TestLogin:
 

@@ -4,8 +4,8 @@ from uuid import UUID
 
 from pydantic import RootModel
 
-from app.api.categories.schemas import CategoryOut
-from app.api.schemas import BaseOutModel
+from ..categories.schemas import CategoryOut
+from ..schemas import BaseOutModel
 
 
 class TransactionBase(BaseOutModel):

@@ -2,25 +2,24 @@
 import pytest
 
 from ..pages.login_page import LoginPage
-from ..utils.allure_decorators import epic, feature
 
 VALID_USERNAME = "standard_user"
 VALID_PASSWORD = "secret_sauce"
 
 
-# @epic("UI")
-@feature("Login")  # затем я так переделал? возмодно ИДЕшка подчеркивала. Попробовать удалить все в utils
 @allure.epic("UI")
+@allure.feature("Sync")
+@allure.story("Login")
 class TestLogin:
 
     @pytest.mark.parametrize(
         "is_test, user, password",
         [
             ("positive", VALID_USERNAME, VALID_PASSWORD),
-            ("negative", VALID_USERNAME, "wrong_password"),
-            ("negative", VALID_USERNAME, ""),
-            ("negative", "wrong_username", VALID_PASSWORD),
-            ("negative", "", VALID_PASSWORD),
+            ("-negative", VALID_USERNAME, "wrong_password"),
+            ("-negative", VALID_USERNAME, ""),
+            ("-negative", "wrong_username", VALID_PASSWORD),
+            ("-negative", "", VALID_PASSWORD),
         ]
     )
     def test_login(self, is_test, user, password, login_page: LoginPage):

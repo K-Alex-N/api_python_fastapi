@@ -13,7 +13,7 @@ class DeleteCategory(CategoryEndpoint):
         self.response = requests.delete(
             url=url.delete_category(category_id)
         )
-        self._process_response()
+        self.process_response()
 
     @staticmethod
     @allure.step("Check if category with id {category_id} deleted")

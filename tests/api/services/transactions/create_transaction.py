@@ -13,5 +13,4 @@ class CreateTransaction(TransactionEndpoint):
             url=url.create_transaction,
             json=payload
         )
-        self.response_json = self.response.json()
-        self.allure_attach_response(self.response_json)
+        self.process_response()

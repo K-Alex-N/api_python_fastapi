@@ -1,6 +1,7 @@
 #!/bin/bash
-set -e
+#set -e
 
+#pytest
 pytest
 #pytest -n 2
 #pytest -n 3
@@ -8,7 +9,7 @@ pytest
 #pytest -n 6
 #pytest -n 8
 
-#sleep infinity
+sleep infinity
 
 #"$@"
 

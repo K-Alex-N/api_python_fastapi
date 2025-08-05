@@ -8,5 +8,5 @@
 *.so
 
 # Докер
-*Dockerfile*
+../Dockerfile
 *compose*.yml

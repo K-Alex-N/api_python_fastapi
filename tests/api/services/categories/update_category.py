@@ -13,4 +13,4 @@ class UpdateCategory(CategoryEndpoint):
             url=url.update_category(category_id),
             json=payload
         )
-        self._process_response()
+        self.process_response()
