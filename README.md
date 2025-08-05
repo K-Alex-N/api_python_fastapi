@@ -21,7 +21,7 @@
 
 ## Схема проекта
 
-
+![Описание изображения](https://raw.githubusercontent.com/K-Alex-N/assets/main/docker/main.png)
 
 
 
