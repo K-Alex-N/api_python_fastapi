@@ -56,9 +56,5 @@ Welcome page: http://localhost:5000
 - Работа с очередями RabbitMQ/Kafka
 - Расширение тестов, расширение UI фрэймворка (добавить Page Components) 
 - Перенос результатов тестов из Allure в Grafana
-  
-  
-![Docker](https://img.shields.io/badge/Docker-ready-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-v0.100+-green)
-![Python](https://img.shields.io/badge/Python-3.11+-blue)
+
 
