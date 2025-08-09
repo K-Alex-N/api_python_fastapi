@@ -9,7 +9,6 @@ from playwright.sync_api import sync_playwright, Page
 from .pages.login_page import LoginPage
 from .pages.inventory_page import InventoryPage
 
-# HEADLESS = bool(os.getenv("HEADLESS", False))
 HEADLESS = bool(os.getenv("HEADLESS", True))
 SLOW_MO = int(os.getenv("SLOW_MO", 0))
 

@@ -9,7 +9,6 @@ fake = Faker()
 class Payloads:
 
     @staticmethod
-    # @pytest.fixture()
     def create_transaction() -> dict:
         category_id = GetAllCategories().get_random_category_id()
         return {
@@ -18,14 +17,6 @@ class Payloads:
             "description": fake.sentence(),
             "category_id": category_id
         }
-
-
-    # # мб transaction = self.create_transaction() через фикстуру получать?
-    # @staticmethod
-    # def create_transaction_without_amount(transaction) -> dict:
-    #     # transaction = self.create_transaction()
-    #     del transaction["amount"]
-    #     return transaction
 
     def create_transaction_without_amount(self) -> dict:
         transaction = self.create_transaction()
