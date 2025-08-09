@@ -50,18 +50,18 @@
   prometheus:
     image: prom/prometheus:v3.5.0-rc.0
     volumes:
-      - ./infra/prometheus/:/etc/prometheus/ # Здесь будет наш prometheus.yml
-      - prometheus_data:/prometheus # Для хранения временных данных
-    command: --common.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver
+      - ./infra/prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command: --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver
     ports:
       - "9090:9090"
     depends_on:
-      - api # мб даже хэлфчек поставить
+      api:
+        condition: service_healthy
 
   grafana:
     image: grafana/grafana:12.0.2-ubuntu
     volumes:
-#      - grafana_data:/var/lib/grafana # Для хранения дашбордов и настроек
       - ./infra/grafana/dashboards:/etc/grafana/dashboards
       - ./infra/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
       - ./infra/grafana/datasources:/etc/grafana/provisioning/datasources
@@ -70,8 +70,8 @@
     depends_on:
       - prometheus
 
-## ----------логи-------------
-#
+# ----------логи-------------
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:9.0.2
     environment:
@@ -117,9 +117,9 @@
       replicas: 3
     depends_on:
       - locust_master
-#
-## api
-#
+
+# api
+
   tests_api:
     build: tests/api
     environment:
@@ -132,25 +132,25 @@
         condition: service_healthy
 
 # ui
-#
-#  tests_ui:
-#    build: tests/ui/sync
-#    environment:
-#      - HEADLESS=True
-#      - SLOW_MO=0
-#    volumes:
-#      - allure-results:/tests/ui/sync/allure-results
-#
-#  tests_ui_async:
-#    build: tests/ui/async
-#    environment:
-#      - HEADLESS=True
-#      - SLOW_MO=0
-#    volumes:
-#      - allure-results:/tests/ui/async/allure-results
 
-## allure
-#
+  tests_ui:
+    build: tests/ui/sync
+    environment:
+      - HEADLESS=True
+      - SLOW_MO=0
+    volumes:
+      - allure-results:/tests/ui/sync/allure-results
+
+  tests_ui_async:
+    build: tests/ui/async
+    environment:
+      - HEADLESS=True
+      - SLOW_MO=0
+    volumes:
+      - allure-results:/tests/ui/async/allure-results
+
+# allure
+
   allure: # http://localhost:5050/allure-docker-service/latest-report
     image: frankescobar/allure-docker-service:2.27.0
     ports:

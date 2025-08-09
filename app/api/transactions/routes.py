@@ -1,4 +1,4 @@
-﻿from typing import List
+﻿from typing import List, Optional
 from uuid import UUID
 
 from fastapi import APIRouter, HTTPException
@@ -11,8 +11,8 @@ router = APIRouter(prefix="/transactions", tags=["Transactions"])
 
 
 @router.get("/", response_model=List[TransactionOut])
-async def get_transactions() -> List[TransactionOut]:
-    txs = await Transaction.find_all(fetch_links=True).to_list()
+async def get_transactions(limit: Optional[int] = 100) -> List[TransactionOut]:
+    txs = await Transaction.find_all(fetch_links=True).limit(limit).to_list()
     return TransactionOut.from_model_list(txs)
 
 

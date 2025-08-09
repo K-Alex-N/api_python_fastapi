@@ -1,6 +1,6 @@
 ﻿import random
 
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI, Request, Response, status
 from prometheus_fastapi_instrumentator import Instrumentator
 from prometheus_client import Counter, Gauge
 import string
@@ -99,6 +99,18 @@ def generate_error():
     ERROR_COUNTER.inc()
     raise ValueError("Simulated error")
 
+
+# ---------------------------------------------------------
+from fastapi.responses import JSONResponse
+
+@app.exception_handler(Exception)
+async def custom_exception_handler(request: Request, exc: Exception):
+    print(f"An internal server error occurred: {exc}")
+
+    return JSONResponse(
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        content={"message": "Internal Server Error"}
+    )
 
 # ---------------------------------------------------------
 
