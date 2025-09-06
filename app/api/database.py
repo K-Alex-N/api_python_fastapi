@@ -12,8 +12,8 @@ from .transactions.models import Transaction
 
 
 
-async_client = AsyncIOMotorClient(MONGO_URL)
-async_db = async_client["async_db"]
+async_client = AsyncIOMotorClient(MONGO_URL) # попробовать закаментить эти две строчки
+async_db = async_client["async_db"]  #
 
 
 @asynccontextmanager

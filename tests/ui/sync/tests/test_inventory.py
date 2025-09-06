@@ -1,4 +1,5 @@
 ﻿import allure
+import pytest
 
 from ..pages.inventory_page import InventoryPage
 
@@ -23,5 +24,6 @@ class TestInventory:
         inventory_page.set_sort_order("Price (high to low)")
         inventory_page.is_products_sorted_by_price_from_high_to_low()
 
+    @pytest.mark.xfail(reason="падает и помечен как xfail")
     def test_example_of_failed_test(self, inventory_page: InventoryPage):
         assert 1 == 2
