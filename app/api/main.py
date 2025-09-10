@@ -71,7 +71,6 @@ def generate_random_logs():
 
         msg = f"User {log_data['user_id']} performed {log_data['action']}"
 
-        # Логируем на нужном уровне
         getattr(logger, level)(
             msg,
             extra={"extra": log_data}
