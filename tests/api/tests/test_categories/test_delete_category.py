@@ -14,7 +14,7 @@ class TestDeleteCategory(DeleteCategory, GetAllCategories):
     @pytest.mark.parametrize(
         "is_test, category_id",
         [
-            # ("positive", "placeholder id"), # will be replaced by real id - не включать!
+            # ("positive", "placeholder id"),
             # лучше создать категорию с айди 1111-111... а затем ее и удалить
             ("-negative", "wrong id"),
         ]
