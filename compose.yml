@@ -1,41 +1,41 @@
 ﻿services:
 
-#  mongo:
-#    image: mongo:6.0
-#    ports:
-#      - "27017:27017"
-#    volumes:
-#      - mongo_data:/data/db
-#    restart: always
-#
-#  mongo-express:
-#    image: mongo-express:1.0.2-20-alpine3.19
-#    ports:
-#      - "8081:8081"
-#    environment:
-#      ME_CONFIG_BASICAUTH_USERNAME: admin
-#      ME_CONFIG_BASICAUTH_PASSWORD: pass
-#    depends_on:
-#      - mongo
-#    restart: always
-#
-#  api:
-#    build: app
-#    ports:
-#      - "8000:8000"
-#    volumes:
-#      - app_data:/app
-#      - ./app/api/logs:/app/logs
-#    healthcheck:
-#      test: [ "CMD", "curl", "-f", "http://api:8000/health" ]
-#      interval: 2s
-#      timeout: 2s
-#      start_period: 2s
-#    depends_on:
-#      - mongo
-#    environment:
-#      MONGO_HOST: mongo
-#      ELASTIC_HOST: http://elasticsearch:9200
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+
+  mongo-express:
+    image: mongo-express:1.0.2-20-alpine3.19
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: pass
+    depends_on:
+      - mongo
+    restart: always
+
+  api:
+    build: app
+    ports:
+      - "8000:8000"
+    volumes:
+      - app_data:/app
+      - ./app/api/logs:/app/logs
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://api:8000/health" ]
+      interval: 2s
+      timeout: 2s
+      start_period: 2s
+    depends_on:
+      - mongo
+    environment:
+      MONGO_HOST: mongo
+      ELASTIC_HOST: http://elasticsearch:9200
 #
 ## ----------welcome-page-------------
 #
@@ -118,36 +118,36 @@
 #    depends_on:
 #      - locust_master
 #
-## api
+# api
+
+  tests_api:
+    build: tests/api
+    environment:
+      - APP_HOST=api
+    volumes:
+      - allure-results:/tests/api/allure-results
+      - app_data:/app
+    depends_on:
+      api:
+        condition: service_healthy
+
+## ui
 #
-#  tests_api:
-#    build: tests/api
+#  tests_ui:
+#    build: tests/ui/sync
 #    environment:
-#      - APP_HOST=api
+#      - HEADLESS=True
+#      - SLOW_MO=0
 #    volumes:
-#      - allure-results:/tests/api/allure-results
-#      - app_data:/app
-#    depends_on:
-#      api:
-#        condition: service_healthy
-
-# ui
-
-  tests_ui:
-    build: tests/ui/sync
-    environment:
-      - HEADLESS=True
-      - SLOW_MO=0
-    volumes:
-      - allure-results:/tests/ui/sync/allure-results
-
-  tests_ui_async:
-    build: tests/ui/async
-    environment:
-      - HEADLESS=True
-      - SLOW_MO=0
-    volumes:
-      - allure-results:/tests/ui/async/allure-results
+#      - allure-results:/tests/ui/sync/allure-results
+#
+#  tests_ui_async:
+#    build: tests/ui/async
+#    environment:
+#      - HEADLESS=True
+#      - SLOW_MO=0
+#    volumes:
+#      - allure-results:/tests/ui/async/allure-results
 
 # allure
 

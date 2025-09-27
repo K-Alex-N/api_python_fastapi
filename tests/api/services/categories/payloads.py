@@ -1,5 +1,4 @@
 import random
-
 from faker import Faker
 
 fake = Faker()
@@ -13,30 +12,28 @@ class Payloads:
             "type": random.choice(["income", "expense"])
         }
 
-    def category_without_name(self):
+    def _modified_category(self, *, drop=None, overrides=None):
         payload = self.category()
-        del payload["name"]
+        if drop:
+            for key in drop:
+                payload.pop(key, None)
+        if overrides:
+            payload.update(overrides)
         return payload
+
+    def category_without_name(self):
+        return self._modified_category(drop=["name"])
 
     def category_without_type(self):
-        payload = self.category()
-        del payload["type"]
-        return payload
+        return self._modified_category(drop=["type"])
 
     def category_without_name_and_type(self):
-        payload = self.category()
-        del payload["type"]
-        del payload["name"]
-        return payload
+        return self._modified_category(drop=["name", "type"])
 
     def category_with_wrong_name(self):
-        payload = self.category()
-        payload["name"] = fake.pyint() # should be str
-        return payload
+        return self._modified_category(overrides={"name": fake.pyint()})
 
     def category_with_wrong_type(self):
-        payload = self.category()
-        payload["type"] = "wrong_type" # should be only "income" or "expense"
-        return payload
+        return self._modified_category(overrides={"type": "wrong_type"})
 
 payloads = Payloads()
