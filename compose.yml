@@ -98,8 +98,8 @@
       - elasticsearch
 
 
-# тесты
-# performance
+# ----------тесты----------
+# ----------performance----------
 
   locust_master:
     build: tests/performance
@@ -118,7 +118,7 @@
     depends_on:
       - locust_master
 
-# api
+# ----------api----------
 
   tests_api:
     build: tests/api
@@ -131,7 +131,7 @@
       api:
         condition: service_healthy
 
-# ui
+# ----------ui----------
 
   tests_ui:
     build: tests/ui/sync
@@ -149,7 +149,7 @@
     volumes:
       - allure-results:/tests/ui/async/allure-results
 
-# allure
+# ----------allure----------
 
   allure: # http://localhost:5050/allure-docker-service/latest-report
     image: frankescobar/allure-docker-service:2.27.0
