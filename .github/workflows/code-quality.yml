@@ -1,0 +1,33 @@
+﻿name: Code Quality
+
+on:
+  pull_request:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install black flake8 isort pytest
+
+      - name: Run Black (check mode)
+        run: black --check .
+
+      - name: Run Isort (check mode)
+        run: isort --check-only .
+
+      - name: Run Flake8
+        run: flake8 .
+
+      - name: Run Pytest
+        run: pytest -v
