@@ -1,5 +1,5 @@
 ﻿import allure
-from playwright.async_api import expect, Page, Locator
+from playwright.async_api import Locator, Page, expect
 
 
 class BaseElement:
@@ -18,6 +18,7 @@ class BaseElement:
 
 
 # Mixins
+
 
 class ClickableElement(BaseElement):
 
