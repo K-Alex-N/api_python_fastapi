@@ -6,5 +6,5 @@ target-version = ["py310"]
 profile = "black"
 
 [tool.flake8]
-max-line-length = 88
+max-line-length = 120
 extend-ignore = ["E203", "E501", "F405"]
