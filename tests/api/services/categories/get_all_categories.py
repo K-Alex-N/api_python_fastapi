@@ -11,9 +11,7 @@ class GetAllCategories(CategoryEndpoint):
 
     @allure.step("Get all categories")
     def get_all_categories(self):
-        self.response = requests.get(
-            url=url.get_all_categories
-        )
+        self.response = requests.get(url=url.get_all_categories)
         self.process_response()
         return self.response
 

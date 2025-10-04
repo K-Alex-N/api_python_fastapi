@@ -11,11 +11,8 @@ class GetAllTransactions(TransactionEndpoint):
 
     @allure.step("Get all transactions")
     def get_all_transactions(self, limit: int = 5):
-        params = {'limit': limit}
-        self.response = requests.get(
-            url=url.get_all_transactions,
-            params=params
-        )
+        params = {"limit": limit}
+        self.response = requests.get(url=url.get_all_transactions, params=params)
         self.process_response()
         return self.response
 

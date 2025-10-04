@@ -9,8 +9,5 @@ class CreateTransaction(TransactionEndpoint):
 
     @allure.step("Create transaction with payload: {payload}")
     def create_transaction(self, payload) -> None:
-        self.response = requests.post(
-            url=url.create_transaction,
-            json=payload
-        )
+        self.response = requests.post(url=url.create_transaction, json=payload)
         self.process_response()
