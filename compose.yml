@@ -7,7 +7,7 @@
     volumes:
       - mongo_data:/data/db
     restart: always
-
+#
   mongo-express:
     image: mongo-express:1.0.2-20-alpine3.19
     ports:
