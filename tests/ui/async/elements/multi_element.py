@@ -1,8 +1,10 @@
-﻿from typing import Type, List, TypeVar, Generic
+﻿from typing import Generic, List, Type, TypeVar
+
 from playwright.async_api import Page
+
 from .base import BaseElement
 
-T = TypeVar('T', bound=BaseElement)
+T = TypeVar("T", bound=BaseElement)
 
 
 class MultiElement(Generic[T]):
@@ -14,7 +16,10 @@ class MultiElement(Generic[T]):
 
     async def all(self) -> List[T]:
         count = await self.locator.count()
-        return [self.element_class(self.page, f"{self.selector} >> nth={i}") for i in range(count)]
+        return [
+            self.element_class(self.page, f"{self.selector} >> nth={i}")
+            for i in range(count)
+        ]
 
     async def first(self) -> T:
         return self.element_class(self.page, f"{self.selector} >> nth=0")

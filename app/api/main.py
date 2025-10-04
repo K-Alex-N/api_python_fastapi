@@ -1,15 +1,14 @@
 ﻿import random
-
-from fastapi import FastAPI, Request, Response, status
-from prometheus_fastapi_instrumentator import Instrumentator
-from prometheus_client import Counter, Gauge
 import string
 
-from .database import async_db
-from .transactions import routes as transactions_routes
+from fastapi import FastAPI, Request, Response, status
+from prometheus_client import Counter, Gauge
+from prometheus_fastapi_instrumentator import Instrumentator
+
 from .categories import routes as categories_routes
-from .database import lifespan
+from .database import async_db, lifespan
 from .logger_config import setup_logger
+from .transactions import routes as transactions_routes
 
 logger = setup_logger()
 app = FastAPI(lifespan=lifespan)
@@ -19,12 +18,15 @@ app.include_router(categories_routes.router)
 
 # --- Healthcheck ---
 
+
 @app.get("/health")
 async def healthcheck():
     await async_db.command("ping")
     return {"status": "ok"}
 
+
 # ---------------for elastic------------------------------------------
+
 
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
@@ -44,7 +46,7 @@ async def log_requests(request: Request, call_next):
                 "method": method,
                 "status": status_code,
             }
-        }
+        },
     )
 
     return response
@@ -66,15 +68,14 @@ def generate_random_logs():
             "success": random.choice([True, False]),
             "country": random.choice(countries),
             "device": random.choice(devices),
-            "session_id": ''.join(random.choices(string.ascii_letters + string.digits, k=12))
+            "session_id": "".join(
+                random.choices(string.ascii_letters + string.digits, k=12)
+            ),
         }
 
         msg = f"User {log_data['user_id']} performed {log_data['action']}"
 
-        getattr(logger, level)(
-            msg,
-            extra={"extra": log_data}
-        )
+        getattr(logger, level)(msg, extra={"extra": log_data})
 
     return {"message": "Random logs generated"}
 
@@ -102,14 +103,16 @@ def generate_error():
 # ---------------------------------------------------------
 from fastapi.responses import JSONResponse
 
+
 @app.exception_handler(Exception)
 async def custom_exception_handler(request: Request, exc: Exception):
     print(f"An internal server error occurred: {exc}")
 
     return JSONResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        content={"message": "Internal Server Error"}
+        content={"message": "Internal Server Error"},
     )
+
 
 # ---------------------------------------------------------
 

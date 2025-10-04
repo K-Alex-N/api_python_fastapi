@@ -1,8 +1,8 @@
 from datetime import datetime
 from uuid import UUID, uuid4
 
-from pydantic import Field
 from beanie import Document, Link
+from pydantic import Field
 
 from ..categories.models import Category
 

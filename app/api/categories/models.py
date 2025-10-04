@@ -1,8 +1,8 @@
+from typing import Literal
 from uuid import UUID, uuid4
 
-from typing import Literal
-from pydantic import Field
 from beanie import Document
+from pydantic import Field
 
 
 class Category(Document):

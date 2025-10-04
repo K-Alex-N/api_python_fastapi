@@ -1,10 +1,11 @@
-﻿import logging
+﻿import json
+import logging
 import os
-import json
 from datetime import datetime
 
 log_dir = "logs"
 os.makedirs(log_dir, exist_ok=True)
+
 
 class JsonFormatter(logging.Formatter):
     def format(self, record):
@@ -20,6 +21,7 @@ class JsonFormatter(logging.Formatter):
             log_record.update(record.extra)
 
         return json.dumps(log_record)
+
 
 def setup_logger():
     logger = logging.getLogger("fastapi_logger")
