@@ -20,7 +20,7 @@ class TestCreateCategory(CreateCategory):
             ("-negative", payloads.category_without_type()),
             ("-negative", payloads.category_with_wrong_name()),
             ("-negative", payloads.category_with_wrong_type()),
-        ]
+        ],
     )
     def test_create_category(self, is_test, payload) -> None:
         self.create_category(payload)

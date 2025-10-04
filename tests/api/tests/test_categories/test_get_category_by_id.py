@@ -6,6 +6,7 @@ import pytest
 from tests.api.services.categories.get_all_categories import GetAllCategories
 from tests.api.services.categories.get_category import GetCategory
 
+
 @allure.epic("API")
 @allure.feature("Category")
 @allure.story("GetCategory")
@@ -17,7 +18,7 @@ class TestGetCategory(GetCategory, GetAllCategories):
             ("positive", "placeholder id"),
             ("-negative", "wrong id"),
             ("-negative", 12345678),
-        ]
+        ],
     )
     def test_get_category_by_id(self, is_test, category_id) -> None:
         if category_id == "placeholder id":

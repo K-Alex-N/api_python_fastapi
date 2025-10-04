@@ -4,6 +4,7 @@ import allure
 
 from tests.api.services.transactions.get_all_transactions import GetAllTransactions
 
+
 @allure.epic("API")
 @allure.feature("Transaction")
 @allure.story("GetAllTransactions")

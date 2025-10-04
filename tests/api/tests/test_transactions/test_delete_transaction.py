@@ -6,6 +6,7 @@ import pytest
 from tests.api.services.transactions.delete_transaction import DeleteTransaction
 from tests.api.services.transactions.get_all_transactions import GetAllTransactions
 
+
 @allure.epic("API")
 @allure.feature("Transaction")
 @allure.story("DeleteTransaction")
@@ -16,7 +17,7 @@ class TestDeleteTransaction(DeleteTransaction, GetAllTransactions):
         [
             ("positive", "placeholder id"),  # will be replaced by real id
             ("-negative", "wrong id"),
-        ]
+        ],
     )
     def test_delete_transaction(self, is_test, transaction_id) -> None:
         if transaction_id == "placeholder id":

@@ -5,7 +5,7 @@ from .base import BaseElement, ClickableElement
 
 
 class TextInput(BaseElement):
-    """ input field (<input type="text">) """
+    """input field (<input type="text">)"""
 
     async def fill(self, value: str) -> None:
         with allure.step(f"Fill input {self.selector} with value: {value}"):
@@ -24,7 +24,7 @@ class Button(ClickableElement):
 
 
 class TextElement(BaseElement):
-    """ elements that have text (<div>, <span> etc) """
+    """elements that have text (<div>, <span> etc)"""
 
     async def text(self) -> str:
         with allure.step("Getting inner text"):

@@ -6,6 +6,7 @@ import pytest
 from tests.api.services.categories.delete_category import DeleteCategory
 from tests.api.services.categories.get_all_categories import GetAllCategories
 
+
 @allure.epic("API")
 @allure.feature("Category")
 @allure.story("DeleteCategory")
@@ -16,7 +17,7 @@ class TestDeleteCategory(DeleteCategory, GetAllCategories):
         [
             # лучше создать категорию с айди 1111-111... а затем ее и удалить
             ("-negative", "wrong id"),
-        ]
+        ],
     )
     def test_delete_category(self, is_test, category_id) -> None:
         if category_id == "placeholder id":

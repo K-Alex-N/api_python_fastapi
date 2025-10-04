@@ -5,7 +5,7 @@ from .base import BaseElement, ClickableElement
 
 
 class TextInput(BaseElement):
-    """ input field (<input type="text">) """
+    """input field (<input type="text">)"""
 
     @allure.step("Fill input with value: {value}")
     def fill(self, value: str) -> None:
@@ -24,7 +24,7 @@ class Button(ClickableElement):
 
 
 class TextElement(BaseElement):
-    """ elements that have text (<div>, <span> etc) """
+    """elements that have text (<div>, <span> etc)"""
 
     @allure.step("Getting inner text")
     def text(self) -> str:

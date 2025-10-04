@@ -6,6 +6,7 @@ import pytest
 from tests.api.services.transactions.get_all_transactions import GetAllTransactions
 from tests.api.services.transactions.get_transaction import GetTransaction
 
+
 @allure.epic("API")
 @allure.feature("Transaction")
 @allure.story("GetTransaction")
@@ -17,7 +18,7 @@ class TestGetTransaction(GetTransaction, GetAllTransactions):
             ("positive", "placeholder id"),
             ("-negative", "wrong id"),
             ("-negative", 12345678),
-        ]
+        ],
     )
     def test_get_transaction_by_id(self, is_test, transaction_id) -> None:
         if transaction_id == "placeholder id":
