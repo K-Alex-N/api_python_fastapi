@@ -2,7 +2,7 @@ from tests.api.config import BASE_URL
 
 
 class URLs:
-    BASE_URL_TRANSACTIONS = BASE_URL + '/transactions/'
+    BASE_URL_TRANSACTIONS = BASE_URL + "/transactions/"
 
     create_transaction = BASE_URL_TRANSACTIONS
     get_all_transactions = BASE_URL_TRANSACTIONS

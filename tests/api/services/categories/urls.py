@@ -2,7 +2,7 @@ from tests.api.config import BASE_URL
 
 
 class URLs:
-    CATEGORIES_URL = BASE_URL + '/categories/'
+    CATEGORIES_URL = BASE_URL + "/categories/"
 
     create_category = CATEGORIES_URL
     get_all_categories = CATEGORIES_URL

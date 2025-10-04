@@ -20,7 +20,7 @@ class TestLogin:
             ("-negative", VALID_USERNAME, ""),
             ("-negative", "wrong_username", VALID_PASSWORD),
             ("-negative", "", VALID_PASSWORD),
-        ]
+        ],
     )
     def test_login(self, is_test, user, password, login_page: LoginPage) -> None:
         login_page.login(user, password)

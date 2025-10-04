@@ -10,7 +10,6 @@ class UpdateTransaction(TransactionEndpoint):
     @allure.step("Update transaction by id: {transaction_id} with payload: {payload}")
     def update_transaction(self, transaction_id, payload) -> None:
         self.response = requests.patch(
-            url=url.update_transaction(transaction_id),
-            json=payload
+            url=url.update_transaction(transaction_id), json=payload
         )
         self.process_response()
