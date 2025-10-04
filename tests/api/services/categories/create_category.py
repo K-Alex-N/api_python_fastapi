@@ -9,8 +9,5 @@ class CreateCategory(CategoryEndpoint):
 
     @allure.step("Create category with payload: {payload}")
     def create_category(self, payload) -> None:
-        self.response = requests.post(
-            url=url.create_category,
-            json=payload
-        )
+        self.response = requests.post(url=url.create_category, json=payload)
         self.process_response()

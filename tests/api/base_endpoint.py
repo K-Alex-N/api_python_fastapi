@@ -15,7 +15,7 @@ class BaseEndpoint:
         allure.attach(
             json.dumps(self.response_json, indent=4),
             name="API Response",
-            attachment_type=allure.attachment_type.JSON
+            attachment_type=allure.attachment_type.JSON,
         )
 
     @staticmethod
@@ -23,7 +23,7 @@ class BaseEndpoint:
         allure.attach(
             json.dumps(schema.model_json_schema(), indent=4),
             name="Validation schema",
-            attachment_type=allure.attachment_type.JSON
+            attachment_type=allure.attachment_type.JSON,
         )
 
     @allure.step("Validate response against schema {schema}")

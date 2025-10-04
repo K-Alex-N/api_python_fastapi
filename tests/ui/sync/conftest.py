@@ -4,10 +4,10 @@ from datetime import datetime
 
 import allure
 import pytest
-from playwright.sync_api import sync_playwright, Page
+from playwright.sync_api import Page, sync_playwright
 
-from .pages.login_page import LoginPage
 from .pages.inventory_page import InventoryPage
+from .pages.login_page import LoginPage
 
 HEADLESS = bool(os.getenv("HEADLESS", True))
 SLOW_MO = int(os.getenv("SLOW_MO", 0))
@@ -76,4 +76,8 @@ def pytest_runtest_makereport(item, call):
         if page:
             screenshot = f"allure-results/screenshot-{item.name}.png"
             page.screenshot(path=screenshot)
-            allure.attach.file(screenshot, name="screenshot", attachment_type=allure.attachment_type.PNG)
+            allure.attach.file(
+                screenshot,
+                name="screenshot",
+                attachment_type=allure.attachment_type.PNG,
+            )

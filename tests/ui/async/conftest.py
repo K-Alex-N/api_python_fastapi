@@ -6,10 +6,10 @@ from datetime import datetime
 import allure
 import pytest
 import pytest_asyncio
-from playwright.async_api import async_playwright, Page
+from playwright.async_api import Page, async_playwright
 
-from .pages.login_page import LoginPage
 from .pages.inventory_page import InventoryPage
+from .pages.login_page import LoginPage
 
 HEADLESS = bool(os.getenv("HEADLESS", True))
 SLOW_MO = int(os.getenv("SLOW_MO", 0))
@@ -26,7 +26,7 @@ async def ensure_login_state() -> None:
 
         expires_time = data["cookies"][0]["expires"]
         now = datetime.now().timestamp()
-        max_test_duration_sec = 30 # 30 секунд должно хватить на тесты
+        max_test_duration_sec = 30  # 30 секунд должно хватить на тесты
         if expires_time - now > max_test_duration_sec:
             return
 
@@ -44,6 +44,7 @@ async def ensure_login_state() -> None:
         await context.storage_state(path=STORAGE_PATH)
         await browser.close()
 
+
 @pytest_asyncio.fixture
 async def page(request):
     async with async_playwright() as p:
@@ -56,9 +57,14 @@ async def page(request):
         if request.node.rep_call.failed:
             screenshot = f"allure-results/screenshot-{request.node.name}.png"
             await page.screenshot(path=screenshot)
-            allure.attach.file(screenshot, name="screenshot", attachment_type=allure.attachment_type.PNG)
+            allure.attach.file(
+                screenshot,
+                name="screenshot",
+                attachment_type=allure.attachment_type.PNG,
+            )
 
         await browser.close()
+
 
 @pytest_asyncio.fixture
 async def login_page(page: Page):
