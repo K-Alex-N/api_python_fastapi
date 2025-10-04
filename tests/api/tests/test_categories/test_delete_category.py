@@ -18,7 +18,7 @@ class TestDeleteCategory(DeleteCategory, GetAllCategories):
             ("-negative", "wrong id"),
         ]
     )
-    def test_delete_category(self, is_test, category_id):
+    def test_delete_category(self, is_test, category_id) -> None:
         if category_id == "placeholder id":
             category_id = self.get_random_category_id()
 

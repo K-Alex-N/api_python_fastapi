@@ -22,7 +22,7 @@ class TestCreateCategory(CreateCategory):
             ("-negative", payloads.category_with_wrong_type()),
         ]
     )
-    def test_create_category(self, is_test, payload):
+    def test_create_category(self, is_test, payload) -> None:
         self.create_category(payload)
 
         if is_test == "positive":

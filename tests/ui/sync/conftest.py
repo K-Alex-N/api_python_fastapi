@@ -40,7 +40,7 @@ def inventory_page(page: Page):
 
 
 @pytest.fixture(scope="session", autouse=True)
-def ensure_login_state():
+def ensure_login_state() -> None:
     if os.path.exists(STORAGE_PATH):
         # check expires time in cookies
         with open(STORAGE_PATH) as f:

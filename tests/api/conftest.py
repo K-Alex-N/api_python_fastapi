@@ -7,7 +7,7 @@ from tests.api.services.transactions.create_transaction import CreateTransaction
 
 
 @pytest.fixture(scope="session", autouse=True)
-def prefill_db():
+def prefill_db() -> None:
     number_of_categories = 3
     for _ in range(number_of_categories):
         CreateCategory().create_category(payloads.category())

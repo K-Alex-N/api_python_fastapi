@@ -19,7 +19,7 @@ class TestGetCategory(GetCategory, GetAllCategories):
             ("-negative", 12345678),
         ]
     )
-    def test_get_category_by_id(self, is_test, category_id):
+    def test_get_category_by_id(self, is_test, category_id) -> None:
         if category_id == "placeholder id":
             category_id = self.get_random_category_id()
 

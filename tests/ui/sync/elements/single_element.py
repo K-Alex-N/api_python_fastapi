@@ -8,14 +8,14 @@ class TextInput(BaseElement):
     """ input field (<input type="text">) """
 
     @allure.step("Fill input with value: {value}")
-    def fill(self, value: str):
+    def fill(self, value: str) -> None:
         self.should_be_visible()
         self.locator.fill(value)
 
-    def clear(self):
+    def clear(self) -> None:
         self.locator.clear()
 
-    def type_text(self, selector: str, value: str, delay_ms: int = 50):
+    def type_text(self, selector: str, value: str, delay_ms: int = 50) -> None:
         self.page.locator(selector).type(value, delay=delay_ms)
 
 
@@ -32,18 +32,18 @@ class TextElement(BaseElement):
         return self.locator.inner_text()
 
     @allure.step("Text should have {expected_text}")
-    def should_have_text(self, expected_text: str):
+    def should_have_text(self, expected_text: str) -> None:
         self.should_be_visible()
         expect(self.locator).to_have_text(expected_text)
 
 
 class Dropdown(BaseElement):
 
-    def select_by_value(self, value: str):
+    def select_by_value(self, value: str) -> None:
         self.should_be_visible()
         self.locator.select_option(value=value)
 
-    def select_by_label(self, label: str):
+    def select_by_label(self, label: str) -> None:
         self.should_be_visible()
         self.locator.select_option(label=label)
 
@@ -53,12 +53,12 @@ class Dropdown(BaseElement):
 
 class Checkbox(BaseElement):
 
-    def check(self):
+    def check(self) -> None:
         self.should_be_visible()
         if not self.locator.is_checked():
             self.locator.check()
 
-    def uncheck(self):
+    def uncheck(self) -> None:
         self.should_be_visible()
         if self.locator.is_checked():
             self.locator.uncheck()

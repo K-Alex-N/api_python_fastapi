@@ -5,7 +5,7 @@ from .base import BaseElement
 
 
 class MultiElement[T: BaseElement]:
-    def __init__(self, page: Page, selector: str, element_class: Type[T]):
+    def __init__(self, page: Page, selector: str, element_class: Type[T]) -> None:
         self.page = page
         self.selector = selector
         self.locator = page.locator(selector)

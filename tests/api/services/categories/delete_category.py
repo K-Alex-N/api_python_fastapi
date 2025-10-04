@@ -9,7 +9,7 @@ from tests.api.services.categories.get_category import GetCategory
 class DeleteCategory(CategoryEndpoint):
 
     @allure.step("Delete category by id: {category_id}")
-    def delete_category(self, category_id):
+    def delete_category(self, category_id) -> None:
         self.response = requests.delete(
             url=url.delete_category(category_id)
         )

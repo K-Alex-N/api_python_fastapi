@@ -8,7 +8,7 @@ from tests.api.services.categories.urls import url
 class CreateCategory(CategoryEndpoint):
 
     @allure.step("Create category with payload: {payload}")
-    def create_category(self, payload):
+    def create_category(self, payload) -> None:
         self.response = requests.post(
             url=url.create_category,
             json=payload

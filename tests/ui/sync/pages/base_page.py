@@ -3,20 +3,20 @@ from playwright.sync_api import Page, expect
 
 
 class BasePage:
-    def __init__(self, page: Page):
+    def __init__(self, page: Page) -> None:
         self.page = page
         self.base_url = "https://www.saucedemo.com"
 
     @allure.step("Go to URL -> {url}")
-    def goto(self, url: str):
+    def goto(self, url: str) -> None:
         self.page.goto(url)
 
     @allure.step("Reload page")
-    def reload(self):
+    def reload(self) -> None:
         self.page.reload()
 
     @allure.step("Back to previous page")
-    def back(self):
+    def back(self) -> None:
         self.page.go_back()
 
     @allure.step("Get current url")
@@ -24,9 +24,9 @@ class BasePage:
         return self.page.url
 
     @allure.step("Expect page have title: {title}")
-    def expect_page_have_title(self, title: str):
+    def expect_page_have_title(self, title: str) -> None:
         expect(self.page).to_have_title(title)
 
     @allure.step("Expect page have url: {url_part}")
-    def expect_page_have_url(self, url_part: str):
+    def expect_page_have_url(self, url_part: str) -> None:
         expect(self.page).to_have_url(url_part)

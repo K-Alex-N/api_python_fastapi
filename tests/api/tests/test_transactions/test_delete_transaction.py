@@ -18,7 +18,7 @@ class TestDeleteTransaction(DeleteTransaction, GetAllTransactions):
             ("-negative", "wrong id"),
         ]
     )
-    def test_delete_transaction(self, is_test, transaction_id):
+    def test_delete_transaction(self, is_test, transaction_id) -> None:
         if transaction_id == "placeholder id":
             transaction_id = self.get_random_transaction_id()
 

@@ -28,7 +28,7 @@ class TestUpdateTransaction(UpdateTransaction, GetAllTransactions):
             ("-negative", 12345678, payloads.create_transaction),
         ]
     )
-    def test_update_transaction(self, is_test, transaction_id, payload):
+    def test_update_transaction(self, is_test, transaction_id, payload) -> None:
         if transaction_id == "placeholder id":
             transaction_id = self.get_random_transaction_id()
 

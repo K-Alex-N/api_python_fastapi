@@ -25,7 +25,7 @@ class TestCreateTransaction(CreateTransaction):
             ("-negative", payloads.create_transaction_with_wrong_category_id),
         ]
     )
-    def test_create_transaction(self, is_test, payload):
+    def test_create_transaction(self, is_test, payload) -> None:
         self.create_transaction(payload())
 
         if is_test == "positive":

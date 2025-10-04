@@ -19,7 +19,7 @@ class TestGetTransaction(GetTransaction, GetAllTransactions):
             ("-negative", 12345678),
         ]
     )
-    def test_get_transaction_by_id(self, is_test, transaction_id):
+    def test_get_transaction_by_id(self, is_test, transaction_id) -> None:
         if transaction_id == "placeholder id":
             transaction_id = self.get_random_transaction_id()
 

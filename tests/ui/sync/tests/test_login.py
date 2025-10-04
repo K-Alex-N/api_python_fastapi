@@ -22,7 +22,7 @@ class TestLogin:
             ("-negative", "", VALID_PASSWORD),
         ]
     )
-    def test_login(self, is_test, user, password, login_page: LoginPage):
+    def test_login(self, is_test, user, password, login_page: LoginPage) -> None:
         login_page.login(user, password)
         if is_test == "positive":
             login_page.expect_login_is_successful()

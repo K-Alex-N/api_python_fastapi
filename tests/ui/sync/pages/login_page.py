@@ -7,7 +7,7 @@ from .base_page import BasePage
 
 class LoginPage(BasePage):
 
-    def __init__(self, page: Page):
+    def __init__(self, page: Page) -> None:
         super().__init__(page)
         self.url = self.base_url + "/"
         el = ElementFactory(page)
@@ -17,22 +17,22 @@ class LoginPage(BasePage):
         self.error_message = el.text_element("[data-test='error']")
 
     @allure.step("open login page")
-    def open(self):
+    def open(self) -> None:
         self.goto(self.url)
 
     @allure.step("login")
-    def login(self, username: str, password: str):
+    def login(self, username: str, password: str) -> None:
         self.username_input.fill(username)
         self.password_input.fill(password)
         self.login_button.click()
 
     @allure.step("check if login was successful")
-    def expect_login_is_successful(self):
+    def expect_login_is_successful(self) -> None:
         with allure.step(f"Expect current page is inventory"):
             self.expect_page_have_url("https://www.saucedemo.com/inventory.html")
 
     @allure.step("check if login failed")
-    def expect_login_failed(self):
+    def expect_login_failed(self) -> None:
         with allure.step("Expect there is an error message"):
             self.error_message.should_be_visible()
         with allure.step(f"Expect current page remain the same"):

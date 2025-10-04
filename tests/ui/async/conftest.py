@@ -18,7 +18,7 @@ STORAGE_PATH = "state.json"
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
-async def ensure_login_state():
+async def ensure_login_state() -> None:
     if os.path.exists(STORAGE_PATH):
         # check expires time in cookies
         with open(STORAGE_PATH) as f:

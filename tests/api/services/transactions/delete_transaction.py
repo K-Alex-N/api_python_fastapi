@@ -9,7 +9,7 @@ from tests.api.services.transactions.urls import url
 class DeleteTransaction(TransactionEndpoint):
 
     @allure.step("Delete transaction by id: {transaction_id}")
-    def delete_transaction(self, transaction_id):
+    def delete_transaction(self, transaction_id) -> None:
         self.response = requests.delete(
             url=url.delete_transaction(transaction_id)
         )

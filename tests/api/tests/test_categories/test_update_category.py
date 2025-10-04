@@ -25,7 +25,7 @@ class TestUpdateCategory(UpdateCategory, GetAllCategories):
             ("-negative", 12345678, payloads.category_without_name()),
         ]
     )
-    def test_update_category(self, is_test, category_id, payload):
+    def test_update_category(self, is_test, category_id, payload) -> None:
         if category_id == "placeholder id":
             category_id = self.get_random_category_id()
 
