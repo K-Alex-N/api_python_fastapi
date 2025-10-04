@@ -1,4 +1,5 @@
-﻿from typing import Type, List
+﻿from typing import List, Type
+
 from playwright.sync_api import Page
 
 from .base import BaseElement
@@ -13,7 +14,10 @@ class MultiElement[T: BaseElement]:
 
     def all(self) -> List[T]:
         count = self.locator.count()
-        return [self.element_class(self.page, f"{self.selector} >> nth={i}") for i in range(count)]
+        return [
+            self.element_class(self.page, f"{self.selector} >> nth={i}")
+            for i in range(count)
+        ]
 
     def first(self) -> T:
         return self.element_class(self.page, f"{self.selector} >> nth=0")

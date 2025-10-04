@@ -1,5 +1,5 @@
-﻿from uuid import UUID
-from typing import Optional, Literal, List
+﻿from typing import List, Literal, Optional
+from uuid import UUID
 
 from pydantic import RootModel
 

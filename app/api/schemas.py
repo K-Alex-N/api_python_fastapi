@@ -1,5 +1,6 @@
-﻿from pydantic import BaseModel, ConfigDict
-from typing import TypeVar, Type, List, Iterable
+﻿from typing import Iterable, List, Type, TypeVar
+
+from pydantic import BaseModel, ConfigDict
 
 # import logging
 #
@@ -15,7 +16,7 @@ T = TypeVar("T", bound="BaseOutModel")
 class BaseOutModel(BaseModel):
     model_config = ConfigDict(
         from_attributes=True,  # Позволяет строить схему из объекта (например, Beanie Document)
-        arbitrary_types_allowed=True  # Разрешает сложные типы (Link, ObjectId, UUID)
+        arbitrary_types_allowed=True,  # Разрешает сложные типы (Link, ObjectId, UUID)
     )
 
     @classmethod

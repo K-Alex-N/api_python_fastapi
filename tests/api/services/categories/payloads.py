@@ -1,16 +1,15 @@
 import random
+
 from faker import Faker
 
 fake = Faker()
+
 
 class Payloads:
 
     @staticmethod
     def category():
-        return {
-            "name": fake.name(),
-            "type": random.choice(["income", "expense"])
-        }
+        return {"name": fake.name(), "type": random.choice(["income", "expense"])}
 
     def _modified_category(self, *, drop=None, overrides=None):
         payload = self.category()
@@ -35,5 +34,6 @@ class Payloads:
 
     def category_with_wrong_type(self):
         return self._modified_category(overrides={"type": "wrong_type"})
+
 
 payloads = Payloads()
