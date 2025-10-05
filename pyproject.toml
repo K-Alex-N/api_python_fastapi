@@ -1,11 +1,12 @@
 [tool.black]
 line-length = 120
-target-version = ["py310"]
+target-version = ["py312"]
 
 [tool.isort]
 profile = "black"
 
 [tool.flake8]
+exclude = ".git"
 max-line-length = 120
 extend-ignore = ["E203"]
 #extend-ignore = ["E203", "E501", "F401"]

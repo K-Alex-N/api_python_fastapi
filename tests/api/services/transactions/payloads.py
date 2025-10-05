@@ -1,4 +1,3 @@
-import pytest
 from faker import Faker
 
 from tests.api.services.categories.get_all_categories import GetAllCategories
