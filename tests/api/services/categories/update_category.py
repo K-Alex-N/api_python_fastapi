@@ -9,7 +9,5 @@ class UpdateCategory(CategoryEndpoint):
 
     @allure.step("Update category by id: {category_id} with payload: {payload}")
     def update_category(self, category_id, payload) -> None:
-        self.response = requests.patch(
-            url=url.update_category(category_id), json=payload
-        )
+        self.response = requests.patch(url=url.update_category(category_id), json=payload)
         self.process_response()
