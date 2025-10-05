@@ -12,10 +12,13 @@ class APIUser(HttpUser):
     wait_time = between(1, 3)
 
     def on_start(self):
-        for _ in range(10):
+        categories_number = 10
+        transactions_number = 30
+
+        for _ in range(categories_number):
             TestCreateCategory().test_create_category("positive", categories_payloads.category())
 
-        for _ in range(30):
+        for _ in range(transactions_number):
             TestCreateTransaction().test_create_transaction("positive", transactions_payloads.create_transaction)
 
     @task(1)
