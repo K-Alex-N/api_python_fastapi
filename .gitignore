@@ -1,7 +1,4 @@
-﻿.*
-!.dockerignore
-!.github
-!.pre-commit-config.yaml
+﻿.not_for_git
 
 allure-results
 allure-report
