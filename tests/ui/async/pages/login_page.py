@@ -28,9 +28,7 @@ class LoginPage(BasePage):
     @allure.step("check if login was successful")
     async def expect_login_is_successful(self) -> None:
         with allure.step("expect current page is inventory"):
-            await self.expect_current_page_url_have(
-                "https://www.saucedemo.com/inventory.html"
-            )
+            await self.expect_current_page_url_have("https://www.saucedemo.com/inventory.html")
 
     @allure.step("check if login failed")
     async def expect_login_failed(self) -> None:

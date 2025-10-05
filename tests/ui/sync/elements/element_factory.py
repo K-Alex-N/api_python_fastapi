@@ -1,5 +1,7 @@
-﻿from .multi_element import *
-from .single_element import *
+﻿from playwright.sync_api import Page
+
+from .multi_element import MultiElement
+from .single_element import Button, Checkbox, Dropdown, Link, TextElement, TextInput
 
 
 class ElementFactory:

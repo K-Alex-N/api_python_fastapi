@@ -1,5 +1,4 @@
-﻿import os
-from contextlib import asynccontextmanager
+﻿from contextlib import asynccontextmanager
 
 from beanie import init_beanie
 from fastapi import FastAPI
