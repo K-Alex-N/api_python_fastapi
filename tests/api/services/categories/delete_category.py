@@ -15,6 +15,6 @@ class DeleteCategory(CategoryEndpoint):
 
     @staticmethod
     @allure.step("Check if category with id {category_id} deleted")
-    def is_category_deleted(category_id):
+    def is_category_deleted(category_id) -> bool:
         response = GetCategory().get_category_by_id(category_id)
         return True if not response else False
