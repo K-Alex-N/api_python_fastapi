@@ -13,5 +13,5 @@ select = ["E", "F", "I", "N", "UP", "B", "A"]
 [tool.pyright]
 venvPath = "."
 venv = ".venv"
-exclude = [".venv", ".not_for_git"]
+exclude = [".venv", ".not_for_git", "welcome-page"]
 
