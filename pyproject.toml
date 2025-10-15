@@ -1,9 +1,11 @@
 [tool.ruff]
+ignore = ["F731"]
 exclude = [
     ".git",
     "__pycache__",
     ".venv",
     ".not_for_git",
+    "welcome-page",
 ]
 
 [tool.ruff.lint]
