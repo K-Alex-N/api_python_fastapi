@@ -1,8 +1,16 @@
-[tool.black]
-line-length = 120
-target-version = ["py312"]
+[tool.ruff]
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv",
+]
 
-[tool.isort]
-profile = "black"
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "A"]
 
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+exclude = [".venv"]
 

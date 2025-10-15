@@ -1,6 +1,5 @@
 ﻿.not_for_git
 logs
-app/api/logs
 
 allure-results
 allure-report
