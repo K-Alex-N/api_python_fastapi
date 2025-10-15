@@ -54,7 +54,7 @@ async def log_requests(request: Request, call_next):
 
 @app.get("/generate-random-logs")
 def generate_random_logs():
-    levels = ["info", "debug", "warning", "error", "supper_error"]
+    levels = ["info", "debug", "warning", "error", "critical"]
     actions = ["login", "logout", "purchase", "view", "click"]
     countries = ["US", "DE", "FR", "IN", "RU", "CN", "BR"]
     devices = ["mobile", "desktop", "tablet", "smart_tv"]
