@@ -7,7 +7,7 @@
     volumes:
       - mongo_data:/data/db
     restart: always
-#
+
   mongo-express:
     image: mongo-express:1.0.2-20-alpine3.19
     ports:
@@ -37,7 +37,7 @@
       MONGO_HOST: mongo
       ELASTIC_HOST: http://elasticsearch:9200
 
-# ----------welcome-page-------------
+  # ----------welcome-page-------------
 
   welcome-page:
     build: welcome-page
@@ -45,7 +45,7 @@
       - "5000:5000"
 
 
-# ----------метрики-------------
+  # ----------metrics-------------
 
   prometheus:
     image: prom/prometheus:v3.5.0-rc.0
@@ -70,7 +70,7 @@
     depends_on:
       - prometheus
 
-# ----------логи-------------
+  # ----------logs-------------
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:9.0.2
@@ -98,8 +98,7 @@
       - elasticsearch
 
 
-# ----------тесты----------
-# ----------performance----------
+  # ----------performance tests----------
 
   locust_master:
     build: tests/performance
@@ -118,7 +117,7 @@
     depends_on:
       - locust_master
 
-# ----------api----------
+  # ----------api tests----------
 
   tests_api:
     build: tests/api
@@ -131,7 +130,7 @@
       api:
         condition: service_healthy
 
-# ----------ui----------
+  # ----------ui tests----------
 
   tests_ui:
     build: tests/ui/sync
@@ -149,7 +148,7 @@
     volumes:
       - allure-results:/tests/ui/async/allure-results
 
-# ----------allure----------
+  # ----------allure----------
 
   allure: # http://localhost:5050/allure-docker-service/latest-report
     image: frankescobar/allure-docker-service:2.27.0
