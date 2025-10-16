@@ -1,5 +1,5 @@
 [tool.ruff]
-ignore = ["F731"]
+ignore = ["E731"]
 exclude = [
     ".git",
     "__pycache__",
@@ -16,4 +16,7 @@ select = ["E", "F", "I", "N", "UP", "B", "A"]
 venvPath = "."
 venv = ".venv"
 exclude = [".venv", ".not_for_git", "welcome-page"]
-
+typeCheckingMode = "strict"
+reportIncompatibleVariableOverride = "none"
+reportAttributeAccessIssue = "none"
+reportOptionalMemberAccess = "none"
