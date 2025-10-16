@@ -3,7 +3,6 @@ from tests.api.base_endpoint import BaseEndpoint
 
 
 class CategoryEndpoint(BaseEndpoint):
-
     def validate_category(self) -> None:
         self.validate(CategoryOut)
 

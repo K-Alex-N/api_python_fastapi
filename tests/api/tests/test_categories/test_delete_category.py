@@ -1,4 +1,4 @@
-﻿from http import HTTPStatus
+from http import HTTPStatus
 
 import allure
 import pytest
@@ -11,7 +11,6 @@ from tests.api.services.categories.get_all_categories import GetAllCategories
 @allure.feature("Category")
 @allure.story("DeleteCategory")
 class TestDeleteCategory(DeleteCategory, GetAllCategories):
-
     @pytest.mark.parametrize(
         "is_test, category_id",
         [

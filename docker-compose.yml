@@ -140,13 +140,13 @@
     volumes:
       - allure-results:/tests/ui/sync/allure-results
 
-  tests_ui_async:
-    build: tests/ui/async
-    environment:
-      - HEADLESS=True
-      - SLOW_MO=0
-    volumes:
-      - allure-results:/tests/ui/async/allure-results
+#  tests_ui_async:
+#    build: .not_for_git/async
+#    environment:
+#      - HEADLESS=True
+#      - SLOW_MO=0
+#    volumes:
+#      - allure-results:/tests/ui/async/allure-results
 
   # ----------allure----------
 

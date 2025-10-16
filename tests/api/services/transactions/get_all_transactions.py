@@ -8,7 +8,6 @@ from tests.api.services.transactions.urls import url
 
 
 class GetAllTransactions(TransactionEndpoint):
-
     @allure.step("Get all transactions")
     def get_all_transactions(self, limit: int = 5):
         params = {"limit": limit}

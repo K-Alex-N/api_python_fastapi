@@ -1,6 +1,5 @@
 from locust import HttpUser, between, task
 
-from tests.api.services.categories.payloads import payloads as categories_payloads
 from tests.api.services.transactions.payloads import payloads as transactions_payloads
 from tests.api.tests.test_categories.test_create_category import TestCreateCategory
 from tests.api.tests.test_transactions.test_create_transaction import (
@@ -16,10 +15,12 @@ class APIUser(HttpUser):
         transactions_number = 30
 
         for _ in range(categories_number):
-            TestCreateCategory().test_create_category("positive", categories_payloads.category())
+            TestCreateCategory().test_create_category_success()
 
         for _ in range(transactions_number):
-            TestCreateTransaction().test_create_transaction("positive", transactions_payloads.create_transaction)
+            TestCreateTransaction().test_create_transaction(
+                "positive", transactions_payloads.create_transaction
+            )
 
     @task(1)
     def get_categories(self) -> None:

@@ -1,16 +1,16 @@
-﻿from typing import List
 from uuid import UUID
 
 from fastapi import APIRouter, HTTPException
 
+from ..constants import CATEGORY_NOT_FOUND
 from .models import Category
 from .schemas import CategoryCreate, CategoryOut, CategoryUpdate
 
 router = APIRouter(prefix="/categories", tags=["Categories"])
 
 
-@router.get("/", response_model=List[CategoryOut])
-async def get_categories() -> List[CategoryOut]:
+@router.get("/", response_model=list[CategoryOut])
+async def get_categories() -> list[CategoryOut]:
     cats = await Category.find_all(fetch_links=True).to_list()
     return CategoryOut.from_model_list(cats)
 
@@ -26,7 +26,7 @@ async def create_category(category: CategoryCreate) -> CategoryOut:
 async def get_category(category_id: UUID) -> CategoryOut:
     cat = await Category.get(category_id)
     if not cat:
-        raise HTTPException(status_code=404, detail="Category not found")
+        raise HTTPException(status_code=404, detail=CATEGORY_NOT_FOUND)
     return CategoryOut.from_model(cat)
 
 
@@ -34,7 +34,7 @@ async def get_category(category_id: UUID) -> CategoryOut:
 async def update_category(category_id: UUID, category: CategoryUpdate) -> CategoryOut:
     cat = await Category.get(category_id)
     if not cat:
-        raise HTTPException(status_code=404, detail="Category not found")
+        raise HTTPException(status_code=404, detail=CATEGORY_NOT_FOUND)
 
     if category.name is not None:
         cat.name = category.name
@@ -49,7 +49,7 @@ async def update_category(category_id: UUID, category: CategoryUpdate) -> Catego
 async def delete_category(category_id: UUID) -> dict:
     cat = await Category.get(category_id)
     if not cat:
-        raise HTTPException(status_code=404, detail="Category not found")
+        raise HTTPException(status_code=404, detail=CATEGORY_NOT_FOUND)
 
     await cat.delete()  # type: ignore
     return {"message": "Category deleted successfully"}

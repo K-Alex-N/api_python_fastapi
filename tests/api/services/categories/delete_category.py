@@ -1,4 +1,4 @@
-﻿import allure
+import allure
 import requests
 
 from tests.api.services.categories.base_category import CategoryEndpoint
@@ -7,7 +7,6 @@ from tests.api.services.categories.urls import url
 
 
 class DeleteCategory(CategoryEndpoint):
-
     @allure.step("Delete category by id: {category_id}")
     def delete_category(self, category_id) -> None:
         self.response = requests.delete(url=url.delete_category(category_id))

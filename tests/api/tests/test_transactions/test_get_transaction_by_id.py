@@ -1,4 +1,4 @@
-﻿from http import HTTPStatus
+from http import HTTPStatus
 
 import allure
 import pytest
@@ -11,7 +11,6 @@ from tests.api.services.transactions.get_transaction import GetTransaction
 @allure.feature("Transaction")
 @allure.story("GetTransaction")
 class TestGetTransaction(GetTransaction, GetAllTransactions):
-
     @pytest.mark.parametrize(
         "is_test, transaction_id",
         [

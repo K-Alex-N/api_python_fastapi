@@ -1,4 +1,4 @@
-﻿import allure
+import allure
 import pytest
 
 from ..pages.login_page import LoginPage
@@ -11,7 +11,6 @@ VALID_PASSWORD = "secret_sauce"
 @allure.feature("Sync")
 @allure.story("Login")
 class TestLogin:
-
     @pytest.mark.parametrize(
         "is_test, user, password",
         [

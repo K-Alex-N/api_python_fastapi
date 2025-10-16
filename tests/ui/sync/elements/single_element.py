@@ -1,4 +1,4 @@
-﻿import allure
+import allure
 from playwright.sync_api import expect
 
 from .base import BaseElement, ClickableElement
@@ -38,7 +38,6 @@ class TextElement(BaseElement):
 
 
 class Dropdown(BaseElement):
-
     def select_by_value(self, value: str) -> None:
         self.should_be_visible()
         self.locator.select_option(value=value)
@@ -52,7 +51,6 @@ class Dropdown(BaseElement):
 
 
 class Checkbox(BaseElement):
-
     def check(self) -> None:
         self.should_be_visible()
         if not self.locator.is_checked():
@@ -68,6 +66,5 @@ class Checkbox(BaseElement):
 
 
 class Link(ClickableElement):
-
     def href(self):
         return self.locator.get_attribute("href")

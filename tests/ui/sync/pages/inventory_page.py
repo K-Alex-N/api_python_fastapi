@@ -1,5 +1,3 @@
-﻿from typing import List
-
 import allure
 from playwright.sync_api import Page
 
@@ -8,7 +6,6 @@ from .base_page import BasePage
 
 
 class InventoryPage(BasePage):
-
     def __init__(self, page: Page) -> None:
         super().__init__(page)
         self.url = self.base_url + "/inventory.html"
@@ -28,11 +25,11 @@ class InventoryPage(BasePage):
         self.sort_dropdown.select_by_label(label)
 
     @allure.step("getting product titles")
-    def _get_product_titles_list(self) -> List[str]:
+    def _get_product_titles_list(self) -> list[str]:
         return [x.text() for x in self.product_titles.all()]
 
     @allure.step("getting product prices")
-    def _get_product_prices_list(self) -> List[float]:
+    def _get_product_prices_list(self) -> list[float]:
         price_list = []
         for x in self.product_prices.all():
             price = float(x.text()[1::])

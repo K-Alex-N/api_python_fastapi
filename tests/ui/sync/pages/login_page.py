@@ -6,7 +6,6 @@ from .base_page import BasePage
 
 
 class LoginPage(BasePage):
-
     def __init__(self, page: Page) -> None:
         super().__init__(page)
         self.url = self.base_url + "/"

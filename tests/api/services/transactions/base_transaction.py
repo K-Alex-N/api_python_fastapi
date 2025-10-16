@@ -3,7 +3,6 @@ from tests.api.base_endpoint import BaseEndpoint
 
 
 class TransactionEndpoint(BaseEndpoint):
-
     def validate_transaction(self) -> None:
         self.validate(TransactionOut)
 

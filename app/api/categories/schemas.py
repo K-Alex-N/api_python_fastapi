@@ -1,4 +1,4 @@
-﻿from typing import List, Literal, Optional
+from typing import Literal
 from uuid import UUID
 
 from pydantic import RootModel
@@ -19,10 +19,10 @@ class CategoryOut(CategoryBase):
     id: UUID
 
 
-class CategoryOutList(RootModel[List[CategoryOut]]):
+class CategoryOutList(RootModel[list[CategoryOut]]):
     pass
 
 
 class CategoryUpdate(BaseOutModel):
-    name: Optional[str] = None
-    type: Optional[Literal["income", "expense"]] = None
+    name: str | None = None
+    type: Literal["income", "expense"] | None = None

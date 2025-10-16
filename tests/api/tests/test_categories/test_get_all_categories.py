@@ -1,4 +1,4 @@
-﻿from http import HTTPStatus
+from http import HTTPStatus
 
 import allure
 
@@ -9,7 +9,6 @@ from tests.api.services.categories.get_all_categories import GetAllCategories
 @allure.feature("Category")
 @allure.story("GetAllCategories")
 class TestGetAllCategories(GetAllCategories):
-
     def test_get_all_categories(self) -> None:
         self.get_all_categories()
         assert self.check_response_is(HTTPStatus.OK)

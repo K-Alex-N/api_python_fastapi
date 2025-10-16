@@ -1,13 +1,15 @@
-﻿import random
+import random
 import string
 
 from fastapi import FastAPI, Request, Response, status
+from fastapi.responses import JSONResponse
 from prometheus_client import Counter, Gauge
 from prometheus_fastapi_instrumentator import Instrumentator
 
+from app.api.logs.config import setup_logger
+
 from .categories import routes as categories_routes
 from .database import async_db, lifespan
-from .logger_config import setup_logger
 from .transactions import routes as transactions_routes
 
 logger = setup_logger()
@@ -68,7 +70,9 @@ def generate_random_logs():
             "success": random.choice([True, False]),
             "country": random.choice(countries),
             "device": random.choice(devices),
-            "session_id": "".join(random.choices(string.ascii_letters + string.digits, k=12)),
+            "session_id": "".join(
+                random.choices(string.ascii_letters + string.digits, k=12)
+            ),
         }
 
         msg = f"User {log_data['user_id']} performed {log_data['action']}"
@@ -99,7 +103,6 @@ def generate_error():
 
 
 # ---------------------------------------------------------
-from fastapi.responses import JSONResponse
 
 
 @app.exception_handler(Exception)

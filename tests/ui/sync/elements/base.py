@@ -1,4 +1,4 @@
-﻿import allure
+import allure
 from playwright.sync_api import Locator, Page, expect
 
 
@@ -20,7 +20,6 @@ class BaseElement:
 
 
 class ClickableElement(BaseElement):
-
     def click(self) -> None:
         """Click on element. If more than 1 element an error raises"""
         with allure.step(f"Click element {self.selector}"):

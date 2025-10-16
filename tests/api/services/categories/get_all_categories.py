@@ -1,4 +1,4 @@
-﻿import random
+import random
 
 import allure
 import requests
@@ -8,7 +8,6 @@ from tests.api.services.categories.urls import url
 
 
 class GetAllCategories(CategoryEndpoint):
-
     @allure.step("Get all categories")
     def get_all_categories(self):
         self.response = requests.get(url=url.get_all_categories)

@@ -1,5 +1,4 @@
-﻿from datetime import datetime
-from typing import List, Optional
+from datetime import datetime
 from uuid import UUID
 
 from pydantic import RootModel
@@ -23,12 +22,12 @@ class TransactionOut(TransactionBase):
     category: CategoryOut
 
 
-class TransactionOutList(RootModel[List[TransactionOut]]):
+class TransactionOutList(RootModel[list[TransactionOut]]):
     pass
 
 
 class TransactionUpdate(BaseOutModel):
-    amount: Optional[float] = None
-    date: Optional[datetime] = None
-    description: Optional[str] = None
-    category_id: Optional[UUID] = None
+    amount: float | None = None
+    date: datetime | None = None
+    description: str | None = None
+    category_id: UUID | None = None

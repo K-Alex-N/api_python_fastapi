@@ -1,4 +1,4 @@
-﻿from http import HTTPStatus
+from http import HTTPStatus
 
 import allure
 import pytest
@@ -12,7 +12,6 @@ from tests.api.services.categories.update_category import UpdateCategory
 @allure.feature("Category")
 @allure.story("UpdateCategory")
 class TestUpdateCategory(UpdateCategory, GetAllCategories):
-
     @pytest.mark.parametrize(
         "is_test, category_id, payload",
         [

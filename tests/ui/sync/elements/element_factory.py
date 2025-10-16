@@ -1,4 +1,4 @@
-﻿from playwright.sync_api import Page
+from playwright.sync_api import Page
 
 from .multi_element import MultiElement
 from .single_element import Button, Checkbox, Dropdown, Link, TextElement, TextInput

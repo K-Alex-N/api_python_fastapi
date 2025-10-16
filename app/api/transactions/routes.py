@@ -1,17 +1,17 @@
-﻿from typing import List, Optional
 from uuid import UUID
 
 from fastapi import APIRouter, HTTPException
 
 from ..categories.models import Category
+from ..constants import TRANSACTION_NOT_FOUND
 from .models import Transaction
 from .schemas import TransactionCreate, TransactionOut, TransactionUpdate
 
 router = APIRouter(prefix="/transactions", tags=["Transactions"])
 
 
-@router.get("/", response_model=List[TransactionOut])
-async def get_transactions(limit: Optional[int] = 100) -> List[TransactionOut]:
+@router.get("/", response_model=list[TransactionOut])
+async def get_transactions(limit: int | None = 100) -> list[TransactionOut]:
     txs = await Transaction.find_all(fetch_links=True).limit(limit).to_list()
     return TransactionOut.from_model_list(txs)
 
@@ -20,7 +20,7 @@ async def get_transactions(limit: Optional[int] = 100) -> List[TransactionOut]:
 async def create_transaction(data: TransactionCreate) -> TransactionOut:
     category = await Category.get(data.category_id, fetch_links=True)
     if not category:
-        raise HTTPException(status_code=404, detail="Category not found")
+        raise HTTPException(status_code=404, detail=TRANSACTION_NOT_FOUND)
 
     tx = Transaction(**data.model_dump(exclude={"category_id"}), category=category)  # type: ignore
     await tx.insert()  # type: ignore
@@ -31,16 +31,18 @@ async def create_transaction(data: TransactionCreate) -> TransactionOut:
 async def get_transaction(transaction_id: UUID) -> TransactionOut:
     tx = await Transaction.get(transaction_id, fetch_links=True)
     if not tx:
-        raise HTTPException(status_code=404, detail="Transaction not found")
+        raise HTTPException(status_code=404, detail=TRANSACTION_NOT_FOUND)
 
     return TransactionOut.from_model(tx)
 
 
 @router.patch("/{transaction_id}", response_model=TransactionOut)
-async def update_transaction(transaction_id: UUID, data: TransactionUpdate) -> TransactionOut:
+async def update_transaction(
+    transaction_id: UUID, data: TransactionUpdate
+) -> TransactionOut:
     tx = await Transaction.get(transaction_id, fetch_links=True)
     if not tx:
-        raise HTTPException(status_code=404, detail="Transaction not found")
+        raise HTTPException(status_code=404, detail=TRANSACTION_NOT_FOUND)
 
     update_data = data.model_dump(exclude_unset=True)
 
@@ -62,7 +64,7 @@ async def update_transaction(transaction_id: UUID, data: TransactionUpdate) -> T
 async def delete_transaction(transaction_id: UUID) -> dict:
     tx = await Transaction.get(transaction_id)
     if not tx:
-        raise HTTPException(status_code=404, detail="Transaction not found")
+        raise HTTPException(status_code=404, detail=TRANSACTION_NOT_FOUND)
 
     await tx.delete()  # type: ignore
     return {"message": "Transaction deleted successfully"}

@@ -13,6 +13,7 @@ HEADLESS = bool(os.getenv("HEADLESS", True))
 SLOW_MO = int(os.getenv("SLOW_MO", 0))
 
 STORAGE_PATH = "state.json"
+TIME_FOR_TESTS_SEC = 60
 
 
 @pytest.fixture
@@ -39,19 +40,19 @@ def inventory_page(page: Page):
     yield inventory_page
 
 
-@pytest.fixture(scope="session", autouse=True)
-def ensure_login_state() -> None:
+def is_remaining_time_in_cookies_enough_for_tests() -> bool:
     if os.path.exists(STORAGE_PATH):
-        # check expires time in cookies
         with open(STORAGE_PATH) as f:
             data = json.load(f)
 
         expires_time = data["cookies"][0]["expires"]
         now = datetime.now().timestamp()
-        if expires_time - now > 20:  # 20 секунд должно хватить на тесты
-            # if expires_time - now > 9999:  # чтобы всегда новый фалл получать, для чистоты эксперимента
-            return
+        if expires_time - now > TIME_FOR_TESTS_SEC:
+            return True
+    return False
 
+
+def get_new_cookies() -> None:
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=HEADLESS, slow_mo=SLOW_MO)
         context = browser.new_context()
@@ -65,6 +66,14 @@ def ensure_login_state() -> None:
 
         page.context.storage_state(path=STORAGE_PATH)
         browser.close()
+
+
+@pytest.fixture(scope="session", autouse=True)
+def ensure_login_state() -> None:
+    if is_remaining_time_in_cookies_enough_for_tests():
+        return
+
+    get_new_cookies()
 
 
 @pytest.hookimpl(hookwrapper=True)
