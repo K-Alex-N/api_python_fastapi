@@ -6,10 +6,9 @@ from fastapi.responses import JSONResponse
 from prometheus_client import Counter, Gauge
 from prometheus_fastapi_instrumentator import Instrumentator
 
-from app.api.logs.config import setup_logger
-
 from .categories import routes as categories_routes
 from .database import async_db, lifespan
+from .logs.config import setup_logger
 from .transactions import routes as transactions_routes
 
 logger = setup_logger()

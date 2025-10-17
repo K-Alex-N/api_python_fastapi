@@ -12,3 +12,5 @@ class CreateCategory(CategoryEndpoint):
     def create_category(self, payload: dict[str, Any]) -> None:
         self.response = requests.post(url=url.create_category, json=payload)
         self.process_response()
+        # self.client.post(url=url.create_category, json=payload)
+        # self.process_response()
