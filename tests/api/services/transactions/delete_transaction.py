@@ -1,5 +1,4 @@
 import allure
-import requests
 
 from tests.api.services.transactions.base_transaction import TransactionEndpoint
 from tests.api.services.transactions.get_transaction import GetTransaction
@@ -9,7 +8,7 @@ from tests.api.services.transactions.urls import url
 class DeleteTransaction(TransactionEndpoint):
     @allure.step("Delete transaction by id: {transaction_id}")
     def delete_transaction(self, transaction_id) -> None:
-        self.response = requests.delete(url=url.delete_transaction(transaction_id))
+        self.response = self.client.delete(url=url.delete_transaction(transaction_id))
         self.process_response()
 
     @staticmethod

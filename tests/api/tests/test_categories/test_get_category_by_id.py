@@ -11,22 +11,21 @@ from tests.api.services.categories.get_category import GetCategory
 @allure.feature("Category")
 @allure.story("GetCategory")
 class TestGetCategory(GetCategory, GetAllCategories):
-    @pytest.mark.parametrize(
-        "is_test, category_id",
-        [
-            ("positive", "placeholder id"),
-            ("-negative", "wrong id"),
-            ("-negative", 12345678),
-        ],
-    )
-    def test_get_category_by_id(self, is_test, category_id) -> None:
-        if category_id == "placeholder id":
-            category_id = self.get_random_category_id()
-
+    def test_get_category_by_id_success(self) -> None:
+        category_id = self.get_random_category_id()
         self.get_category_by_id(category_id)
 
-        if is_test == "positive":
-            assert self.check_response_is(HTTPStatus.OK)
-            self.validate_category()
-        else:
-            assert self.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)
+        assert self.check_response_is(HTTPStatus.OK)
+        self.validate_category()
+
+    @pytest.mark.parametrize(
+        "category_id",
+        [
+            "wrong id",
+            12345678,
+        ],
+    )
+    def test_get_category_by_id_fails(self, category_id) -> None:
+        self.get_category_by_id(category_id)
+
+        assert self.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)

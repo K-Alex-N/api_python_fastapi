@@ -1,7 +1,6 @@
 import uuid
 
 import allure
-import requests
 
 from tests.api.services.transactions.base_transaction import TransactionEndpoint
 from tests.api.services.transactions.urls import url
@@ -11,7 +10,7 @@ class GetAllTransactions(TransactionEndpoint):
     @allure.step("Get all transactions")
     def get_all_transactions(self, limit: int = 5):
         params = {"limit": limit}
-        self.response = requests.get(url=url.get_all_transactions, params=params)
+        self.response = self.client.get(url=url.get_all_transactions, params=params)
         self.process_response()
         return self.response
 
