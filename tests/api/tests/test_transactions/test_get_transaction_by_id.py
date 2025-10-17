@@ -11,22 +11,21 @@ from tests.api.services.transactions.get_transaction import GetTransaction
 @allure.feature("Transaction")
 @allure.story("GetTransaction")
 class TestGetTransaction(GetTransaction, GetAllTransactions):
-    @pytest.mark.parametrize(
-        "is_test, transaction_id",
-        [
-            ("positive", "placeholder id"),
-            ("-negative", "wrong id"),
-            ("-negative", 12345678),
-        ],
-    )
-    def test_get_transaction_by_id(self, is_test, transaction_id) -> None:
-        if transaction_id == "placeholder id":
-            transaction_id = self.get_random_transaction_id()
-
+    def test_get_transaction_by_id_success(self) -> None:
+        transaction_id = self.get_random_transaction_id()
         self.get_transaction_by_id(transaction_id)
 
-        if is_test == "positive":
-            assert self.check_response_is(HTTPStatus.OK)
-            self.validate_transaction()
-        else:
-            assert self.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)
+        assert self.check_response_is(HTTPStatus.OK)
+        self.validate_transaction()
+
+    @pytest.mark.parametrize(
+        "transaction_id",
+        [
+            "wrong id",
+            12345678,
+        ],
+    )
+    def test_get_transaction_by_id_fails(self, transaction_id) -> None:
+        self.get_transaction_by_id(transaction_id)
+
+        assert self.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)

@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from typing import Callable
 
 import allure
 import pytest
@@ -13,53 +14,37 @@ from tests.api.services.transactions.update_transaction import UpdateTransaction
 @allure.story("UpdateTransaction")
 class TestUpdateTransaction(UpdateTransaction, GetAllTransactions):
     @pytest.mark.parametrize(
-        "is_test, transaction_id, payload",
+        "payload",
         [
-            ("positive", "placeholder id", payloads.create_transaction),
-            ("positive", "placeholder id", payloads.create_transaction_without_amount),
-            ("positive", "placeholder id", payloads.create_transaction_without_date),
-            (
-                "positive",
-                "placeholder id",
-                payloads.create_transaction_without_description,
-            ),
-            (
-                "positive",
-                "placeholder id",
-                payloads.create_transaction_without_category_id,
-            ),
-            (
-                "-negative",
-                "placeholder id",
-                payloads.create_transaction_with_wrong_amount,
-            ),
-            (
-                "-negative",
-                "placeholder id",
-                payloads.create_transaction_with_wrong_date,
-            ),
-            (
-                "-negative",
-                "placeholder id",
-                payloads.create_transaction_with_wrong_description,
-            ),
-            (
-                "-negative",
-                "placeholder id",
-                payloads.create_transaction_with_wrong_category_id,
-            ),
-            ("-negative", "wrong id", payloads.create_transaction),
-            ("-negative", 12345678, payloads.create_transaction),
+            payloads.create_transaction,
+            payloads.create_transaction_without_amount,
+            payloads.create_transaction_without_date,
+            payloads.create_transaction_without_description,
+            payloads.create_transaction_without_category_id,
         ],
     )
-    def test_update_transaction(self, is_test, transaction_id, payload) -> None:
+    def test_update_transaction_success(self, payload) -> None:
+        transaction_id = self.get_random_transaction_id()
+        self.update_transaction(transaction_id, payload())
+
+        assert self.check_response_is(HTTPStatus.OK)
+        self.validate_transaction()
+
+    @pytest.mark.parametrize(
+        "transaction_id, payload",
+        [
+            ("placeholder id", payloads.create_transaction_with_wrong_amount),
+            ("placeholder id", payloads.create_transaction_with_wrong_date),
+            ("placeholder id", payloads.create_transaction_with_wrong_description),
+            ("placeholder id", payloads.create_transaction_with_wrong_category_id),
+            ("wrong id", payloads.create_transaction),
+            (12345678, payloads.create_transaction),
+        ],
+    )
+    def test_update_transaction_fails(self, transaction_id, payload: Callable) -> None:
         if transaction_id == "placeholder id":
             transaction_id = self.get_random_transaction_id()
 
         self.update_transaction(transaction_id, payload())
 
-        if is_test == "positive":
-            assert self.check_response_is(HTTPStatus.OK)
-            self.validate_transaction()
-        else:
-            assert self.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)
+        assert self.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)

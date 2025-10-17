@@ -11,25 +11,26 @@ from tests.api.services.transactions.payloads import payloads
 @allure.feature("Transaction")
 @allure.story("CreateTransaction")
 class TestCreateTransaction(CreateTransaction):
+    def test_create_transaction_success(self) -> None:
+        self.create_transaction(payloads.create_transaction())
+
+        assert self.check_response_is(HTTPStatus.OK)
+        self.validate_transaction()
+
     @pytest.mark.parametrize(
-        "is_test, payload",
+        "payload",
         [
-            ("positive", payloads.create_transaction),
-            ("-negative", payloads.create_transaction_without_amount),
-            ("-negative", payloads.create_transaction_without_date),
-            ("-negative", payloads.create_transaction_without_description),
-            ("-negative", payloads.create_transaction_without_category_id),
-            ("-negative", payloads.create_transaction_with_wrong_amount),
-            ("-negative", payloads.create_transaction_with_wrong_date),
-            ("-negative", payloads.create_transaction_with_wrong_description),
-            ("-negative", payloads.create_transaction_with_wrong_category_id),
+            payloads.create_transaction_without_amount,
+            payloads.create_transaction_without_date,
+            payloads.create_transaction_without_description,
+            payloads.create_transaction_without_category_id,
+            payloads.create_transaction_with_wrong_amount,
+            payloads.create_transaction_with_wrong_date,
+            payloads.create_transaction_with_wrong_description,
+            payloads.create_transaction_with_wrong_category_id,
         ],
     )
-    def test_create_transaction(self, is_test, payload) -> None:
+    def test_create_transaction_fails(self, payload) -> None:
         self.create_transaction(payload())
 
-        if is_test == "positive":
-            assert self.check_response_is(HTTPStatus.OK)
-            self.validate_transaction()
-        else:
-            assert self.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)
+        assert self.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)

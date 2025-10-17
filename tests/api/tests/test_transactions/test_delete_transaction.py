@@ -11,21 +11,20 @@ from tests.api.services.transactions.get_all_transactions import GetAllTransacti
 @allure.feature("Transaction")
 @allure.story("DeleteTransaction")
 class TestDeleteTransaction(DeleteTransaction, GetAllTransactions):
-    @pytest.mark.parametrize(
-        "is_test, transaction_id",
-        [
-            ("positive", "placeholder id"),  # will be replaced by real id
-            ("-negative", "wrong id"),
-        ],
-    )
-    def test_delete_transaction(self, is_test, transaction_id) -> None:
-        if transaction_id == "placeholder id":
-            transaction_id = self.get_random_transaction_id()
-
+    def test_delete_transaction_success(self) -> None:
+        transaction_id = self.get_random_transaction_id()
         self.delete_transaction(transaction_id)
 
-        if is_test == "positive":
-            assert self.check_response_is(HTTPStatus.OK)
-            assert self.is_transaction_deleted(transaction_id)
-        else:
-            assert self.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)
+        assert self.check_response_is(HTTPStatus.OK)
+        assert self.is_transaction_deleted(transaction_id)
+
+    @pytest.mark.parametrize(
+        "transaction_id",
+        [
+            "wrong id",
+        ],
+    )
+    def test_delete_transaction_fails(self, transaction_id) -> None:
+        self.delete_transaction(transaction_id)
+
+        assert self.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)
