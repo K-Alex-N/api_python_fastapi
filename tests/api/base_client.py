@@ -8,6 +8,13 @@ class BaseClient:
         if headers:
             self.session.headers.update(headers)
 
+    def _send_request(self, method: str, url: str, **kwargs) -> requests.Response:
+        response = self.session.request(method, url, **kwargs)
+        allure.attach(
+            response.text, f"{method} {url} response", allure.attachment_type.TEXT
+        )
+        return response
+
     @allure.step("Send GET request to {url}")
     def get(self, url: str, **kwargs) -> requests.Response:
         return self._send_request("GET", url, **kwargs)
@@ -27,10 +34,3 @@ class BaseClient:
     @allure.step("Send DELETE request to {url}")
     def delete(self, url: str, **kwargs) -> requests.Response:
         return self._send_request("DELETE", url, **kwargs)
-
-    def _send_request(self, method: str, url: str, **kwargs) -> requests.Response:
-        response = self.session.request(method, url, **kwargs)
-        allure.attach(
-            response.text, f"{method} {url} response", allure.attachment_type.TEXT
-        )
-        return response
