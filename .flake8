@@ -1,4 +1,0 @@
-[flake8]
-exclude =.git
-extend-ignore = E203, E731, E501, E402, E266
-max-line-length = 120

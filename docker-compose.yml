@@ -37,85 +37,85 @@
       MONGO_HOST: mongo
       ELASTIC_HOST: http://elasticsearch:9200
 
-#  # ----------welcome-page-------------
-#
-#  welcome-page:
-#    build: welcome-page
-#    ports:
-#      - "5000:5000"
-#
-#
-#  # ----------metrics-------------
-#
-#  prometheus:
-#    image: prom/prometheus:v3.5.0-rc.0
-#    volumes:
-#      - ./infra/prometheus/:/etc/prometheus/
-#      - prometheus_data:/prometheus
-#    command: --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver
-#    ports:
-#      - "9090:9090"
-#    depends_on:
-#      api:
-#        condition: service_healthy
-#
-#  grafana:
-#    image: grafana/grafana:12.0.2-ubuntu
-#    volumes:
-#      - ./infra/grafana/dashboards:/etc/grafana/dashboards
-#      - ./infra/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
-#      - ./infra/grafana/datasources:/etc/grafana/provisioning/datasources
-#    ports:
-#      - "3000:3000"
-#    depends_on:
-#      - prometheus
-#
-#  # ----------logs-------------
-#
-#  elasticsearch:
-#    image: docker.elastic.co/elasticsearch/elasticsearch:9.0.2
-#    environment:
-#      - discovery.type=single-node
-#      - xpack.security.enabled=false
-#    ports:
-#      - "9200:9200"
-#
-#  kibana:
-#    image: docker.elastic.co/kibana/kibana:9.0.2
-#    ports:
-#      - "5601:5601"
-#    environment:
-#      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-#    depends_on:
-#      - elasticsearch
-#
-#  logstash:
-#    image: docker.elastic.co/logstash/logstash:9.0.2
-#    volumes:
-#      - ./infra/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-#      - ./app/api/logs:/app/logs
-#    depends_on:
-#      - elasticsearch
-#
-#
-#  # ----------performance tests----------
-#
-#  locust_master:
-#    build: tests/performance
-#    command: --master --host http://api:8000
-#    ports:
-#      - "8089:8089"
-#    depends_on:
-#      api:
-#        condition: service_healthy
-#
-#  locust_worker:
-#    build: tests/performance
-#    command: --worker --master-host locust_master
-#    deploy:
-#      replicas: 3
-#    depends_on:
-#      - locust_master
+  # ----------welcome-page-------------
+
+  welcome-page:
+    build: welcome-page
+    ports:
+      - "5000:5000"
+
+
+  # ----------metrics-------------
+
+  prometheus:
+    image: prom/prometheus:v3.5.0-rc.0
+    volumes:
+      - ./infra/prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command: --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver
+    ports:
+      - "9090:9090"
+    depends_on:
+      api:
+        condition: service_healthy
+
+  grafana:
+    image: grafana/grafana:12.0.2-ubuntu
+    volumes:
+      - ./infra/grafana/dashboards:/etc/grafana/dashboards
+      - ./infra/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./infra/grafana/datasources:/etc/grafana/provisioning/datasources
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+  # ----------logs-------------
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.0.2
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:9.0.2
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:9.0.2
+    volumes:
+      - ./infra/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./app/api/logs:/app/logs
+    depends_on:
+      - elasticsearch
+
+
+  # ----------performance tests----------
+
+  locust_master:
+    build: tests/performance
+    command: --master --host http://api:8000
+    ports:
+      - "8089:8089"
+    depends_on:
+      api:
+        condition: service_healthy
+
+  locust_worker:
+    build: tests/performance
+    command: --worker --master-host locust_master
+    deploy:
+      replicas: 3
+    depends_on:
+      - locust_master
 
   # ----------api tests----------
 
@@ -131,15 +131,14 @@
         condition: service_healthy
 
   # ----------ui tests----------
-#
-#  tests_ui:
-#    build: tests/ui/sync
-#    environment:
-#      - HEADLESS=True
-#      - SLOW_MO=0
-#    volumes:
-#      - allure-results:/tests/ui/sync/allure-results
 
+  tests_ui:
+    build: tests/ui/sync
+    environment:
+      - HEADLESS=True
+      - SLOW_MO=0
+    volumes:
+      - allure-results:/tests/ui/sync/allure-results
 
 
   # ----------allure----------
