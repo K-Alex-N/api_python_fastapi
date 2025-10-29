@@ -1,60 +1,53 @@
-### Многоконтейнерное Python-приложение по учету личных финансов
+### Multi-Container Python Application for Personal Finance Management
 
-![Описание изображения](https://raw.githubusercontent.com/K-Alex-N/assets/main/docker/main.png)
+![Image description](https://raw.githubusercontent.com/K-Alex-N/assets/main/docker/main.png)
 
-### 📄 Описание 
-* **API-сервис**
-  * RESTful API-сервис разработанным на FastAPI и MongoDB
-* **Тесты**
-  * **Изоляция** тестов за счет "упаковки" каждого типа тестов в собственный контейнер. 
-  * **UI тесты** на Playwright с sync и async версиями.
-     * Архитектура: Page Obdject + Page Elements.
-     * Пара тестов "упадет" для демонстрации автоматического прикрепления скриншота в Allur отчет
-  * **API тесты** с использованием:
-    * Pytest, Requests 
-    * валидацией данных через Pydentic
-    * динамической генерации тестовых данных с помощью Faker
-    * и с предварительным наполнением базы данных
-  * **Перформанс тесты** API-сервера
-    * с использованием Locust
-    * и параллельной работы 3х воркеров. 
-  * **Allure отчет** для удобного отображения результатов тестов:
-    * с прикреплением json-схемы ответа (в API тестах) и скриншота (в UI тестах) 
-    * c группировкой по epic, feature, story
-    * c добавлением allure.steps для более быстрого анализа дефектов 
-* **Docker**
-  * **Запуск** всего проекта (16 контейнеров) **одной командой** (`docker compose up`). 
-  * "Чистые" контейнеры (копируется только нужные файлы, ненужное очищается с помощью .dockerignore)
-* **Мониторинг и логирование:**
-  * Логи в **Kibana**
-  * Метрики в **Grafana** (контейнер создается с преднастроенным дашбордом). 
-* **"Welcome page"** на Flask — удобная точка входа ко всем сервисам
+### 📄 Description  
+* **API Service**  
+  * RESTful API built with **FastAPI** and **MongoDB**  
 
+* **Tests**  
+  * **Isolation** of tests achieved by packaging each test type into its own container  
+  * **UI Tests** powered by **Playwright**  
+     * Architecture: **Page Object + Page Elements**  
+     * A couple of tests are designed to **fail intentionally** to demonstrate automatic screenshot attachment in **Allure reports**  
+  * **API Tests** implemented using:  
+    * **Pytest**, **Requests**  
+    * Data validation via **Pydantic**  
+    * Dynamic test data generation with **Faker**  
+    * Pre-population of the database before test execution  
+  * **Performance Tests** of the API server  
+    * Implemented with **Locust**  
+    * Running **3 workers in parallel**  
+  * **Allure Reports** for clear visualization of test results:  
+    * Attach JSON response schemas (in API tests) and screenshots (in UI tests)  
+    * Grouping by **epic**, **feature**, **story**  
+    * Detailed **allure.steps** for faster defect analysis  
 
+* **Docker**  
+  * **Single-command project startup** — launches all **16 containers** (`docker compose up`)
+  * **Clean containers** — only necessary files are copied; redundant data is excluded via **.dockerignore**  
 
-### 🚀 Быстрый старт
+* **Monitoring and Logging:**  
+  * Logs in **Kibana**  
+  * Metrics in **Grafana** (container includes a preconfigured dashboard)  
 
-**Требования**: установлен Docker
+* **Welcome Page** built with **Flask** — a convenient entry point to all services  
 
-**Запуск**  
-Склонируйте репозиторий
+---
+
+### 🚀 Quick Start
+
+**Requirements:** Docker installed  
+
+Clone the repository:
 ```bash
 git clone https://github.com/K-Alex-N/api_python_fastapi.git
 cd api_python_fastapi
 ```
-Запустите команду
+Start:
 ```bash
 docker compose up
 ```
-**Результат**  
-Allure report: http://localhost:5050/allure-docker-service/projects/default/reports/latest/index.html  
-Welcome page: http://localhost:5000
-
-
-### 📈 Планы на развитие:
-- Расширение API-сервера (больше "ручек")
-- Работа с очередями RabbitMQ/Kafka
-- Расширение тестов, расширение UI фрэймворка (добавить Page Components) 
-- Перенос результатов тестов из Allure в Grafana
 
 
