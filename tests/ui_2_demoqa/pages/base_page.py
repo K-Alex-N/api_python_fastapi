@@ -4,6 +4,7 @@ class BasePage:
 
     def goto(self, url):
         self.page.goto(url)
+        self.page.wait_for_load_state("domcontentloaded")
 
     def wait_for(self, selector, timeout=5000):
         self.page.wait_for_selector(selector, timeout=timeout)

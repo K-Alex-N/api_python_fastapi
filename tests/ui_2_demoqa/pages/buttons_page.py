@@ -15,7 +15,8 @@ class ButtonsPage(BasePage):
         self.page.click("#rightClickBtn", button="right")
 
     def dynamic_click(self):
-        self.page.locator('button:has-text("Click Me")').nth(2).click()
+        # Use accessible role-based locator to target the "Click Me" button reliably
+        self.page.get_by_role("button", name="Click Me").click()
 
     def double_click_msg(self):
         return self.page.locator("#doubleClickMessage").inner_text()

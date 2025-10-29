@@ -14,7 +14,10 @@ class TextBoxPage(BasePage):
         self.page.locator("#permanentAddress").fill(permanent_address)
 
     def submit(self):
-        self.page.locator("#submit").click()
+        submit_btn = self.page.locator("#submit")
+        submit_btn.scroll_into_view_if_needed()
+        submit_btn.click()
+        self.page.locator("#output").wait_for(state="visible")
 
     def get_output_text(self):
         return self.page.locator("#output").inner_text()
