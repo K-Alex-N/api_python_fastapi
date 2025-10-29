@@ -4,8 +4,8 @@ import pytest
 @pytest.mark.parametrize(
     "check_node,expected_present,expected_absent",
     [
-        ("home", ["home"], ["desktop", "documents", "downloads"]),
-        ("desktop", ["desktop"], ["documents", "downloads"]),
+        ("home", ["home", "desktop", "documents", "downloads"], []),
+        ("desktop", ["desktop", "notes", "commands"], ["documents", "downloads"]),
     ],
 )
 def test_checkboxes_selection(
