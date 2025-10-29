@@ -1,0 +1,19 @@
+import pytest
+
+
+@pytest.mark.parametrize(
+    "name,email,current_address,permanent_address",
+    [
+        ("Alice Test", "alice@example.com", "123 Main St", "456 Secondary Ave"),
+    ],
+)
+def test_textbox_fields_output(
+    textbox_page, name, email, current_address, permanent_address
+):
+    textbox_page.fill_form(name, email, current_address, permanent_address)
+    textbox_page.submit()
+    output = textbox_page.get_output_text()
+    assert name in output
+    assert email in output
+    assert current_address in output
+    assert permanent_address in output
