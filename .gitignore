@@ -1,6 +1,8 @@
 ﻿.not_for_git
 logs
 
+tests/api_sync
+
 allure-results
 allure-report
 
