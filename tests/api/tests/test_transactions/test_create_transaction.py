@@ -21,7 +21,7 @@ class TestCreateTransaction:
         await create_transaction.validate_transaction()
 
     @pytest.mark.parametrize(
-        "payload_method",
+        "payload",
         [
             "create_transaction_without_amount",
             "create_transaction_without_date", 
@@ -33,10 +33,10 @@ class TestCreateTransaction:
             "create_transaction_with_wrong_category_id",
         ],
     )
-    async def test_create_transaction_fails(self, client, payload_method) -> None:
+    async def test_create_transaction_fails(self, client, payload) -> None:
         payloads = Payloads(client)
         create_transaction = CreateTransaction(client)
         
-        payload = await getattr(payloads, payload_method)()
+        payload = await getattr(payloads, payload)()
         await create_transaction.create_transaction(payload)
         assert await create_transaction.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)

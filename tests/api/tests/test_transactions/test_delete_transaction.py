@@ -5,7 +5,8 @@ import pytest
 
 from tests.api.services.transactions.delete_transaction import DeleteTransaction
 from tests.api.services.transactions.get_all_transactions import GetAllTransactions
-
+from tests.api.services.transactions.create_transaction import CreateTransaction
+from tests.api.services.transactions.payloads import Payloads
 
 @allure.epic("API")
 @allure.feature("Transaction")
@@ -13,12 +14,15 @@ from tests.api.services.transactions.get_all_transactions import GetAllTransacti
 @pytest.mark.asyncio(loop_scope="session")
 class TestDeleteTransaction:
     async def test_delete_transaction_success(self, client) -> None:
-        get_all_transactions = GetAllTransactions(client)
+        payloads = Payloads(client)
+        create_transaction = CreateTransaction(client)
         delete_transaction = DeleteTransaction(client)
-        
-        transaction_id = await get_all_transactions.get_random_transaction_id()
-        await delete_transaction.delete_transaction(transaction_id)
 
+        await create_transaction.create_transaction(await payloads.create_transaction())
+        transaction_id = create_transaction.response_json["id"]
+        assert await create_transaction.check_response_is(HTTPStatus.OK)
+
+        await delete_transaction.delete_transaction(transaction_id)
         assert await delete_transaction.check_response_is(HTTPStatus.OK)
         assert await delete_transaction.is_transaction_deleted(transaction_id)
 
@@ -26,6 +30,7 @@ class TestDeleteTransaction:
         "transaction_id",
         [
             "wrong id",
+            12345,
         ],
     )
     async def test_delete_transaction_fails(self, client, transaction_id) -> None:

@@ -15,9 +15,5 @@ class TestGetAllTransactions:
         get_all_transactions = GetAllTransactions(client)
         await get_all_transactions.get_all_transactions()
 
-        if get_all_transactions.response.status_code == HTTPStatus.OK:
-            assert await get_all_transactions.check_response_is(HTTPStatus.OK)
-            await get_all_transactions.validate_list_of_transactions()
-        else:
-            assert get_all_transactions.response is not None
-            assert get_all_transactions.response_json is not None
+        assert await get_all_transactions.check_response_is(HTTPStatus.OK)
+        await get_all_transactions.validate_list_of_transactions()

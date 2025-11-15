@@ -5,14 +5,7 @@ from tests.api.base_endpoint import BaseEndpoint
 class CategoryEndpoint(BaseEndpoint):
     @allure.step("Validate category response")
     async def validate_category(self) -> None:
-        if self.response.status_code >= 400:
-            allure.attach(
-                f"Skipping validation due to error status: {self.response.status_code}",
-                name="Validation Skipped",
-                attachment_type=allure.attachment_type.TEXT,
-            )
-            return
-        
+
         data_to_validate = self._extract_category_data(self.response_json)
         original_response_json = self.response_json
         self.response_json = data_to_validate

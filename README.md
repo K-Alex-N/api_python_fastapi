@@ -12,7 +12,7 @@
      * Architecture: **Page Object + Page Elements**  
      * A couple of tests are designed to **fail intentionally** to demonstrate automatic screenshot attachment in **Allure reports**  
   * **API Tests** implemented using:  
-    * **Pytest**, **Requests**  
+    * **Pytest**, **Requests**, **httpx**  
     * Data validation via **Pydantic**  
     * Dynamic test data generation with **Faker**  
     * Pre-population of the database before test execution  
