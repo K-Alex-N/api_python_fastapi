@@ -3,10 +3,10 @@ from http import HTTPStatus
 import allure
 import pytest
 
-from tests.api.services.transactions.delete_transaction import DeleteTransaction
-from tests.api.services.transactions.get_all_transactions import GetAllTransactions
 from tests.api.services.transactions.create_transaction import CreateTransaction
+from tests.api.services.transactions.delete_transaction import DeleteTransaction
 from tests.api.services.transactions.payloads import Payloads
+
 
 @allure.epic("API")
 @allure.feature("Transaction")
@@ -19,7 +19,8 @@ class TestDeleteTransaction:
         delete_transaction = DeleteTransaction(client)
 
         await create_transaction.create_transaction(await payloads.create_transaction())
-        transaction_id = create_transaction.response_json["id"]
+        assert create_transaction.response_json is not None
+        transaction_id = create_transaction.response_json.id
         assert await create_transaction.check_response_is(HTTPStatus.OK)
 
         await delete_transaction.delete_transaction(transaction_id)
@@ -37,4 +38,6 @@ class TestDeleteTransaction:
         delete_transaction = DeleteTransaction(client)
         await delete_transaction.delete_transaction(transaction_id)
 
-        assert await delete_transaction.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)
+        assert await delete_transaction.check_response_is(
+            HTTPStatus.UNPROCESSABLE_ENTITY
+        )

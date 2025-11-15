@@ -21,7 +21,7 @@ class TestDeleteCategory:
     async def test_delete_category(self, client, is_test, category_id) -> None:
         get_all_categories = GetAllCategories(client)
         delete_category = DeleteCategory(client)
-        
+
         if category_id == "placeholder id":
             category_id = await get_all_categories.get_random_category_id()
 
@@ -31,4 +31,6 @@ class TestDeleteCategory:
             assert await delete_category.check_response_is(HTTPStatus.OK)
             assert await delete_category.is_category_deleted(category_id)
         else:
-            assert await delete_category.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)
+            assert await delete_category.check_response_is(
+                HTTPStatus.UNPROCESSABLE_ENTITY
+            )

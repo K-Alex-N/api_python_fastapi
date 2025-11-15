@@ -2,8 +2,8 @@ from typing import Any
 
 from faker import Faker
 
-from tests.api.services.categories.get_all_categories import GetAllCategories
 from tests.api.base_client import BaseClient
+from tests.api.services.categories.get_all_categories import GetAllCategories
 
 fake = Faker()
 
@@ -22,7 +22,9 @@ class Payloads:
             "category_id": category_id,
         }
 
-    async def _modified_transaction(self, *, drop=None, overrides=None) -> dict[str, Any]:
+    async def _modified_transaction(
+        self, *, drop=None, overrides=None
+    ) -> dict[str, Any]:
         transaction = await self.create_transaction()
         if drop:
             for key in drop:

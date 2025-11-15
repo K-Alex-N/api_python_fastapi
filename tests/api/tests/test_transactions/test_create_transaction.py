@@ -15,7 +15,7 @@ class TestCreateTransaction:
     async def test_create_transaction_success(self, client) -> None:
         payloads = Payloads(client)
         create_transaction = CreateTransaction(client)
-        
+
         await create_transaction.create_transaction(await payloads.create_transaction())
         assert await create_transaction.check_response_is(HTTPStatus.OK)
         await create_transaction.validate_transaction()
@@ -24,7 +24,7 @@ class TestCreateTransaction:
         "payload",
         [
             "create_transaction_without_amount",
-            "create_transaction_without_date", 
+            "create_transaction_without_date",
             "create_transaction_without_description",
             "create_transaction_without_category_id",
             "create_transaction_with_wrong_amount",
@@ -36,7 +36,9 @@ class TestCreateTransaction:
     async def test_create_transaction_fails(self, client, payload) -> None:
         payloads = Payloads(client)
         create_transaction = CreateTransaction(client)
-        
+
         payload = await getattr(payloads, payload)()
         await create_transaction.create_transaction(payload)
-        assert await create_transaction.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)
+        assert await create_transaction.check_response_is(
+            HTTPStatus.UNPROCESSABLE_ENTITY
+        )

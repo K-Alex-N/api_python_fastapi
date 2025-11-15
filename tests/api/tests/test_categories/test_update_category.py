@@ -25,7 +25,7 @@ class TestUpdateCategory:
     async def test_update_category_success(self, client, payload) -> None:
         get_all_categories = GetAllCategories(client)
         update_category = UpdateCategory(client)
-        
+
         category_id = await get_all_categories.get_random_category_id()
         await update_category.update_category(category_id, payload)
 
@@ -44,7 +44,7 @@ class TestUpdateCategory:
     async def test_update_category_fails(self, client, category_id, payload) -> None:
         get_all_categories = GetAllCategories(client)
         update_category = UpdateCategory(client)
-        
+
         if category_id == "placeholder id":
             category_id = await get_all_categories.get_random_category_id()
 

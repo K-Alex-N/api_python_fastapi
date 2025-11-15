@@ -15,7 +15,7 @@ class TestGetCategory:
     async def test_get_category_by_id_success(self, client) -> None:
         get_all_categories = GetAllCategories(client)
         get_category = GetCategory(client)
-        
+
         category_id = await get_all_categories.get_random_category_id()
         await get_category.get_category_by_id(category_id)
 

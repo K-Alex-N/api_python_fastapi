@@ -1,11 +1,11 @@
-import httpx
 import allure
+import httpx
 
 
 class BaseClient:
     def __init__(self, headers: dict | None = None):
         self.headers = headers or {}
-        
+
     async def _send_request(self, method: str, url: str, **kwargs) -> httpx.Response:
         async with httpx.AsyncClient(headers=self.headers) as client:
             response = await client.request(method, url, **kwargs)

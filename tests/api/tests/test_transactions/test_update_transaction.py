@@ -1,4 +1,3 @@
-from collections.abc import Callable
 from http import HTTPStatus
 
 import allure
@@ -28,7 +27,7 @@ class TestUpdateTransaction:
         payloads = Payloads(client)
         get_all_transactions = GetAllTransactions(client)
         update_transaction = UpdateTransaction(client)
-        
+
         transaction_id = await get_all_transactions.get_random_transaction_id()
         payload = await getattr(payloads, payload_method)()
         await update_transaction.update_transaction(transaction_id, payload)
@@ -47,15 +46,19 @@ class TestUpdateTransaction:
             (12345678, "create_transaction"),
         ],
     )
-    async def test_update_transaction_fails(self, client, transaction_id, payload_method) -> None:
+    async def test_update_transaction_fails(
+        self, client, transaction_id, payload_method
+    ) -> None:
         payloads = Payloads(client)
         get_all_transactions = GetAllTransactions(client)
         update_transaction = UpdateTransaction(client)
-        
+
         if transaction_id == "placeholder id":
             transaction_id = await get_all_transactions.get_random_transaction_id()
 
         payload = await getattr(payloads, payload_method)()
         await update_transaction.update_transaction(transaction_id, payload)
 
-        assert await update_transaction.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)
+        assert await update_transaction.check_response_is(
+            HTTPStatus.UNPROCESSABLE_ENTITY
+        )

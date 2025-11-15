@@ -1,11 +1,12 @@
 import allure
+
 from app.api.categories.schemas import CategoryOut, CategoryOutList
 from tests.api.base_endpoint import BaseEndpoint
+
 
 class CategoryEndpoint(BaseEndpoint):
     @allure.step("Validate category response")
     async def validate_category(self) -> None:
-
         data_to_validate = self._extract_category_data(self.response_json)
         original_response_json = self.response_json
         self.response_json = data_to_validate
@@ -21,13 +22,13 @@ class CategoryEndpoint(BaseEndpoint):
                 attachment_type=allure.attachment_type.TEXT,
             )
             return
-        
+
         data_to_validate = self._extract_categories_list(self.response_json)
         original_response_json = self.response_json
         self.response_json = data_to_validate
         await self.validate(CategoryOutList)
         self.response_json = original_response_json
-    
+
     def _extract_category_data(self, response_data):
         if isinstance(response_data, dict):
             if "category" in response_data:
@@ -38,7 +39,7 @@ class CategoryEndpoint(BaseEndpoint):
                 if isinstance(value, dict) and "id" in value:
                     return value
         return response_data
-    
+
     def _extract_categories_list(self, response_data):
         if isinstance(response_data, dict):
             if "categories" in response_data:

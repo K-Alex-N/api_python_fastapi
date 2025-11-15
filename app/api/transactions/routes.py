@@ -3,7 +3,7 @@ from uuid import UUID
 from fastapi import APIRouter, HTTPException
 
 from ..categories.models import Category
-from ..constants import TRANSACTION_NOT_FOUND, CATEGORY_NOT_FOUND
+from ..constants import CATEGORY_NOT_FOUND, TRANSACTION_NOT_FOUND
 from .models import Transaction
 from .schemas import TransactionCreate, TransactionOut, TransactionUpdate
 

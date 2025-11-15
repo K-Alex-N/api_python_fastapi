@@ -11,9 +11,8 @@ class DeleteCategory(CategoryEndpoint):
         self.response = await self.client.delete(url=url.delete_category(category_id))
         await self.process_response()
 
-    @staticmethod
     @allure.step("Check if category with id {category_id} deleted")
-    async def is_category_deleted(category_id) -> bool:
-        get_category = GetCategory()
+    async def is_category_deleted(self, category_id) -> bool:
+        get_category = GetCategory(self.client)
         await get_category.get_category_by_id(category_id)
         return True if not get_category.response else False

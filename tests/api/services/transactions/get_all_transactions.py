@@ -11,7 +11,9 @@ class GetAllTransactions(TransactionEndpoint):
     @allure.step("Get all transactions")
     async def get_all_transactions(self, limit: int = 5):
         params = {"limit": limit}
-        self.response = await self.client.get(url=url.get_all_transactions, params=params)
+        self.response = await self.client.get(
+            url=url.get_all_transactions, params=params
+        )
         await self.process_response()
         return self.response
 
@@ -32,7 +34,9 @@ class GetAllTransactions(TransactionEndpoint):
                         transactions = value
                         break
                 if transactions is None:
-                    raise ValueError(f"No transactions found in response: {response_data}")
+                    raise ValueError(
+                        f"No transactions found in response: {response_data}"
+                    )
         elif isinstance(response_data, list):
             transactions = response_data
         else:
@@ -40,7 +44,7 @@ class GetAllTransactions(TransactionEndpoint):
 
         if not transactions or len(transactions) == 0:
             raise ValueError("No transactions found")
-        
+
         random_transaction_number = random.randint(0, len(transactions) - 1)
         transaction_item = transactions[random_transaction_number]
         return transaction_item["id"]

@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from pydantic import RootModel, Field
+from pydantic import Field, RootModel
 
 from ..categories.schemas import CategoryOut
 from ..schemas import BaseOutModel
@@ -27,7 +27,9 @@ class TransactionOutList(RootModel[list[TransactionOut]]):
 
 
 class TransactionUpdate(BaseOutModel):
-    amount: float | None = Field(None, ge=0, description="Amount must be greater than or equal to 0")
+    amount: float | None = Field(
+        None, ge=0, description="Amount must be greater than or equal to 0"
+    )
     date: datetime | None = None
     description: str | None = None
     category_id: UUID | None = None

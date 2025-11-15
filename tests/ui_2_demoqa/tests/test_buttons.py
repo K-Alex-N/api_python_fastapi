@@ -1,5 +1,3 @@
-
-
 def test_double_click_button(buttons_page):
     buttons_page.double_click()
     assert "You have done a double click" in buttons_page.double_click_msg()

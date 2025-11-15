@@ -15,7 +15,7 @@ class TestGetTransaction:
     async def test_get_transaction_by_id_success(self, client) -> None:
         get_all_transactions = GetAllTransactions(client)
         get_transaction = GetTransaction(client)
-        
+
         transaction_id = await get_all_transactions.get_random_transaction_id()
         await get_transaction.get_transaction_by_id(transaction_id)
 
