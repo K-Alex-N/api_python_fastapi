@@ -1,0 +1,13 @@
+﻿# Python
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# pytets
+**/.pytest_cache/
+
+# Docker
+*Dockerfile*
+*compose*.yml
