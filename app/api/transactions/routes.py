@@ -3,7 +3,7 @@ from uuid import UUID
 from fastapi import APIRouter, HTTPException
 
 from ..categories.models import Category
-from ..constants import TRANSACTION_NOT_FOUND
+from ..constants import TRANSACTION_NOT_FOUND, CATEGORY_NOT_FOUND
 from .models import Transaction
 from .schemas import TransactionCreate, TransactionOut, TransactionUpdate
 
@@ -20,9 +20,10 @@ async def get_transactions(limit: int | None = 100) -> list[TransactionOut]:
 async def create_transaction(data: TransactionCreate) -> TransactionOut:
     category = await Category.get(data.category_id, fetch_links=True)
     if not category:
-        raise HTTPException(status_code=404, detail=TRANSACTION_NOT_FOUND)
+        raise HTTPException(status_code=404, detail=CATEGORY_NOT_FOUND)
 
     tx = Transaction(**data.model_dump(exclude={"category_id"}), category=category)  # type: ignore
+
     await tx.insert()  # type: ignore
     return TransactionOut.from_model(tx)
 
