@@ -33,5 +33,4 @@ class TestGetCategory:
         get_category = GetCategory(client)
         await get_category.get_category_by_id(category_id)
 
-        # Check for any error status code (4xx or 5xx)
         assert not await get_category.check_response_is(HTTPStatus.OK)
