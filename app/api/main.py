@@ -17,16 +17,12 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(transactions_routes.router)
 app.include_router(categories_routes.router)
 
-# --- Healthcheck ---
 
-
+# Healthcheck
 @app.get("/health")
 async def healthcheck():
     await async_db.command("ping")
     return {"status": "ok"}
-
-
-# ---------------for elastic------------------------------------------
 
 
 @app.middleware("http")
@@ -53,6 +49,7 @@ async def log_requests(request: Request, call_next):
     return response
 
 
+# for elastic
 @app.get("/generate-random-logs")
 def generate_random_logs():
     levels = ["info", "debug", "warning", "error", "critical"]
@@ -81,8 +78,7 @@ def generate_random_logs():
     return {"message": "Random logs generated"}
 
 
-# ---------------for prometheus------------------------------------------
-
+# for prometheus
 Instrumentator().instrument(app).expose(app)
 
 ERROR_COUNTER = Counter("fastapi_errors_total", "Total number of simulated errors")
@@ -101,9 +97,6 @@ def generate_error():
     raise ValueError("Simulated error")
 
 
-# ---------------------------------------------------------
-
-
 @app.exception_handler(Exception)
 async def custom_exception_handler(request: Request, exc: Exception):
     print(f"An internal server error occurred: {exc}")
@@ -113,8 +106,6 @@ async def custom_exception_handler(request: Request, exc: Exception):
         content={"message": "Internal Server Error"},
     )
 
-
-# ---------------------------------------------------------
 
 if __name__ == "__main__":
     import uvicorn

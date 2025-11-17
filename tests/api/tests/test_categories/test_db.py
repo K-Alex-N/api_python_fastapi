@@ -21,13 +21,13 @@ class TestCreateCategory:
         assert await create_category.check_response_is(HTTPStatus.OK)
         await create_category.validate_category()
 
-        found = await Category.find_one(
+        db_data = await Category.find_one(
             {
                 "name": category_payload["name"],
                 "type": category_payload["type"],
             }
         )
 
-        assert found is not None, f"Category not found: {category_payload}"
-        assert found.name == category_payload["name"]
-        assert found.type == category_payload["type"]
+        assert db_data is not None, f"Category not found: {category_payload}"
+        assert db_data.name == category_payload["name"]
+        assert db_data.type == category_payload["type"]

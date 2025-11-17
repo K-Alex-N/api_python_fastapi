@@ -1,7 +1,10 @@
+import logging
 from collections.abc import Iterable
 from typing import Any, TypeVar
 
 from pydantic import BaseModel, ConfigDict
+
+logger = logging.getLogger(__name__)
 
 T = TypeVar("T", bound="BaseOutModel")
 

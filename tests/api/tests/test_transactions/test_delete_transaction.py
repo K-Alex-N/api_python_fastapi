@@ -19,8 +19,7 @@ class TestDeleteTransaction:
         delete_transaction = DeleteTransaction(client)
 
         await create_transaction.create_transaction(await payloads.create_transaction())
-        assert create_transaction.response_json is not None
-        transaction_id = create_transaction.response_json.id
+        transaction_id = create_transaction.response_json.get("id")
         assert await create_transaction.check_response_is(HTTPStatus.OK)
 
         await delete_transaction.delete_transaction(transaction_id)

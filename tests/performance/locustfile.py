@@ -1,11 +1,5 @@
 from locust import HttpUser, between, task
 
-# from tests.api.services.transactions.payloads import payloads as transactions_payloads
-# from tests.api.tests.test_categories.test_create_category import TestCreateCategory
-# from tests.api.tests.test_transactions.test_create_transaction import (
-#     TestCreateTransaction,
-# )
-
 
 class APIUser(HttpUser):
     wait_time = between(1, 3)

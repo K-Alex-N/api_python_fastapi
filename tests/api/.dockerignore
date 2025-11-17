@@ -8,6 +8,3 @@
 # pytets
 **/.pytest_cache/
 
-# Docker
-*Dockerfile*
-*compose*.yml

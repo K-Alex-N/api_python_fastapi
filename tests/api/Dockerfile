@@ -1,7 +1,6 @@
 FROM python:3.13-slim
 ENV PYTHONUNBUFFERED=1
 
-#тесты на абсолютных путях
 WORKDIR tests/api
 
 COPY requirements.txt .

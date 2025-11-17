@@ -1,12 +1,8 @@
 ﻿.*
 
-# Питон
 **/__pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 *.so
 
-# Докер
-../Dockerfile
-*compose*.yml
