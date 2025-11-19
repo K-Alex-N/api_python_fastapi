@@ -11,19 +11,19 @@ VALID_PASSWORD = "secret_sauce"
 @allure.feature("Sync")
 @allure.story("Login")
 class TestLogin:
+    def test_login_success(self, login_page: LoginPage) -> None:
+        login_page.login(VALID_USERNAME, VALID_PASSWORD)
+        login_page.expect_login_is_successful()
+
     @pytest.mark.parametrize(
-        "is_test, user, password",
+        "user, password",
         [
-            ("positive", VALID_USERNAME, VALID_PASSWORD),
-            ("-negative", VALID_USERNAME, "wrong_password"),
-            ("-negative", VALID_USERNAME, ""),
-            ("-negative", "wrong_username", VALID_PASSWORD),
-            ("-negative", "", VALID_PASSWORD),
+            (VALID_USERNAME, "wrong_password"),
+            (VALID_USERNAME, ""),
+            ("wrong_username", VALID_PASSWORD),
+            ("", VALID_PASSWORD),
         ],
     )
-    def test_login(self, is_test, user, password, login_page: LoginPage) -> None:
+    def test_login_fails(self, user, password, login_page: LoginPage) -> None:
         login_page.login(user, password)
-        if is_test == "positive":
-            login_page.expect_login_is_successful()
-        else:
-            login_page.expect_login_failed()
+        login_page.expect_login_failed()
