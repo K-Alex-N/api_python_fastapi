@@ -87,7 +87,7 @@ ACTIVE_USERS = Gauge("fastapi_active_users", "Number of active users")
 
 @app.get("/")
 def read_root():
-    ACTIVE_USERS.set(random.randint(5, 50))  # Пример бизнес-метрики
+    ACTIVE_USERS.set(random.randint(5, 50))
     return {"message": "Hello from FastAPI"}
 
 
