@@ -15,19 +15,20 @@ from tests.api.services.categories.payloads import payloads
 class TestCreateCategory:
     async def test_db(self, client):
         create_category = CreateCategory(client)
-        category_payload = payloads.category()
-        await create_category.create_category(category_payload)
+        payload = payloads.category()
 
+        # create a category
+        await create_category.create_category(payload)
+
+        # check response
         assert await create_category.check_response_is(HTTPStatus.OK)
         await create_category.validate_category()
 
+        # check db
         db_data = await Category.find_one(
             {
-                "name": category_payload["name"],
-                "type": category_payload["type"],
+                "name": payload["name"],
+                "type": payload["type"],
             }
         )
-
-        assert db_data is not None, f"Category not found: {category_payload}"
-        assert db_data.name == category_payload["name"]
-        assert db_data.type == category_payload["type"]
+        assert db_data is not None, f"Category not found: {payload}"
