@@ -1,0 +1,1 @@
+﻿BASEURL = "https://www.saucedemo.com"

@@ -11,7 +11,7 @@ VALID_PASSWORD = "secret_sauce"
 @allure.feature("Sync")
 @allure.story("Login")
 class TestLogin:
-    def test_login_success(self, login_page: LoginPage) -> None:
+    def test_login_success(self, login_page: LoginPage):
         login_page.login(VALID_USERNAME, VALID_PASSWORD)
         login_page.expect_login_is_successful()
 
@@ -24,6 +24,6 @@ class TestLogin:
             ("", VALID_PASSWORD),
         ],
     )
-    def test_login_fails(self, user, password, login_page: LoginPage) -> None:
+    def test_login_fails(self, user, password, login_page: LoginPage):
         login_page.login(user, password)
         login_page.expect_login_failed()

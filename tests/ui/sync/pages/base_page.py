@@ -1,11 +1,13 @@
 import allure
 from playwright.sync_api import Page, expect
 
+from tests.ui.sync.config import BASEURL
+
 
 class BasePage:
     def __init__(self, page: Page) -> None:
         self.page = page
-        self.base_url = "https://www.saucedemo.com"
+        self.base_url = BASEURL
 
     @allure.step("Go to URL -> {url}")
     def goto(self, url: str) -> None:
