@@ -12,7 +12,7 @@ from tests.api.services.categories.payloads import payloads
 @allure.story("CreateCategory")
 @pytest.mark.asyncio(loop_scope="session")
 class TestCreateCategory:
-    async def test_create_category_success(self, client) -> None:
+    async def test_create_category_success(self, client):
         create_category = CreateCategory(client)
         await create_category.create_category(payloads.category())
 
@@ -28,7 +28,7 @@ class TestCreateCategory:
             payloads.category_with_wrong_type(),
         ],
     )
-    async def test_create_category_fails(self, client, payload) -> None:
+    async def test_create_category_fails(self, client, payload):
         create_category = CreateCategory(client)
         await create_category.create_category(payload)
 

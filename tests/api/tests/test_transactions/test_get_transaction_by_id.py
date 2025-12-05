@@ -12,7 +12,7 @@ from tests.api.services.transactions.get_transaction import GetTransaction
 @allure.story("GetTransaction")
 @pytest.mark.asyncio(loop_scope="session")
 class TestGetTransaction:
-    async def test_get_transaction_by_id_success(self, client) -> None:
+    async def test_get_transaction_by_id_success(self, client):
         get_all_transactions = GetAllTransactions(client)
         get_transaction = GetTransaction(client)
 
@@ -29,7 +29,7 @@ class TestGetTransaction:
             12345678,
         ],
     )
-    async def test_get_transaction_by_id_fails(self, client, transaction_id) -> None:
+    async def test_get_transaction_by_id_fails(self, client, transaction_id):
         get_transaction = GetTransaction(client)
         await get_transaction.get_transaction_by_id(transaction_id)
 

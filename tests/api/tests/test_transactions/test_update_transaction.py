@@ -23,7 +23,7 @@ class TestUpdateTransaction:
             "create_transaction_without_category_id",
         ],
     )
-    async def test_update_transaction_success(self, client, payload_method) -> None:
+    async def test_update_transaction_success(self, client, payload_method):
         payloads = Payloads(client)
         get_all_transactions = GetAllTransactions(client)
         update_transaction = UpdateTransaction(client)
@@ -48,7 +48,7 @@ class TestUpdateTransaction:
     )
     async def test_update_transaction_fails(
         self, client, transaction_id, payload_method
-    ) -> None:
+    ):
         payloads = Payloads(client)
         get_all_transactions = GetAllTransactions(client)
         update_transaction = UpdateTransaction(client)

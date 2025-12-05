@@ -13,7 +13,7 @@ from tests.api.services.transactions.payloads import Payloads
 @allure.story("DeleteTransaction")
 @pytest.mark.asyncio(loop_scope="session")
 class TestDeleteTransaction:
-    async def test_delete_transaction_success(self, client) -> None:
+    async def test_delete_transaction_success(self, client):
         payloads = Payloads(client)
         create_transaction = CreateTransaction(client)
         delete_transaction = DeleteTransaction(client)
@@ -39,7 +39,7 @@ class TestDeleteTransaction:
     )
     async def test_delete_transaction_fails_with_wrong_transaction_id(
         self, client, transaction_id
-    ) -> None:
+    ):
         delete_transaction = DeleteTransaction(client)
         await delete_transaction.delete_transaction(transaction_id)
 

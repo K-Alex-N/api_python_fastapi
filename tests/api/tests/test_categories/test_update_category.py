@@ -22,7 +22,7 @@ class TestUpdateCategory:
             payloads.category_without_name_and_type(),
         ],
     )
-    async def test_update_category_success(self, client, payload) -> None:
+    async def test_update_category_success(self, client, payload):
         get_all_categories = GetAllCategories(client)
         update_category = UpdateCategory(client)
 
@@ -41,7 +41,7 @@ class TestUpdateCategory:
             (12345678, payloads.category_without_name()),
         ],
     )
-    async def test_update_category_fails(self, client, category_id, payload) -> None:
+    async def test_update_category_fails(self, client, category_id, payload):
         get_all_categories = GetAllCategories(client)
         update_category = UpdateCategory(client)
 

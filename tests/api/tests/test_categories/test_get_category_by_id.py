@@ -12,7 +12,7 @@ from tests.api.services.categories.get_category import GetCategory
 @allure.story("GetCategory")
 @pytest.mark.asyncio(loop_scope="session")
 class TestGetCategory:
-    async def test_get_category_by_id_success(self, client) -> None:
+    async def test_get_category_by_id_success(self, client):
         get_all_categories = GetAllCategories(client)
         get_category = GetCategory(client)
 
@@ -29,7 +29,7 @@ class TestGetCategory:
             12345678,
         ],
     )
-    async def test_get_category_by_id_fails(self, client, category_id) -> None:
+    async def test_get_category_by_id_fails(self, client, category_id):
         get_category = GetCategory(client)
         await get_category.get_category_by_id(category_id)
 

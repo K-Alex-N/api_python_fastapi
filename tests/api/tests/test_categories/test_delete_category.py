@@ -18,7 +18,7 @@ class TestDeleteCategory:
             ("-negative", "wrong id"),
         ],
     )
-    async def test_delete_category(self, client, is_test, category_id) -> None:
+    async def test_delete_category(self, client, is_test, category_id):
         get_all_categories = GetAllCategories(client)
         delete_category = DeleteCategory(client)
 

@@ -11,7 +11,7 @@ from tests.api.services.categories.get_all_categories import GetAllCategories
 @allure.story("GetAllCategories")
 @pytest.mark.asyncio(loop_scope="session")
 class TestGetAllCategories:
-    async def test_get_all_categories(self, client) -> None:
+    async def test_get_all_categories(self, client):
         get_all_categories = GetAllCategories(client)
         await get_all_categories.get_all_categories()
 

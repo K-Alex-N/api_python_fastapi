@@ -11,7 +11,7 @@ from tests.api.services.transactions.get_all_transactions import GetAllTransacti
 @allure.story("GetAllTransactions")
 @pytest.mark.asyncio(loop_scope="session")
 class TestGetAllTransactions:
-    async def test_get_all_transactions(self, client) -> None:
+    async def test_get_all_transactions(self, client):
         get_all_transactions = GetAllTransactions(client)
         await get_all_transactions.get_all_transactions()
 
