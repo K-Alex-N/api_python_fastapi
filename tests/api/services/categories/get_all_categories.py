@@ -30,9 +30,7 @@ class GetAllCategories(CategoryEndpoint):
                         categories = value
                         break
                 if categories is None:
-                    raise ValueError(
-                        f"No categories found in response: {response_data}"
-                    )
+                    raise ValueError(f"No categories found in response: {response_data}")
         elif isinstance(response_data, list):
             categories = response_data
         else:

@@ -22,9 +22,7 @@ class Payloads:
             "category_id": category_id,
         }
 
-    async def _modified_transaction(
-        self, *, drop=None, overrides=None
-    ) -> dict[str, Any]:
+    async def _modified_transaction(self, *, drop=None, overrides=None) -> dict[str, Any]:
         transaction = await self.create_transaction()
         if drop:
             for key in drop:

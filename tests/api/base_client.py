@@ -9,9 +9,7 @@ class BaseClient:
     async def _send_request(self, method: str, url: str, **kwargs) -> httpx.Response:
         async with httpx.AsyncClient(headers=self.headers) as client:
             response = await client.request(method, url, **kwargs)
-            allure.attach(
-                response.text, f"{method} {url} response", allure.attachment_type.TEXT
-            )
+            allure.attach(response.text, f"{method} {url} response", allure.attachment_type.TEXT)
             return response
 
     @allure.step("Send GET request to {url}")

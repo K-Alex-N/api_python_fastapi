@@ -6,11 +6,12 @@ import allure
 import pytest
 from playwright.sync_api import Page, sync_playwright
 
+from .config import HEADLESS, SLOW_MO
 from .pages.inventory_page import InventoryPage
 from .pages.login_page import LoginPage
 
-HEADLESS = bool(os.getenv("HEADLESS", True))
-SLOW_MO = int(os.getenv("SLOW_MO", 0))
+HEADLESS = bool(os.getenv("HEADLESS", HEADLESS))
+SLOW_MO = int(os.getenv("SLOW_MO", SLOW_MO))
 
 STORAGE_PATH = "state.json"
 TIME_FOR_TESTS_SEC = 60

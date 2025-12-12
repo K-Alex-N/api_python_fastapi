@@ -31,6 +31,4 @@ class TestDeleteCategory:
             assert await delete_category.check_response_is(HTTPStatus.OK)
             assert await delete_category.is_category_deleted(category_id)
         else:
-            assert await delete_category.check_response_is(
-                HTTPStatus.UNPROCESSABLE_ENTITY
-            )
+            assert await delete_category.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)

@@ -7,9 +7,7 @@ import pytest
         ("Alice Test", "alice@example.com", "123 Main St", "456 Secondary Ave"),
     ],
 )
-def test_textbox_fields_output(
-    textbox_page, name, email, current_address, permanent_address
-):
+def test_textbox_fields_output(textbox_page, name, email, current_address, permanent_address):
     textbox_page.fill_form(name, email, current_address, permanent_address)
     textbox_page.submit()
     output = textbox_page.get_output_text()

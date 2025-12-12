@@ -37,9 +37,7 @@ class TestDeleteTransaction:
             12345,
         ],
     )
-    async def test_delete_transaction_fails_with_wrong_transaction_id(
-        self, client, transaction_id
-    ):
+    async def test_delete_transaction_fails_with_wrong_transaction_id(self, client, transaction_id):
         delete_transaction = DeleteTransaction(client)
         await delete_transaction.delete_transaction(transaction_id)
 

@@ -41,6 +41,4 @@ async def prefill_db() -> None:
     payload_trnx = Payloads(client)
     for _ in range(number_of_transactions):
         create_transaction = CreateTransaction(client)
-        await create_transaction.create_transaction(
-            await payload_trnx.create_transaction()
-        )
+        await create_transaction.create_transaction(await payload_trnx.create_transaction())

@@ -24,9 +24,7 @@ class CheckboxPage:
         result_text = self.page.locator("#result").inner_text()
         if ":" in result_text:
             return [
-                item.strip().lower()
-                for item in result_text.split(":", 1)[-1].split()
-                if item != ""
+                item.strip().lower() for item in result_text.split(":", 1)[-1].split() if item != ""
             ]
         else:
             return []

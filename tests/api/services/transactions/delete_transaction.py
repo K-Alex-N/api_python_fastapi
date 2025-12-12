@@ -8,9 +8,7 @@ from tests.api.services.transactions.urls import url
 class DeleteTransaction(TransactionEndpoint):
     @allure.step("Delete transaction with id: {transaction_id}")
     async def delete_transaction(self, transaction_id) -> None:
-        self.response = await self.client.delete(
-            url=url.delete_transaction(transaction_id)
-        )
+        self.response = await self.client.delete(url=url.delete_transaction(transaction_id))
         await self.process_response()
 
     @allure.step("Check if transaction with id {transaction_id} deleted")

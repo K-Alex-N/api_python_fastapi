@@ -1,1 +1,4 @@
-﻿BASEURL = "https://www.saucedemo.com"
+BASEURL = "https://www.saucedemo.com"
+
+HEADLESS = False
+SLOW_MO = 500

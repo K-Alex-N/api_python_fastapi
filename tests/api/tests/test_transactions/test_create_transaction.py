@@ -39,6 +39,4 @@ class TestCreateTransaction:
 
         payload = await getattr(payloads, payload)()
         await create_transaction.create_transaction(payload)
-        assert await create_transaction.check_response_is(
-            HTTPStatus.UNPROCESSABLE_ENTITY
-        )
+        assert await create_transaction.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)

@@ -46,9 +46,7 @@ class TestUpdateTransaction:
             (12345678, "create_transaction"),
         ],
     )
-    async def test_update_transaction_fails(
-        self, client, transaction_id, payload_method
-    ):
+    async def test_update_transaction_fails(self, client, transaction_id, payload_method):
         payloads = Payloads(client)
         get_all_transactions = GetAllTransactions(client)
         update_transaction = UpdateTransaction(client)
@@ -59,6 +57,4 @@ class TestUpdateTransaction:
         payload = await getattr(payloads, payload_method)()
         await update_transaction.update_transaction(transaction_id, payload)
 
-        assert await update_transaction.check_response_is(
-            HTTPStatus.UNPROCESSABLE_ENTITY
-        )
+        assert await update_transaction.check_response_is(HTTPStatus.UNPROCESSABLE_ENTITY)
