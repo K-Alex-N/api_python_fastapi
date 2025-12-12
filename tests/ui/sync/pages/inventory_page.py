@@ -55,3 +55,11 @@ class InventoryPage(BasePage):
     def is_products_sorted_by_price_from_high_to_low(self) -> None:
         product_prices_list = self._get_product_prices_list()
         assert product_prices_list == sorted(product_prices_list, reverse=True)
+
+    @allure.step("Получаем все названия продуктов на странице")
+    def get_all_product_titles(self) -> list[str]:
+        return self._get_product_titles_list()
+
+    @allure.step("Получаем количество продуктов на странице")
+    def get_products_count(self) -> int:
+        return len(self._get_product_titles_list())
