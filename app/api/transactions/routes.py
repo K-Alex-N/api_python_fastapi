@@ -38,9 +38,7 @@ async def get_transaction(transaction_id: UUID) -> TransactionOut:
 
 
 @router.patch("/{transaction_id}", response_model=TransactionOut)
-async def update_transaction(
-    transaction_id: UUID, data: TransactionUpdate
-) -> TransactionOut:
+async def update_transaction(transaction_id: UUID, data: TransactionUpdate) -> TransactionOut:
     tx = await Transaction.get(transaction_id, fetch_links=True)
     if not tx:
         raise HTTPException(status_code=404, detail=TRANSACTION_NOT_FOUND)

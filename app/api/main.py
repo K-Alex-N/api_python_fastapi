@@ -66,9 +66,7 @@ def generate_random_logs():
             "success": random.choice([True, False]),
             "country": random.choice(countries),
             "device": random.choice(devices),
-            "session_id": "".join(
-                random.choices(string.ascii_letters + string.digits, k=12)
-            ),
+            "session_id": "".join(random.choices(string.ascii_letters + string.digits, k=12)),
         }
 
         msg = f"User {log_data['user_id']} performed {log_data['action']}"
