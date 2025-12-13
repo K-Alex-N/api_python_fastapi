@@ -27,3 +27,7 @@ class TestLogin:
     def test_login_fails(self, user, password, login_page: LoginPage):
         login_page.login(user, password)
         login_page.expect_login_failed()
+
+    def test_menu_not_present_on_login(self, login_page: LoginPage):
+        login_page.open()
+        login_page.menu_should_not_be_visible()

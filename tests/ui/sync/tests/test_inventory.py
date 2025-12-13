@@ -61,6 +61,15 @@ class TestInventory:
                 f"Should be {idx} items but got {cart.get_cart_count()}"
             )
 
+    # можно ли объединить проверку видисомти компонентов в один тест?
+    def test_menu_is_present(self, inventory_page: InventoryPage):
+        inventory_page.open()
+        inventory_page.menu_should_be_visible()
+
+    def test_cart_icon_is_present(self, inventory_page: InventoryPage):
+        inventory_page.open()
+        inventory_page.cart_should_be_visible()
+
     # def test_add_to_cart(self, inventory_page: InventoryPage):
     #     inventory_page.add_to_cart("Sauce Labs Backpack")
     #     inventory_page.is_in_cart("Sauce Labs Backpack")

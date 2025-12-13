@@ -1,6 +1,8 @@
 import allure
 from playwright.sync_api import Page
 
+from ..components.cart_component import CartComponent
+from ..components.menu_component import MenuComponent
 from ..elements.element_factory import ElementFactory
 from .base_page import BasePage
 
@@ -9,12 +11,16 @@ class InventoryPage(BasePage):
     def __init__(self, page: Page) -> None:
         super().__init__(page)
         self.url = self.base_url + "/inventory.html"
+        # elements
         el = ElementFactory(page)
         self.product_titles = el.text_elements(".inventory_item_name")
         self.product_prices = el.text_elements(".inventory_item_price")
         self.product_button = el.buttons(".btn_inventory")
         self.sort_dropdown = el.dropdown(".product_sort_container")
         self.cart_badge = el.text_element(".shopping_cart_badge")
+        # components
+        self.menu = MenuComponent(page)
+        self.cart = CartComponent(page)
 
     @allure.step("open inventory page")
     def open(self) -> None:
@@ -63,3 +69,12 @@ class InventoryPage(BasePage):
     @allure.step("Получаем количество продуктов на странице")
     def get_products_count(self) -> int:
         return len(self._get_product_titles_list())
+
+    # логика связанная с компонентами должна быть в компонентах, а не в страницах
+    @allure.step("Проверить наличие меню на странице")
+    def menu_should_be_visible(self) -> None:
+        assert self.menu.is_visible(), "Меню не отображается на странице!"
+
+    @allure.step("Проверить наличие корзины на странице")
+    def cart_should_be_visible(self) -> None:
+        assert self.cart.cart_icon.is_visible(), "Корзина не отображается на странице!"

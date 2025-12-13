@@ -18,5 +18,9 @@ class MenuComponent:
     def is_menu_open(self) -> bool:
         return self.menu_panel.is_visible()
 
+    def is_visible(self) -> bool:
+        return self.burger_button.is_visible()
+        # добавь больше проверок на наличие элементов в меню
+
     def click_menu_item(self, item_text: str):
         self.menu_panel.locator(f'a:has-text("{item_text}")').click()

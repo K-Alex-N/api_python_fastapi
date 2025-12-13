@@ -1,6 +1,7 @@
 import allure
 from playwright.sync_api import Page
 
+from ..components.menu_component import MenuComponent
 from ..elements.element_factory import ElementFactory
 from .base_page import BasePage
 
@@ -14,6 +15,7 @@ class LoginPage(BasePage):
         self.password_input = el.text_input("#password")
         self.login_button = el.button("#login-button")
         self.error_message = el.text_element("[data-test='error']")
+        self.menu = MenuComponent(page)
 
     @allure.step("open login page")
     def open(self) -> None:
@@ -36,3 +38,7 @@ class LoginPage(BasePage):
             self.error_message.should_be_visible()
         with allure.step("Expect current page remain the same"):
             self.expect_page_have_url("https://www.saucedemo.com/")
+
+    @allure.step("Проверить отсутствие меню на странице логина")
+    def menu_should_not_be_visible(self) -> None:
+        assert not self.menu.is_visible(), "Меню не должно отображаться на странице логина!"
