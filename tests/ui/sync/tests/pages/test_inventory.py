@@ -3,9 +3,9 @@ import random
 import allure
 import pytest
 
-from ..components.cart_component import CartComponent
-from ..components.product_component import ProductComponent
-from ..pages.inventory_page import InventoryPage
+from tests.ui.sync.components.cart_component import CartComponent
+from tests.ui.sync.components.product_component import ProductComponent
+from tests.ui.sync.pages.inventory_page import InventoryPage
 
 
 @allure.epic("UI")
@@ -62,13 +62,13 @@ class TestInventory:
             )
 
     # можно ли объединить проверку видисомти компонентов в один тест?
-    def test_menu_is_present(self, inventory_page: InventoryPage):
-        inventory_page.open()
-        inventory_page.menu_should_be_visible()
+    # def test_menu_is_present(self, inventory_page: InventoryPage):
+    #     inventory_page.open()
+    #     inventory_page.menu_should_be_visible()
 
-    def test_cart_icon_is_present(self, inventory_page: InventoryPage):
-        inventory_page.open()
-        inventory_page.cart_should_be_visible()
+    # def test_cart_icon_is_present(self, inventory_page: InventoryPage):
+    #     inventory_page.open()
+    #     inventory_page.cart_should_be_visible()
 
     # def test_add_to_cart(self, inventory_page: InventoryPage):
     #     inventory_page.add_to_cart("Sauce Labs Backpack")

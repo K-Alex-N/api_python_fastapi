@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from ..pages.login_page import LoginPage
+from tests.ui.sync.pages.login_page import LoginPage
 
 VALID_USERNAME = "standard_user"
 VALID_PASSWORD = "secret_sauce"
