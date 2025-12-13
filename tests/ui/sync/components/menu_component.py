@@ -1,7 +1,9 @@
 from playwright.sync_api import Page
 
+from .base_components import BaseComponent
 
-class MenuComponent:
+
+class MenuComponent(BaseComponent):
     def __init__(self, page: Page):
         self.page = page
         self.burger_button = page.locator("#react-burger-menu-btn")
@@ -20,7 +22,15 @@ class MenuComponent:
 
     def is_visible(self) -> bool:
         return self.burger_button.is_visible()
-        # добавь больше проверок на наличие элементов в меню
+
+    def is_components_present(self) -> bool:
+        return all(
+            [
+                self.burger_button.is_visible(),
+                self.close_button.is_visible(),
+                self.menu_panel.is_visible(),
+            ]
+        )
 
     def click_menu_item(self, item_text: str):
         self.menu_panel.locator(f'a:has-text("{item_text}")').click()

@@ -1,7 +1,9 @@
 from playwright.sync_api import Page
 
+from .base_components import BaseComponent
 
-class ProductComponent:
+
+class ProductComponent(BaseComponent):
     def __init__(self, page: Page, product_name: str):
         self.page = page
         self.product_locator = page.locator(f".inventory_item:has-text('{product_name}')")
@@ -16,3 +18,8 @@ class ProductComponent:
 
     def is_in_cart(self) -> bool:
         return self.remove_button.is_visible()
+
+    def is_components_present(self):
+        return self.product_locator.is_visible() and (
+            self.add_to_cart_button.is_visible() or self.remove_button.is_visible()
+        )
