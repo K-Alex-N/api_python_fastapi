@@ -20,6 +20,9 @@ class MenuComponent(BaseComponent):
     def is_menu_open(self) -> bool:
         return self.menu_panel.is_visible()
 
+    def is_visible(self) -> bool:
+        return self.burger_button.is_visible()
+
     def is_components_present(self) -> bool:
         return all(
             [

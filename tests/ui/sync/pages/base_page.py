@@ -32,3 +32,7 @@ class BasePage:
     @allure.step("Expect page have url: {url_part}")
     def expect_page_have_url(self, url_part: str) -> None:
         expect(self.page).to_have_url(url_part)
+
+    @allure.step("Take screenshot to {filename}")
+    def take_screenshot(self, filename: str) -> None:
+        self.page.screenshot(path=filename, full_page=True)
