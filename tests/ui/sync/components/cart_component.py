@@ -9,7 +9,7 @@ class CartComponent(BaseComponent):
         self.cart_icon = page.locator(".shopping_cart_link")
         self.cart_badge = self.cart_icon.locator(".shopping_cart_badge")
 
-    def open_cart(self):
+    def open_cart(self) -> None:
         self.cart_icon.click()
 
     def get_cart_count(self) -> int:
@@ -20,6 +20,3 @@ class CartComponent(BaseComponent):
     def is_components_present(self) -> bool:
         # cart_icon должен быть всегда, badge опционально
         return self.cart_icon.is_visible()
-
-
-# ячсячс

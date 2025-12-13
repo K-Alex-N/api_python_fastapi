@@ -10,16 +10,16 @@ class ProductComponent(BaseComponent):
         self.add_to_cart_button = self.product_locator.locator("button:has-text('Add to cart')")
         self.remove_button = self.product_locator.locator("button:has-text('Remove')")
 
-    def add_to_cart(self):
+    def add_to_cart(self) -> None:
         self.add_to_cart_button.click()
 
-    def remove_from_cart(self):
+    def remove_from_cart(self) -> None:
         self.remove_button.click()
 
     def is_in_cart(self) -> bool:
         return self.remove_button.is_visible()
 
-    def is_components_present(self):
+    def is_components_present(self) -> bool:
         return self.product_locator.is_visible() and (
             self.add_to_cart_button.is_visible() or self.remove_button.is_visible()
         )

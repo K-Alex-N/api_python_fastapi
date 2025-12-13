@@ -11,17 +11,14 @@ class MenuComponent(BaseComponent):
         self.menu_panel = page.locator("nav.bm-item-list")
         self.menu_items = self.menu_panel.locator("a.bm-item-list")
 
-    def open_menu(self):
+    def open_menu(self) -> None:
         self.burger_button.click()
 
-    def close_menu(self):
+    def close_menu(self) -> None:
         self.close_button.click()
 
     def is_menu_open(self) -> bool:
         return self.menu_panel.is_visible()
-
-    def is_visible(self) -> bool:
-        return self.burger_button.is_visible()
 
     def is_components_present(self) -> bool:
         return all(
@@ -32,5 +29,5 @@ class MenuComponent(BaseComponent):
             ]
         )
 
-    def click_menu_item(self, item_text: str):
+    def click_menu_item(self, item_text: str) -> None:
         self.menu_panel.locator(f'a:has-text("{item_text}")').click()
