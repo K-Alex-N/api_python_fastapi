@@ -1,7 +1,6 @@
 import allure
 import pytest
 
-# Используем относительные импорты для обхода проблемы с ключевым словом 'async'
 from ...pages.login_page import LoginPage
 
 VALID_USERNAME = "standard_user"
