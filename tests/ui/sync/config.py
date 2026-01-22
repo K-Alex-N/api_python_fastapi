@@ -1,4 +1,4 @@
 BASEURL = "https://www.saucedemo.com"
 
-HEADLESS = False
+HEADLESS = True
 SLOW_MO = 500
